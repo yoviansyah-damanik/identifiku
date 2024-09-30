@@ -13,5 +13,5 @@
         ],
     ]" />
 
-
+    <x-assessment-information-box :$quiz />
 </div>

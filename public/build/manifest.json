@@ -1,0 +1,81 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-CnAn1V4W.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/fonts/DMSerifDisplay-Regular.ttf": {
+    "file": "assets/DMSerifDisplay-Regular-BB3xDZ4A.ttf",
+    "src": "resources/fonts/DMSerifDisplay-Regular.ttf"
+  },
+  "resources/fonts/Quicksand-Bold.ttf": {
+    "file": "assets/Quicksand-Bold-CRBjWP5_.ttf",
+    "src": "resources/fonts/Quicksand-Bold.ttf"
+  },
+  "resources/fonts/Quicksand-Light.ttf": {
+    "file": "assets/Quicksand-Light-vueg2bmh.ttf",
+    "src": "resources/fonts/Quicksand-Light.ttf"
+  },
+  "resources/fonts/Quicksand-Medium.ttf": {
+    "file": "assets/Quicksand-Medium-ClxOSIMz.ttf",
+    "src": "resources/fonts/Quicksand-Medium.ttf"
+  },
+  "resources/fonts/Quicksand-Regular.ttf": {
+    "file": "assets/Quicksand-Regular-DwV0T0OO.ttf",
+    "src": "resources/fonts/Quicksand-Regular.ttf"
+  },
+  "resources/fonts/Quicksand-SemiBold.ttf": {
+    "file": "assets/Quicksand-SemiBold-DOhxUxE6.ttf",
+    "src": "resources/fonts/Quicksand-SemiBold.ttf"
+  },
+  "resources/images/breadcrumb-pattern.png": {
+    "file": "assets/breadcrumb-pattern-B7fEbjQ4.png",
+    "src": "resources/images/breadcrumb-pattern.png"
+  },
+  "resources/images/default-avatar.jpg": {
+    "file": "assets/default-avatar-D_8jpos8.jpg",
+    "src": "resources/images/default-avatar.jpg"
+  },
+  "resources/images/default-quiz.webp": {
+    "file": "assets/default-quiz-APngFDH5.webp",
+    "src": "resources/images/default-quiz.webp"
+  },
+  "resources/images/default-school.webp": {
+    "file": "assets/default-school-KUofLNsD.webp",
+    "src": "resources/images/default-school.webp"
+  },
+  "resources/images/drtpm-bima.png": {
+    "file": "assets/drtpm-bima-3JnmpG1v.png",
+    "src": "resources/images/drtpm-bima.png"
+  },
+  "resources/images/favicon.png": {
+    "file": "assets/favicon-CAQ93hSd.png",
+    "src": "resources/images/favicon.png"
+  },
+  "resources/images/kampus-merdeka.png": {
+    "file": "assets/kampus-merdeka-jcdZ6rJV.png",
+    "src": "resources/images/kampus-merdeka.png"
+  },
+  "resources/images/lldikti1.png": {
+    "file": "assets/lldikti1-2SsbEGwc.png",
+    "src": "resources/images/lldikti1.png"
+  },
+  "resources/images/logo.png": {
+    "file": "assets/logo-B6du7AM3.png",
+    "src": "resources/images/logo.png"
+  },
+  "resources/images/sidebar-header.jpeg": {
+    "file": "assets/sidebar-header-CfZH7pTV.jpeg",
+    "src": "resources/images/sidebar-header.jpeg"
+  },
+  "resources/images/ugn.png": {
+    "file": "assets/ugn-CLoz000H.png",
+    "src": "resources/images/ugn.png"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-whcKTbVz.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  }
+}
