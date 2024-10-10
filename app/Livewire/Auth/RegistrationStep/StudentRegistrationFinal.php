@@ -123,11 +123,11 @@ class StudentRegistrationFinal extends Component
             return [
                 'name' => 'required|string|max:60',
                 'nis' => [
-                    'required',
+                    'nullable',
                     'string',
                     'digits:' . $this->maxNis,
-                    'unique:student_requests,local_nis',
-                    Rule::unique('students', 'local_nis')->where(fn(Builder $query) => $query->where('school_id', $this->schoolId))
+                    'unique:student_requests,nis',
+                    Rule::unique('students', 'nis')->where(fn(Builder $query) => $query->where('school_id', $this->schoolId))
                 ],
                 'nisn' => 'required|string|digits:' . $this->maxNisn . '|unique:students,nisn|unique:student_requests,nisn',
                 'address' => 'required|string|max:255',
@@ -193,14 +193,14 @@ class StudentRegistrationFinal extends Component
     {
         $this->validate();
 
-        $isExist = StudentRequest::where('local_nis', $this->nis)
+        $isExist = StudentRequest::where('nis', $this->nis)
             ->orWhere('nisn', $this->nisn)->first();
 
         if ($isExist) {
             if ($isExist->nisn == $this->nisn) {
                 $this->alert('warning', __('The student with :value (:attribute) has been registered. Please contact the School Administrator to verify the registration.', ['value' => $this->nisn, 'attribute' => 'NISN']));
             }
-            if ($isExist->local_nis == $this->nis) {
+            if ($isExist->nis == $this->nis) {
                 $this->alert('warning', __('The student with :value (:attribute) has been registered. Please contact the School Administrator to verify the registration.', ['value' => $this->nis, 'attribute' => __('Local NIS')]));
             }
             return;
@@ -250,7 +250,7 @@ class StudentRegistrationFinal extends Component
             // ])->assignRole('Student');
 
             // $student = Student::create([
-            //     'local_nis' => $this->nis,
+            //     'nis' => $this->nis,
             //     'nisn' => $this->nisn,
             //     'name' => $this->name,
             //     'address' => $this->address,
@@ -271,7 +271,7 @@ class StudentRegistrationFinal extends Component
                 'username' => $this->username,
                 'password' => bcrypt($this->username),
                 'email' => $this->email,
-                'local_nis' => $this->nis,
+                'nis' => $this->nis,
                 'nisn' => $this->nisn,
                 'name' => $this->name,
                 'address' => $this->address,

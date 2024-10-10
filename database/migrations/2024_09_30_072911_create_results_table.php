@@ -12,7 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('results', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->foreignUuid('assessment_id')
+                ->references('id')
+                ->on('assessments');
+            $table->text('conclusion')
+                ->nullable();
+            $table->text('advice')
+                ->nullable();
+            $table->text('message')
+                ->nullable();
+            $table->enum('status', ['process', 'done']);
             $table->timestamps();
         });
     }

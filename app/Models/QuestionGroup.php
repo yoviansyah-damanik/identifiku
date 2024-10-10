@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class QuestionGroup extends Model
 {
     use HasFactory;
-    public $timestamps = false;
 
     public function questions(): HasMany
     {

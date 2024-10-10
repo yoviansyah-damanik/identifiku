@@ -14,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
             $table->string('nisn')
                 ->unique()
                 ->nullable();
-            $table->string('local_nis')
+            $table->string('nis')
                 ->unique();
+            $table->string('name');
             $table->date('date_of_birth');
             $table->string('place_of_birth');
             $table->char('gender', 1);
@@ -31,7 +31,6 @@ return new class extends Migration
             $table->foreignId('grade_level_id')
                 ->references('id')
                 ->on('grade_levels');
-            $table->enum('status', ['']);
             $table->timestamps();
         });
     }

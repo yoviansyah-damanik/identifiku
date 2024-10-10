@@ -20,12 +20,28 @@ return new class extends Migration
             $table->string('address');
             $table->string('phone_number');
             $table->string('province_id');
+            $table->foreign('province_id')
+                ->references('code')
+                ->on('regions');
             $table->string('regency_id');
+            $table->foreign('regency_id')
+                ->references('code')
+                ->on('regions');
             $table->string('district_id');
+            $table->foreign('district_id')
+                ->references('code')
+                ->on('regions');
             $table->string('village_id');
+            $table->foreign('village_id')
+                ->references('code')
+                ->on('regions');
             $table->string('postal_code');
-            $table->string('school_status_id');
-            $table->string('education_level_id');
+            $table->foreignId('school_status_id')
+                ->references('id')
+                ->on('school_statuses');
+            $table->foreignId('education_level_id')
+                ->references('id')
+                ->on('education_levels');
             $table->string('username');
             $table->string('email');
             $table->string('password');

@@ -2,12 +2,12 @@
     step: $wire.entangle('step').live,
 }" autocomplete="off" wire:submit.prevent='submit' class="w-full space-y-3 sm:space-y-4">
     <div class="space-y-3 sm:space-y-4" x-show="step == 1">
-        <div class="flex items-center gap-3 sm:gap-4 flex-wrap">
+        <div class="flex flex-wrap items-center gap-3 sm:gap-4">
             <x-form.input class="flex-1" block :loading="$isLoading" :label="__('Local NIS')" :placeholder="__('Entry :entry', ['entry' => __('Local NIS')])" type='number'
                 wire:model.blur='nis' error="{{ $errors->first('nis') }}" />
             <x-form.input class="flex-1" block :loading="$isLoading" label="NISN" :placeholder="__('Entry :entry', ['entry' => 'NISN'])" type='number'
                 wire:model.blur='nisn' error="{{ $errors->first('nisn') }}" />
-            <x-form.select-with-search class="w-full flex-none lg:w-auto lg:flex-1" block searchVar="gradeLevelSearch"
+            <x-form.select-with-search class="flex-none w-full lg:w-auto lg:flex-1" block searchVar="gradeLevelSearch"
                 :items="$gradeLevels" wire:model="gradeLevel" error="{{ $errors->first('gradeLevel') }}" :label="__('Choose a :item', ['item' => __('Grade Level')])"
                 :buttonText="__('Choose a :item', ['item' => __('Grade Level')])" />
         </div>
@@ -45,15 +45,17 @@
     </div>
     @if ($step <= $stepMax)
         <div class="flex justify-between items-center !mt-7">
-            <x-button type="button" color="red" icon='i-ph-arrow-left' :loading="$step == 1" wire:click="prev">
+            <x-button type="button" color="red" icon='i-ph-arrow-left' :loading="$step == 1" wire:click="prev"
+                wire:loading.attr="disabled" wire:target="prev, next, submit">
                 {{ __('Previous') }}
             </x-button>
             @if ($step != $stepMax)
-                <x-button type="button" color="green" icon='i-ph-arrow-right' iconPosition='right' wire:click="next">
+                <x-button type="button" color="green" icon='i-ph-arrow-right' iconPosition='right' wire:click="next"
+                    wire:loading.attr="disabled" wire:target="prev, next, submit">
                     {{ __('Next') }}
                 </x-button>
             @else
-                <x-button color="primary">
+                <x-button color="primary" wire:loading.attr="disabled" wire:target="prev, next, submit">
                     {{ __('Submit') }}
                 </x-button>
             @endif

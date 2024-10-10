@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('class_has_quizzes', function (Blueprint $table) {
             $table->id();
+            $table->foreignUuid('student_class_id')
+                ->references('id')
+                ->on('student_classes');
+            $table->foreignUuid('quiz_id')
+                ->references('id')
+                ->on('quizzes');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('groups');
+        Schema::dropIfExists('class_has_quizzes');
     }
 };

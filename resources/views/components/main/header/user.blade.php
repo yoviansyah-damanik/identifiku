@@ -11,28 +11,33 @@
             </x-button>
         </div>
     @else
-        <div class="w-full" x-data="{ userDropdownShow: false }" x-on:click.outside="userDropdownShow = false">
+        <div class="w-full" x-data="{ id: $id('userDropdown'), userDropdownShow: false }" x-on:click.outside="userDropdownShow = false">
             <div x-ref="userDropdown"
                 class="flex items-center gap-3 p-1 rounded-full cursor-pointer bg-primary-700 flex-nowrap"
                 x-on:click="userDropdownShow = !userDropdownShow">
-                <img class="rounded-full flex-none size-12" src="{{ Vite::image('default-avatar.jpg') }}"
+                <img class="flex-none rounded-full size-12" src="{{ Vite::image('default-avatar.jpg') }}"
                     alt="User Icon" />
-                <div class="lg:block py-1 font-semibold flex-1 hidden box-border">
+                <div class="box-border flex-1 hidden py-1 font-semibold lg:block">
                     <div class="line-clamp-1 sm:text-base text-primary-100">
                         {{ auth()->user()->dataRelation->name }}
                     </div>
-                    <div class="text-sm line-clamp-1 sm:text-xs font-light text-primary-50">
+                    <div class="text-sm font-light line-clamp-1 sm:text-xs text-primary-50">
                         {{ __(auth()->user()->roleName) }}
                     </div>
                 </div>
             </div>
-            <div class="w-full max-w-64 bg-white rounded-xl p-1 shadow-md border"
-                x-anchor.no-style.offset.10="$refs.userDropdown" x-show="userDropdownShow"
-                x-bind:style="{ position: 'absolute', top: $anchor.y + 'px', left: $anchor.x + 'px' }" x-transition>
+            <div class="w-full p-1 mt-1 bg-white border shadow-md max-w-64 rounded-3xl"
+                x-anchor.no-style.offset="$refs.userDropdown" x-show="userDropdownShow"
+                x-bind:style="{
+                    position: 'fixed',
+                    {{-- top: (parseInt($refs.userDropdown.scrollTop) + parseInt($refs.userDropdown.height)) + 'px', --}}
+                    left: $anchor.x + 'px'
+                }"
+                x-transition>
                 <ul>
                     @foreach ($navigations as $nav)
                         <li>
-                            <a class="py-2 px-5 hover:bg-primary-50 hover:text-primary-500 transition-all rounded-md flex items-center justify-between"
+                            <a class="flex items-center justify-between px-5 py-2 transition-all rounded-full hover:bg-primary-50 hover:text-primary-500"
                                 href="{{ $nav['url'] }}" wire:navigate>
                                 <div class="flex-none {{ $nav['icon'] }}"></div>
                                 <div class="flex-1 text-end">
@@ -41,7 +46,7 @@
                             </a>
                         </li>
                     @endforeach
-                    <li class="mt-3 pt-3 border-t">
+                    <li class="pt-3 mt-3 border-t">
                         <livewire:auth.logout menu="main" />
                     </li>
                 </ul>

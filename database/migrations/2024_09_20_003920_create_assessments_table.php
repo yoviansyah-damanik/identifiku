@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignUuid('quiz_id')
                 ->references('id')
                 ->on('quizzes');
+            $table->enum('status', ['process', 'done']);
             $table->timestamps();
         });
     }

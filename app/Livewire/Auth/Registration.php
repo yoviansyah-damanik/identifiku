@@ -21,6 +21,12 @@ class Registration extends Component
                 'image' => Vite::image('default-avatar.jpg')
             ],
             [
+                'value' => 'teacher',
+                'title' => __('Teacher'),
+                'url' => route('registration.teacher'),
+                'image' => Vite::image('default-avatar.jpg')
+            ],
+            [
                 'value' => 'school',
                 'title' => __('School'),
                 'url' => route('registration.school'),

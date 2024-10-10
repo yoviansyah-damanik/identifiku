@@ -11,7 +11,7 @@
                 </div>
                 <div class="flex gap-3">
                     <div class="w-48">NIS</div>
-                    <div class="flex-1 font-semibold">{{ $student->local_nis }}</div>
+                    <div class="flex-1 font-semibold">{{ $student->nis }}</div>
                 </div>
                 <div class="flex gap-3">
                     <div class="w-48">{{ __(':name Name', ['name' => __('Student')]) }}</div>
@@ -27,7 +27,7 @@
         @endif
     </x-modal.body>
     <x-modal.footer>
-        <x-button color="primary" wire:click='submit' :loading="$isLoading">
+        <x-button color="primary" wire:click='delete' :loading="$isLoading">
             {{ __('Delete') }}
         </x-button>
     </x-modal.footer>

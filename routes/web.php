@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Livewire\Main\Index::class)
     ->name('home');
+Route::get('/article', \App\Livewire\Main\Article\Index::class)
+    ->name('article');
+Route::get('/article/{article:slug}', \App\Livewire\Main\Article\Show::class)
+    ->name('article.show');
 Route::get('/assessment', \App\Livewire\Main\Assessment\Index::class)
     ->name('assessment');
 Route::get('/assessment/{quiz:id}', \App\Livewire\Main\Assessment\Show::class)
@@ -27,6 +31,10 @@ Route::middleware('guest')
             ->name('registration.student');
         Route::get('/registration/student/{school:id}/{token}', \App\Livewire\Auth\RegistrationStep\StudentRegistrationFinal::class)
             ->name('registration.student.final');
+        Route::get('/registration/teacher', \App\Livewire\Auth\RegistrationStep\TeacherRegistration::class)
+            ->name('registration.teacher');
+        Route::get('/registration/teacher/{school:id}/{token}', \App\Livewire\Auth\RegistrationStep\TeacherRegistrationFinal::class)
+            ->name('registration.teacher.final');
         Route::get('/forgot-password', \App\Livewire\Auth\ForgotPassword::class)
             ->name('forgot-password');
         Route::get('/reset-password/{token}', \App\Livewire\Auth\ResetPassword::class)
@@ -48,6 +56,10 @@ Route::prefix('dashboard')
             ->name('.student');
         Route::get('/student-request', \App\Livewire\Dashboard\StudentRequest\Index::class)
             ->name('.student-request');
+        Route::get('/teacher', \App\Livewire\Dashboard\Teacher\Index::class)
+            ->name('.teacher');
+        Route::get('/teacher-request', \App\Livewire\Dashboard\TeacherRequest\Index::class)
+            ->name('.teacher-request');
 
         Route::get('/assessment', \App\Livewire\Dashboard\Assessment\Index::class)
             ->name('.assessment');
@@ -67,6 +79,9 @@ Route::prefix('dashboard')
             ->name('.question-group');
         Route::get('/question-type', \App\Livewire\Dashboard\QuestionType\Index::class)
             ->name('.question-type');
+
+        Route::get('/class', \App\Livewire\Dashboard\Class\Index::class)
+            ->name('.class');
 
         Route::get('/quiz', \App\Livewire\Dashboard\Quiz\Index::class)
             ->name('.quiz');

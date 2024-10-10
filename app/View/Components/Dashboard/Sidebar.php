@@ -50,6 +50,12 @@ class Sidebar extends Component
                     'to' => route('dashboard.student'),
                     'isActive' => request()->routeIs('dashboard.student')
                 ],
+                [
+                    'title' => __('Teacher'),
+                    'icon' => 'i-ph-fire',
+                    'to' => route('dashboard.teacher'),
+                    'isActive' => request()->routeIs('dashboard.teacher')
+                ],
             ],
             [
                 [
@@ -63,6 +69,20 @@ class Sidebar extends Component
                     'icon' => 'i-ph-fire',
                     'to' => route('dashboard.student-request'),
                     'isActive' => request()->routeIs('dashboard.student-request')
+                ],
+                [
+                    'title' => __('Teacher Request'),
+                    'icon' => 'i-ph-fire',
+                    'to' => route('dashboard.teacher-request'),
+                    'isActive' => request()->routeIs('dashboard.teacher-request')
+                ],
+            ],
+            [
+                [
+                    'title' => __('Class'),
+                    'icon' => 'i-ph-fire',
+                    'to' => route('dashboard.class'),
+                    'isActive' => request()->routeIs('dashboard.class')
                 ],
             ],
             [

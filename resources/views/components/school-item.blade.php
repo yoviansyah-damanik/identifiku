@@ -1,4 +1,4 @@
-<div class="relative flex flex-col gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 drop-shadow-md w-full">
+<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 drop-shadow-md">
     <div class="flex items-center justify-center w-full overflow-hidden rounded-lg lg:flex-none h-44 lg:w-72">
         <img src="{{ Vite::image('default-school.webp') }}" class="w-full" alt="School Picture">
     </div>
@@ -25,7 +25,7 @@
             </x-href>
         </x-school-sub-item>
         <x-school-sub-item :title="__('Activation')">
-            <x-form.toggle :label="__('Active')" :label2="__('Inctive')" :isChecked="$school->is_active"
+            <x-form.toggle :label="__('Active')" :label2="__('Inactive')" :isChecked="$school->is_active"
                 wire:change="setActivationStatus('{{ $school->id }}')" />
         </x-school-sub-item>
         <x-school-sub-item :title="__('Open')">

@@ -10,7 +10,7 @@
             </div>
         </x-student-sub-item>
         <x-student-sub-item title="NISN" :value="$student->nisn" />
-        <x-student-sub-item title="NIS" :value="$student->local_nis" />
+        <x-student-sub-item title="NIS" :value="$student->nis" />
         <x-student-sub-item :title="__('Grade Level')" :value="$student->grade->name" />
         <x-student-sub-item :title="__('Address')" :value="$student->address" />
         <x-student-sub-item :title="__('Place of Birth')" :value="$student->place_of_birth" />

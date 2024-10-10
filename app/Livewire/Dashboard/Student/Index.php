@@ -42,7 +42,7 @@ class Index extends Component
             'grade'
         )
             ->when($this->school, fn($q) => $q->where('school_id', $this->school))
-            ->whereAny(['nisn', 'local_nis', 'name'], 'like', "%$this->search%")
+            ->whereAny(['nisn', 'nis', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 
         $schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')

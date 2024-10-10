@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('question_type_id')
                 ->references('id')
                 ->on('question_types');
+            $table->timestamps();
         });
     }
 

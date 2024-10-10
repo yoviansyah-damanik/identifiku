@@ -22,7 +22,7 @@ class StudentFactory extends Factory
         return [
             'name' => fake()->name,
             'nisn' => fake()->numerify('########'),
-            'local_nis' => fake()->numerify('########'),
+            'nis' => fake()->numerify('########'),
             'place_of_birth' => fake()->city,
             'address' => fake()->address,
             'date_of_birth' => fake()->date(),

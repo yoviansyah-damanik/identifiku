@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('text');
             $table->boolean('is_correct')
                 ->default(false);
+            $table->double('correct_answer_value')
+                ->default(1);
         });
     }
 

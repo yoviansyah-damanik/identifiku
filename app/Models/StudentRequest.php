@@ -26,6 +26,7 @@ class StudentRequest extends Model
     {
         return $this->belongsTo(School::class);
     }
+
     public function grade(): BelongsTo
     {
         return $this->belongsTo(GradeLevel::class, 'grade_level_id', 'id');
