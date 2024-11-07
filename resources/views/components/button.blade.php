@@ -9,12 +9,17 @@
             ])>
                 <div @class([
                     'grid border-inherit place-items-center',
-                    'border-r pr-2' => !$slot->isEmpty() && $iconPosition != 'right',
+                    'border-r pr-2' =>
+                        !$slot->isEmpty() && $iconPosition == 'left' && $withBorderIcon,
+                    'border-l pl-2' =>
+                        !$slot->isEmpty() && $iconPosition == 'right' && $withBorderIcon,
                 ])>
                     <span class="{{ $iconClass }}"></span>
                 </div>
                 @if (!$slot->isEmpty())
-                    <div class="flex-1">
+                    <div @class([
+                        'flex-1' => !$block,
+                    ])>
                         {{ $slot }}
                     </div>
                 @endif

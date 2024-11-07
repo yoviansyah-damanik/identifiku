@@ -46,8 +46,8 @@
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <x-button color="primary-transparent" radius="rounded-full" block :href="route('assessment.preview', $quiz->id)"
-                            icon="i-ph-magnifying-glass-light">
+                        <x-button color="primary-transparent" :withBorderIcon="false" radius="rounded-full" block
+                            :href="route('assessment.preview', $quiz->id)" icon="i-ph-magnifying-glass-light">
                             {{ __('See Questions') }}
                         </x-button>
                         {{-- @if (auth()->check())

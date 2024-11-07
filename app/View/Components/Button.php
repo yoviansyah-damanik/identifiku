@@ -26,7 +26,8 @@ class Button extends Component
         public ?string $icon = null,
         public ?string $iconClass = null,
         public string $iconPosition = 'left',
-        public bool $withNavigated = true
+        public bool $withNavigated = true,
+        public bool $withBorderIcon = true
     ) {
         $this->baseClass = join(' ', [
             'relative inline-block font-medium font-semibold transition duration-150 text-base text-nowrap',
@@ -42,7 +43,6 @@ class Button extends Component
             'size-4',
             $icon,
             $iconClass,
-            $iconPosition == 'left' ? 'order-0' : 'order-1'
         ]);
     }
 
@@ -78,7 +78,7 @@ class Button extends Component
     {
         $sizeVariants = [
             'sm' => 'text-sm py-1.5 px-2',
-            'md' => 'py-2.5 px-9'
+            'md' => 'py-2.5 px-5'
         ];
         return $sizeVariants[$size];
     }

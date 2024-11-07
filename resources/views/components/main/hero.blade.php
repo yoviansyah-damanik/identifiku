@@ -16,7 +16,7 @@
                 {{ __('Get Started') }}
             </x-button>
             <x-button color="transparent" base="px-9 text-white" radius="rounded-full" icon="i-ph-arrow-right"
-                iconPosition="right" href="{{ route('assessment') }}">
+                iconPosition="right" :withBorderIcon="false" href="{{ route('assessment') }}">
                 {{ __('See Assessment') }}
             </x-button>
         </div>

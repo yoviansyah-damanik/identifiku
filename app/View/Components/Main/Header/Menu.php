@@ -21,11 +21,13 @@ class Menu extends Component
         $navigations = [
             [
                 'title' => __('Home'),
-                'url' => route('home')
+                'url' => route('home'),
+                'isActive' => request()->routeIs('home')
             ],
             [
                 'title' => __('Assessment'),
-                'url' => route('assessment')
+                'url' => route('assessment'),
+                'isActive' => request()->routeIs('assessment*')
             ],
             // [
             //     'title' => __('Articles'),
@@ -33,7 +35,8 @@ class Menu extends Component
             // ],
             [
                 'title' => __('About'),
-                'url' => route('about')
+                'url' => route('about'),
+                'isActive' => request()->routeIs('about')
             ]
         ];
         return view('components.main.header.menu', compact('navigations'));
