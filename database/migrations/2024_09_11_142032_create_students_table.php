@@ -25,6 +25,7 @@ return new class extends Migration
             $table->char('gender', 1);
             $table->string('address');
             $table->string('phone_number');
+            $table->string('class')->nullable();
             $table->foreignUuid('school_id')
                 ->references('id')
                 ->on('schools');

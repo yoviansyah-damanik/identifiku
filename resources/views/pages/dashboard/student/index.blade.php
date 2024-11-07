@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('School')" :description="__('Manage all students.')" />
+    <x-content.title :title="__('Student')" :description="__('Manage :manage.', ['manage' => __('Student')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-form.select class="snap-start" :items="$perPageList" wire:model.live='perPage' />
@@ -24,6 +24,12 @@
     <div wire:ignore>
         <x-modal name="delete-student-modal" size="2xl" :modalTitle="__('Delete :delete', ['delete' => __('Student')])">
             <livewire:dashboard.student.delete />
+        </x-modal>
+        <x-modal name="user-activation-modal" size="xl" :modalTitle="__('User Activation')">
+            <livewire:dashboard.users.user-activation />
+        </x-modal>
+        <x-modal name="forgot-password-modal" size="xl" :modalTitle="__('Forgot Password')">
+            <livewire:dashboard.users.forgot-password />
         </x-modal>
     </div>
 </x-content>

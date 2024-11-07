@@ -147,8 +147,8 @@ class StudentRegistrationFinal extends Component
 
         if ($this->step == 2)
             return [
-                'email' => 'required|email:dns|unique:users,email|unique:student_requests,email',
-                'username' => 'required|min:8|max:32|alpha_dash|string|unique:users,username|unique:student_requests,username',
+                'email' => 'required|email:dns|unique:users,email|unique:student_requests,email|unique:teacher_requests,email',
+                'username' => 'required|min:8|max:32|alpha_dash|string|unique:users,username|unique:student_requests,username|unique:teacher_requests,username',
                 'password' =>   [
                     'required',
                     'string',

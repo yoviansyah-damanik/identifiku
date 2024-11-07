@@ -34,27 +34,27 @@ class EducationLevelSeeder extends Seeder
                 'description' => '-',
                 'grades' => [
                     [
-                        'name' => 'Kelas 1',
+                        'name' => 'Kelas 1 (I)',
                         'description' => '-'
                     ],
                     [
-                        'name' => 'Kelas 2',
+                        'name' => 'Kelas 2 (II)',
                         'description' => '-'
                     ],
                     [
-                        'name' => 'Kelas 3',
+                        'name' => 'Kelas 3 (III)',
                         'description' => '-'
                     ],
                     [
-                        'name' => 'Kelas 4',
+                        'name' => 'Kelas 4 (IV)',
                         'description' => '-'
                     ],
                     [
-                        'name' => 'Kelas 5',
+                        'name' => 'Kelas 5 (V)',
                         'description' => '-'
                     ],
                     [
-                        'name' => 'Kelas 6',
+                        'name' => 'Kelas 6 (VI)',
                         'description' => '-'
                     ],
                 ]

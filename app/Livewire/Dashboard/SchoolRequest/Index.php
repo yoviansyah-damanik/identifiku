@@ -61,8 +61,8 @@ class Index extends Component
             'educationLevel',
             'status',
         )
-            ->when($this->educationLevel != 'all', fn($q) => $q->where('education_level_id', $this->educationLevel))
-            ->when($this->schoolStatus != 'all', fn($q) => $q->where('school_status_id', $this->schoolStatus))
+            ->when($this->educationLevel != 'all' && collect($this->educationLevels)->some(fn($educationLevel) => $educationLevel['value'] == $this->educationLevel), fn($q) => $q->where('education_level_id', $this->educationLevel))
+            ->when($this->schoolStatus != 'all' && collect($this->schoolStatuses)->some(fn($schoolStatus) => $schoolStatus['value'] == $this->schoolStatus), fn($q) => $q->where('school_status_id', $this->schoolStatus))
             ->whereAny(['npsn', 'nss', 'nis', 'name'], 'like', "%$this->search%")
             ->orderBy('name', 'asc')
             ->paginate($this->perPage);

@@ -16,7 +16,8 @@ class Toggle extends Component
         public ?string $label2 = null,
         public bool $isChecked = false,
         public ?string $error = null,
-        public ?string $info = null
+        public ?string $info = null,
+        public bool $isLoading = false
     ) {}
 
     /**

@@ -27,10 +27,10 @@ class Menu extends Component
                 'title' => __('Assessment'),
                 'url' => route('assessment')
             ],
-            [
-                'title' => __('Articles'),
-                'url' => route('article')
-            ],
+            // [
+            //     'title' => __('Articles'),
+            //     'url' => route('article')
+            // ],
             [
                 'title' => __('About'),
                 'url' => route('about')

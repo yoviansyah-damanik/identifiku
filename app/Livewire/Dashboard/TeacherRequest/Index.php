@@ -22,6 +22,7 @@ class Index extends Component
     #[Url]
     public string $search = '';
 
+    public array $schools;
     public string $schoolSearch = '';
     public string $school = '';
 
@@ -31,6 +32,7 @@ class Index extends Component
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
+        $this->setSchools();
     }
 
     public function render()
@@ -43,7 +45,18 @@ class Index extends Component
             ->whereAny(['nuptk', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 
-        $schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')
+        return view('pages.dashboard.teacher-request.index', compact('teachers'))
+            ->title(__('Teacher Request'));
+    }
+
+    public function updated($attribute)
+    {
+        $this->resetPage();
+    }
+
+    public function setSchools()
+    {
+        $this->schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')
             ->limit(10)
             ->get()
             ->map(fn($school) => [
@@ -52,14 +65,6 @@ class Index extends Component
                 'description' => $school->fullAddress,
             ])
             ->toArray();
-
-        return view('pages.dashboard.teacher-request.index', compact('teachers', 'schools'))
-            ->title(__('Teacher Request'));
-    }
-
-    public function updated($attribute)
-    {
-        $this->resetPage();
     }
 
     public function setSearchSchool(School $school)
@@ -71,6 +76,7 @@ class Index extends Component
     public function setSearchSearchSchool($data)
     {
         $this->schoolSearch = $data;
+        $this->setSchools();
     }
 
     public function setValueSchool($data)

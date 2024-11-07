@@ -59,7 +59,8 @@ class Button extends Component
         $colorVariants = [
             'primary' => 'focus:outline-none text-white bg-primary-500 hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900',
             'secondary' => 'focus:outline-none text-white bg-secondary-500 hover:bg-secondary-700 focus:ring-4 focus:ring-secondary-300 dark:focus:ring-secondary-900',
-            'secondary-outline' => 'focus:outline-secondary-500 text-secondary-500 hover:text-white bg-transparent hover:bg-secondary-700 focus:ring-4 focus:ring-secondary-300 dark:focus:ring-secondary-900',
+            'primary-outline' => 'focus:outline-primary-500 border border-primary-500 text-primary-500 hover:text-white bg-transparent hover:bg-primary-700 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900',
+            'secondary-outline' => 'focus:outline-secondary-500 border border-secondary-500 text-secondary-500 hover:text-white bg-transparent hover:bg-secondary-700 focus:ring-4 focus:ring-secondary-300 dark:focus:ring-secondary-900',
             'green' => 'focus:outline-none text-white bg-green-500 hover:bg-green-700 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900',
             'red' => 'focus:outline-none text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900',
             'cyan' => 'focus:outline-none text-white bg-cyan-500 hover:bg-cyan-600 focus:ring-4 focus:ring-cyan-300 dark:focus:ring-cyan-900',
@@ -77,7 +78,7 @@ class Button extends Component
     {
         $sizeVariants = [
             'sm' => 'text-sm py-1.5 px-2',
-            'md' => 'py-2.5 px-5'
+            'md' => 'py-2.5 px-9'
         ];
         return $sizeVariants[$size];
     }

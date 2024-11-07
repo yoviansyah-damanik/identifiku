@@ -5,10 +5,10 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\School;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\Administrator;
 use App\Models\UserHasRelation;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -38,8 +38,8 @@ class UserSeeder extends Seeder
             ->count(3)
             ->create()
             ->each(function ($user, $idx) {
-                $user->assignRole('Administrator');
                 $user->update(['username' => 'administrator-' . $idx + 1]);
+                $user->assignRole('Administrator');
 
                 $administrator = (Administrator::factory()->create())
                     ->id;
@@ -81,6 +81,22 @@ class UserSeeder extends Seeder
                     'user_id' => $user->id,
                     'modelable_type' => Student::class,
                     'modelable_id' => $student
+                ]);
+            });
+
+        User::factory()
+            ->count(10)
+            ->create()
+            ->each(function ($user) {
+                $user->assignRole('Teacher');
+
+                $teacher = (Teacher::factory()->create())
+                    ->id;
+
+                UserHasRelation::create([
+                    'user_id' => $user->id,
+                    'modelable_type' => Teacher::class,
+                    'modelable_id' => $teacher
                 ]);
             });
     }

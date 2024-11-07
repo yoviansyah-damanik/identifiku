@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('Education Level')" :description="__('Manage education levels.')" />
+    <x-content.title :title="__('Education Level')" :description="__('Manage :manage.', ['manage' => __('Education Level')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-button color="primary" icon="i-ph-plus" x-on:click="$dispatch('toggle-create-education-level-modal')">

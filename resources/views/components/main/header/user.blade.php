@@ -19,7 +19,7 @@
                     alt="User Icon" />
                 <div class="box-border flex-1 hidden py-1 font-semibold lg:block">
                     <div class="line-clamp-1 sm:text-base text-primary-100">
-                        {{ auth()->user()->dataRelation->name }}
+                        {{ auth()->user()->{Str::lower(auth()->user()->roleName)}->name }}
                     </div>
                     <div class="text-sm font-light line-clamp-1 sm:text-xs text-primary-50">
                         {{ __(auth()->user()->roleName) }}

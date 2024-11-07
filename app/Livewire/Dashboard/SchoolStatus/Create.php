@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\SchoolStatus;
 use App\Models\SchoolStatus;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -39,12 +40,6 @@ class Create extends Component
         $this->validateOnly($attribute);
     }
 
-    public function clearModal()
-    {
-        $this->reset();
-        $this->isLoading = true;
-    }
-
     public function store()
     {
         $this->validate();
@@ -57,7 +52,6 @@ class Create extends Component
 
             $this->dispatch('toggle-create-school-status-modal');
             $this->dispatch('refreshSchoolStatusData');
-            $this->clearModal();
 
             $this->alert('success', __(':attribute created successfully.', ['attribute' => __('School Status')]));
             $this->isLoading = false;
@@ -70,8 +64,10 @@ class Create extends Component
         }
     }
 
+    #[On('toggle-create-school-status-modal')]
     public function refresh()
     {
         $this->reset();
+        $this->isLoading = false;
     }
 }

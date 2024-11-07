@@ -1,8 +1,36 @@
 <div x-data="{
     showToken: false,
     text: '{{ $school->token }}',
+    fallbackCopyTextToClipboard(text) {
+        var textArea = document.createElement('textarea');
+        textArea.value = text;
+
+        // Avoid scrolling to bottom
+        textArea.style.top = '0';
+        textArea.style.left = '0';
+        textArea.style.position = 'fixed';
+
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Fallback: Copying text command was ' + msg);
+        } catch (err) {
+            console.error('Fallback: Oops, unable to copy', err);
+        }
+
+        document.body.removeChild(textArea);
+    },
     copyToken() {
-        navigator.clipboard.writeText(this.text);
+        if (!navigator.clipboard) {
+            this.fallbackCopyTextToClipboard(this.text);
+        } else {
+            navigator.clipboard.writeText(this.text);
+        }
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -20,7 +48,14 @@
         });
     },
     copyLink() {
-        navigator.clipboard.writeText('{{ route('registration.student.final', ['school' => $school->id, 'token' => $school->token]) }}');
+        const text = '{{ route('registration.student.final', ['school' => $school->id, 'token' => $school->token]) }}';
+
+        if (!navigator.clipboard) {
+            this.fallbackCopyTextToClipboard(text);
+        } else {
+            navigator.clipboard.writeText(text);
+        }
+
         const Toast = Swal.mixin({
             toast: true,
             position: 'top-end',
@@ -41,7 +76,7 @@
     <x-tooltip :title="__('Token that will be used to register students.')">
         <x-button base="flex gap-3 items-center justify-between" color="primary-transparent" size="sm"
             x-on:click="showToken = !showToken">
-            <div class="w-full px-3 min-w-36 2xl:min-w-44 max-w-full text-sm">
+            <div class="w-full max-w-full px-3 text-sm min-w-36 2xl:min-w-44">
                 <div x-show="showToken">
                     {{ $school->token }}
                 </div>

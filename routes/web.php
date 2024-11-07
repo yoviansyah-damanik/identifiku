@@ -46,6 +46,7 @@ Route::middleware('auth')
 
 Route::prefix('dashboard')
     ->as('dashboard')
+    ->middleware('auth')
     ->group(function () {
         Route::get('/', \App\Livewire\Dashboard\Index::class);
         Route::get('/school', \App\Livewire\Dashboard\School\Index::class)
@@ -82,6 +83,19 @@ Route::prefix('dashboard')
 
         Route::get('/class', \App\Livewire\Dashboard\Class\Index::class)
             ->name('.class');
+        Route::get('/class/request', \App\Livewire\Dashboard\Class\Request::class)
+            ->name('.class.request');
+        Route::get('/class/show/{class}', \App\Livewire\Dashboard\Class\Show::class)
+            ->name('.class.show');
+
+        Route::get('/student-class', \App\Livewire\Dashboard\StudentClass\Index::class)
+            ->name('.student-class');
+        Route::get('/student-class/available', \App\Livewire\Dashboard\StudentClass\Available::class)
+            ->name('.student-class.available');
+        Route::get('/student-class/show/{class}', \App\Livewire\Dashboard\StudentClass\Show::class)
+            ->name('.student-class.show');
+        Route::get('/student-class/show/{class}/{quiz}', \App\Livewire\Dashboard\StudentClass\ShowQuiz::class)
+            ->name('.student-class.show.quiz');
 
         Route::get('/quiz', \App\Livewire\Dashboard\Quiz\Index::class)
             ->name('.quiz');

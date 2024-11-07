@@ -18,8 +18,8 @@ class StudentHasClass extends Model
         return $this->belongsTo(Student::class);
     }
 
-    public function studentClass(): BelongsTo
+    public function class(): BelongsTo
     {
-        return $this->belongsTo(StudentClass::class);
+        return $this->belongsTo(StudentClass::class, 'student_class_id', 'id');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\EducationLevel;
 use App\Models\EducationLevel;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 
 class Create extends Component
 {
@@ -51,10 +52,8 @@ class Create extends Component
 
             $this->dispatch('toggle-create-education-level-modal');
             $this->dispatch('refreshEducationLevelData');
-            $this->reset();
 
             $this->alert('success', __(':attribute created successfully.', ['attribute' => __('Education Level')]));
-            $this->isLoading = false;
         } catch (\Exception $e) {
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
@@ -64,8 +63,10 @@ class Create extends Component
         }
     }
 
+    #[On('toggle-create-education-level-modal')]
     public function refresh()
     {
         $this->reset();
+        $this->isLoading = false;
     }
 }

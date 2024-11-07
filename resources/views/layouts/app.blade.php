@@ -14,7 +14,7 @@
     :class="(headerMenuToggle && window.innerWidth <= 768) || loadingScreen ? 'h-dvh w-dvh overflow-hidden' : ''">
     <x-main.header />
 
-    <main class="min-h-[50dvh] relative">
+    <main class="min-h-[60dvh] relative">
         {{ $slot }}
     </main>
 

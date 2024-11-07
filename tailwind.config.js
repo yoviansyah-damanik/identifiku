@@ -17,10 +17,10 @@ export default {
             },
             zIndex: {
                 'header': '990',
-                'sidebar': '990',
-                'modal': '991',
-                'loading-state': '992',
-                'loading-screen': '993',
+                'sidebar': '991',
+                'modal': '992',
+                'loading-state': '993',
+                'loading-screen': '994',
             },
             fontFamily: {
                 'body': ['QuickSand', 'sans-serif'],
@@ -66,7 +66,7 @@ export default {
             // Select the icon collections you want to use
             // You can also ignore this option to automatically discover all individual icon packages you have installed
             // If you install @iconify/json, you should explicitly specify the collections you want to use, like this:
-            collections: getIconCollections(['solar', 'ph']),
+            collections: getIconCollections(['solar', 'ph', 'fluent-emoji-flat']),
             // If you want to use all icons from @iconify/json, you can do this:
             // collections: getIconCollections("all"),
             // and the more recommended way is to use `dynamicIconsPlugin`, see below.

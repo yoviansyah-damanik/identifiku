@@ -37,6 +37,7 @@ class Teacher extends Model
         return $this->morphOne(Media::class, 'mediable')
             ->where('type', 'picture');
     }
+
     public function hasRelation(): MorphOne
     {
         return $this->morphOne(UserHasRelation::class, 'modelable');
@@ -44,7 +45,8 @@ class Teacher extends Model
 
     public function school(): BelongsTo
     {
-        return $this->belongsTo(School::class);
+        return $this->belongsTo(School::class)
+            ->without(['province', 'regency', 'district', 'village']);
     }
 
     public function user(): HasOneThrough

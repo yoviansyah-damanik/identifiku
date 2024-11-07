@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\SchoolStatus;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SchoolStatusSeeder extends Seeder
@@ -13,7 +12,7 @@ class SchoolStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $schoolStatuses = ['Sekolah Negeri', 'Sekolah Swasta', 'Lainnya'];
+        $schoolStatuses = ['Negeri', 'Swasta', 'Lainnya'];
 
         foreach ($schoolStatuses as $schoolStatus)
             SchoolStatus::create(['name' => $schoolStatus, 'description' => '-']);

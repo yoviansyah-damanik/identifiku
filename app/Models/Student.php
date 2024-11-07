@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Student extends Model
@@ -47,7 +48,8 @@ class Student extends Model
 
     public function school(): BelongsTo
     {
-        return $this->belongsTo(School::class);
+        return $this->belongsTo(School::class)
+            ->without(['province', 'regency', 'district', 'village']);
     }
 
     public function user(): HasOneThrough
@@ -59,5 +61,15 @@ class Student extends Model
     public function grade(): BelongsTo
     {
         return $this->belongsTo(GradeLevel::class, 'grade_level_id', 'id');
+    }
+
+    public function classRequests(): HasMany
+    {
+        return $this->hasMany(ClassRequest::class);
+    }
+
+    public function hasClass(): HasMany
+    {
+        return $this->hasMany(StudentHasClass::class);
     }
 }

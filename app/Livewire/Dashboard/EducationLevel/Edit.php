@@ -69,4 +69,11 @@ class Edit extends Component
             $this->alert('error', $e->getMessage());
         }
     }
+
+    #[On('clearModal')]
+    public function refresh()
+    {
+        $this->reset();
+        $this->isLoading = true;
+    }
 }

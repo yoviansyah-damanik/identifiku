@@ -4,6 +4,7 @@ namespace App\Livewire\Dashboard\GradeLevel;
 
 use Livewire\Component;
 use App\Models\GradeLevel;
+use Livewire\Attributes\On;
 use App\Models\EducationLevel;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -68,10 +69,8 @@ class Create extends Component
 
             $this->dispatch('toggle-create-grade-level-modal');
             $this->dispatch('refreshGradeLevelData');
-            $this->reset();
 
             $this->alert('success', __(':attribute created successfully.', ['attribute' => __('Grade Level')]));
-            $this->isLoading = false;
         } catch (\Exception $e) {
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
@@ -97,10 +96,12 @@ class Create extends Component
         $this->reset('educationLevel', 'educationLevelSearch');
     }
 
+    #[On('toggle-create-grade-level-modal')]
     public function refresh()
     {
         $this->resetValueEducationLevel();
         $this->dispatch('resetValueEducationLevel');
         $this->reset();
+        $this->isLoading = false;
     }
 }

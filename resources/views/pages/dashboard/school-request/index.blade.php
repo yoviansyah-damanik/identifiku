@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('School')" :description="__('Manage all school requests.')" />
+    <x-content.title :title="__('School Request')" :description="__('Manage :manage.', ['manage' => __('School Request')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-form.select class="snap-start" :items="$perPageList" wire:model.live='perPage' />

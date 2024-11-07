@@ -16,6 +16,7 @@ class School extends Model
 {
     use HasFactory, HasUuids;
     protected $guarded = ['id'];
+    public $with = ['province', 'regency', 'district', 'village'];
 
     public function fullAddress(): Attribute
     {

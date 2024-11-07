@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('Quiz Phase')" :description="__('Manage quiz phases.')" />
+    <x-content.title :title="__('Quiz Phase')" :description="__('Manage :manage.', ['manage' => __('Quiz Phase')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-button color="primary" icon="i-ph-plus" x-on:click="$dispatch('toggle-create-quiz-phase-modal')">

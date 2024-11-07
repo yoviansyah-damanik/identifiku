@@ -3,11 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\QuizPhase;
-use App\Models\QuizDetail;
 use App\Models\QuizPhaseDetail;
 use Illuminate\Database\Seeder;
-use App\Models\QuizPhasesDetail;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class QuizPhaseSeeder extends Seeder
 {

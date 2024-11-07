@@ -39,7 +39,7 @@
                     </div>
                     <div class="flex">
                         <div class="w-48">{{ __('Fullname') }}</div>
-                        <div class="flex-1 font-semibold">{{ $user->dataRelation->name }}</div>
+                        <div class="flex-1 font-semibold">{{ $user->{Str::lower($user->roleName)}->name }}</div>
                     </div>
                 </div>
             </div>

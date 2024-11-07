@@ -15,6 +15,7 @@ class Index extends Component
 {
     use WithPagination;
 
+    public array $educationLevels;
     public string $educationLevelSearch = '';
     public string $educationLevel = '';
 
@@ -30,6 +31,7 @@ class Index extends Component
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
+        $this->setEducationLevels();
     }
 
     public function render()
@@ -41,17 +43,7 @@ class Index extends Component
             ->orderBy('education_level_id', 'asc')
             ->paginate($this->perPage);
 
-        $educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($educationLevel) => [
-                'title' => $educationLevel->name,
-                'value' => $educationLevel->id,
-                'description' => $educationLevel->fullAddress,
-            ])
-            ->toArray();
-
-        return view('pages.dashboard.grade-level.index', compact('gradeLevels', 'educationLevels'))
+        return view('pages.dashboard.grade-level.index', compact('gradeLevels'))
             ->title(__('Grade Level'));
     }
 
@@ -60,9 +52,23 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function setEducationLevels()
+    {
+        $this->educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($educationLevel) => [
+                'title' => $educationLevel->name,
+                'value' => $educationLevel->id,
+                'description' => $educationLevel->fullAddress,
+            ])
+            ->toArray();
+    }
+
     public function setSearchSearchEducationLevel($data)
     {
         $this->educationLevelSearch = $data;
+        $this->setEducationLevels();
     }
 
     public function setValueEducationLevel($data)

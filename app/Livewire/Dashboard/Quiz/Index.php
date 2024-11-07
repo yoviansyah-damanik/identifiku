@@ -23,19 +23,41 @@ class Index extends Component
     public string $search = '';
 
     public string $quizCategorySearch = '';
+    public array $quizCategories;
     public string $quizCategory = '';
+
     public string $quizPhaseSearch = '';
+    public array $quizPhases;
     public string $quizPhase = '';
 
     public function mount()
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
+        $this->setQuizCategories();
+        $this->setQuizPhases();
     }
 
     public function render()
     {
-        $quizCategories = QuizCategory::where('name', 'like', '%' . $this->quizCategorySearch . '%')
+        $quizzes = Quiz::with('phase', 'category', 'phase.grades', 'picture', 'types', 'types.questions')
+            ->where('name', 'like', '%' . $this->search . '%')
+            ->when($this->quizCategory, fn($q) => $q->where('quiz_category_id', $this->quizCategory))
+            ->when($this->quizPhase, fn($q) => $q->where('quiz_phase_id', $this->quizPhase))
+            ->paginate($this->perPage);
+
+        return view('pages.dashboard.quiz.index', compact('quizzes'))
+            ->title(__('Quiz'));
+    }
+
+    public function updated($attribute)
+    {
+        $this->resetPage();
+    }
+
+    public function setQuizCategories()
+    {
+        $this->quizCategories = QuizCategory::where('name', 'like', '%' . $this->quizCategorySearch . '%')
             ->limit(10)
             ->get()
             ->map(fn($quizCategory) => [
@@ -44,8 +66,11 @@ class Index extends Component
                 'description' => $quizCategory->description,
             ])
             ->toArray();
+    }
 
-        $quizPhases = QuizPhase::with('grades')
+    public function setQuizPhases()
+    {
+        $this->quizPhases = QuizPhase::with('grades')
             ->where('name', 'like', '%' . $this->quizPhaseSearch . '%')
             ->limit(10)
             ->get()
@@ -55,15 +80,6 @@ class Index extends Component
                 'description' => $quizPhase->grades->pluck('name')->join(', '),
             ])
             ->toArray();
-
-        $quizzes = Quiz::with('phase', 'category', 'phase.grades', 'picture', 'types', 'types.questions')
-            ->where('name', 'like', '%' . $this->search . '%')
-            ->when($this->quizCategory, fn($q) => $q->where('quiz_category_id', $this->quizCategory))
-            ->when($this->quizPhase, fn($q) => $q->where('quiz_phase_id', $this->quizPhase))
-            ->paginate($this->perPage);
-
-        return view('pages.dashboard.quiz.index', compact('quizzes', 'quizPhases', 'quizCategories'))
-            ->title(__('Quiz'));
     }
 
     public function setSearchQuizCategory(QuizCategory $quizCategory)
@@ -75,6 +91,7 @@ class Index extends Component
     public function setSearchQuizCategorySearch($data)
     {
         $this->quizCategorySearch = $data;
+        $this->setQuizCategories();
     }
 
     public function setValueQuizCategory($data)
@@ -98,6 +115,7 @@ class Index extends Component
     public function setSearchQuizPhaseSearch($data)
     {
         $this->quizPhaseSearch = $data;
+        $this->setQuizPhases();
     }
 
     public function setValueQuizPhase($data)

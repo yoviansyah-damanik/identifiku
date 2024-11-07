@@ -16,7 +16,7 @@ class ConfigurationHelper
             static::$configs = Configuration::get();
     }
 
-    private static function get($config)
+    public static function get($config)
     {
         return collect(static::$configs)
             ->where('attribute', $config)
@@ -33,7 +33,6 @@ class ConfigurationHelper
     {
         return static::get('app_fullname');
     }
-
 
     public static function dateFormat(?string $date, string $type = 'default')
     {

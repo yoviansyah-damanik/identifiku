@@ -27,11 +27,30 @@
                 </x-tooltip>
             </div>
         </x-student-sub-item>
+        <x-student-sub-item :title="__('User Status')">
+            <x-badge :type="$student->user->is_suspended ? 'error' : 'success'">
+                {{ $student->user->is_suspended ? __('Suspended') : __('Active') }}
+            </x-badge>
+        </x-student-sub-item>
         <x-student-sub-item :title="__('Action')">
-            <x-tooltip :title="__('Delete')">
+            <div class="flex flex-col items-start gap-1">
                 <x-button color="red" size="sm" x-on:click="$dispatch('toggle-delete-student-modal')"
-                    wire:click="$dispatch('setDeleteStudent',{ student: '{{ $student->id }}' })" icon="i-ph-trash" />
-            </x-tooltip>
+                    wire:click="$dispatch('setDeleteStudent',{ student: '{{ $student->id }}' })" icon="i-ph-trash">
+                    {{ __('Delete') }}
+                </x-button>
+                <x-button size="sm" icon="i-ph-key" color="cyan"
+                    x-on:click="$dispatch('toggle-forgot-password-modal')"
+                    wire:click="$dispatch('setForgotPassword',{ user: '{{ $student->user->id }}' })">
+                    {{ __('Forgot Password') }}
+                </x-button>
+                @if ($student->user->type != \App\Models\Staff::class)
+                    <x-button size="sm" icon="i-ph-user-check" color="green"
+                        x-on:click="$dispatch('toggle-user-activation-modal')"
+                        wire:click="$dispatch('setUserActivation',{ user: '{{ $student->user->id }}' })">
+                        {{ __('Activation Menu') }}
+                    </x-button>
+                @endif
+            </div>
         </x-student-sub-item>
     </div>
 </div>

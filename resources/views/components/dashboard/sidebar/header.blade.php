@@ -5,7 +5,7 @@
         <img src="{{ Vite::image('logo.png') }}" class="h-full" alt="Logo">
     </div>
 
-    <div class="absolute inset-x-0 flex justify-between p-4 top-2.5 left-2.5 md:left-auto md:right-0 lg:hidden">
+    <div class="absolute inset-x-0 flex justify-between p-4 top-1.5 left-4 md:left-auto md:right-0 lg:hidden">
         {{-- <x-dashboard.theme base="-mt-5" /> --}}
         <x-button color="transparent" size="sm" x-on:click="sidebarToggle = !sidebarToggle"
             base="min-h-0 min-w-0 p-0">
@@ -15,19 +15,17 @@
 
     <div class="relative flex flex-col items-center justify-center gap-1 text-center">
         <div class="px-3 font-bold truncate w-72 text-secondary-500" :class="sidebarToggle ? 'block' : 'hidden'">
-            {{-- {{ auth()->user()->dataRelation->name }} --}}
-            Lorem, ipsum dolor.
+            {{ auth()->user()->{Str::lower(auth()->user()->roleName)}->name }}
+            {{-- Lorem, ipsum dolor. --}}
         </div>
         <div class="px-5 text-sm sm:text-xs text-sky-100" :class="sidebarToggle ? 'block' : 'hidden'">
             <div>
-                {{-- @if (auth()->user()->roleName == 'Student')
-                    {{ auth()->user()->dataRelation->schoolName }}
-                @endif --}}
-                Lorem, ipsum dolor.
+                {{ auth()->user()->{Str::lower(auth()->user()->roleName)}?->school->name ?? '-' }}
+                {{-- Lorem, ipsum dolor. --}}
             </div>
             <div>
-                {{-- {{ __(auth()->user()->roleName) }} --}}
-                Lorem, ipsum.
+                {{ __(auth()->user()->roleName) }}
+                {{-- Lorem, ipsum. --}}
             </div>
         </div>
     </div>

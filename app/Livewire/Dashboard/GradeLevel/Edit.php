@@ -110,7 +110,6 @@ class Edit extends Component
     #[On('clearModal')]
     public function clearModal()
     {
-        $this->resetValueEducationLevel();
         $this->reset();
         $this->isLoading = true;
     }

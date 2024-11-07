@@ -4,21 +4,25 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Helpers\ConfigurationHelper;
+use App\Helpers\GeneralHelper;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Database\Query\JoinClause;
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasRoles, HasUuids;
 
+    protected $with = ['roles'];
     /**
      * The attributes that are mass assignable.
      *
@@ -55,6 +59,20 @@ class User extends Authenticatable
         ];
     }
 
+    public function isClassLimit(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->studentClasses->count() > ConfigurationHelper::get('active_class_limit')
+        );
+    }
+
+    public function isAdmin(): Attribute
+    {
+        return new Attribute(
+            get: fn() => in_array($this->roleName, ['Administrator', 'Superadmin'])
+        );
+    }
+
     public function roleName(): Attribute
     {
         return new Attribute(
@@ -68,46 +86,44 @@ class User extends Authenticatable
             ->where('type', 'picture');
     }
 
-    public function student(): HasOneThrough
+    public function studentClasses(): HasMany
     {
-        return $this->hasOneThrough(Student::class, UserHasRelation::class, 'tes1', 'tes2', 'tes3', 'tes4')
-            ->where('model_type', Student::class);
+        return $this->hasMany(StudentClass::class, 'teacher_id', 'id');
     }
 
-    public function dataRelation(): Attribute
+    public function hasRelation(): HasOne
     {
-        return new Attribute(
-            get: function () {
-                switch ($this->roleName) {
-                    case 'School':
-                        return DB::table('schools', 's')
-                            ->join('user_has_relations as ur', function (JoinClause $join) {
-                                $join->on('ur.modelable_id', '=', 's.id')
-                                    ->where('ur.modelable_type', '=', School::class);
-                            })
-                            ->where('ur.user_id', $this->id)
-                            ->first();
-                    case 'Administrator':
-                    case 'Superadmin':
-                        return DB::table('administrators', 'a')
-                            ->join('user_has_relations as ur', function (JoinClause $join) {
-                                $join->on('ur.modelable_id', '=', 'a.id')
-                                    ->where('ur.modelable_type', '=', Administrator::class);
-                            })
-                            ->where('ur.user_id', $this->id)
-                            ->first();
-                    case 'Student':
-                        return DB::table('students', 's')
-                            ->selectRaw('s.*, sc.name as schoolName')
-                            ->join('user_has_relations as ur', function (JoinClause $join) {
-                                $join->on('ur.modelable_id', '=', 's.id')
-                                    ->where('ur.modelable_type', '=', Student::class);
-                            })
-                            ->join('schools as sc', 'sc.id', '=', 's.school_id')
-                            ->where('ur.user_id', $this->id)
-                            ->first();
-                }
-            }
-        );
+        return $this->hasOne(UserHasRelation::class, 'user_id', 'id');
+    }
+
+    public function teacher(): HasOneThrough
+    {
+        return $this->hasOneThrough(Teacher::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
+            ->where('modelable_type', Teacher::class);
+    }
+
+    public function student(): HasOneThrough
+    {
+        return $this->hasOneThrough(Student::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
+            ->where('modelable_type', Student::class);
+    }
+
+    public function school(): HasOneThrough
+    {
+        return $this->hasOneThrough(School::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
+            ->without(['province', 'regency', 'district', 'village'])
+            ->where('modelable_type', School::class);
+    }
+
+    public function administrator(): HasOneThrough
+    {
+        return $this->hasOneThrough(Administrator::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
+            ->where('modelable_type', Administrator::class);
+    }
+
+    public function superadmin(): HasOneThrough
+    {
+        return $this->hasOneThrough(Administrator::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
+            ->where('modelable_type', Administrator::class);
     }
 }

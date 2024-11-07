@@ -15,7 +15,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['refreshStudentData' => '$refresh'];
+    protected $listeners = ['refreshStudentData' => '$refresh', 'refreshUserActivation' => '$refresh'];
 
     public int $perPage;
 
@@ -24,6 +24,7 @@ class Index extends Component
 
     public string $schoolSearch = '';
 
+    public array $schools;
     #[Url]
     public string $school = '';
 
@@ -33,19 +34,36 @@ class Index extends Component
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
+        $this->setSchools();
     }
 
     public function render()
     {
         $students = Student::with(
             'school',
-            'grade'
+            'grade',
+            'user',
         )
+            // ->when(
+            //     auth()->user()->roleName == 'Superadmin',
+            //     fn($q) => $q->when($this->school, fn($q) => $q->where('school_id', $this->school))
+            // )
             ->when($this->school, fn($q) => $q->where('school_id', $this->school))
             ->whereAny(['nisn', 'nis', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 
-        $schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')
+        return view('pages.dashboard.student.index', compact('students'))
+            ->title(__('Students'));
+    }
+
+    public function updated($attribute)
+    {
+        $this->resetPage();
+    }
+
+    public function setSchools()
+    {
+        $this->schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')
             ->limit(10)
             ->get()
             ->map(fn($school) => [
@@ -54,14 +72,6 @@ class Index extends Component
                 'description' => $school->fullAddress,
             ])
             ->toArray();
-
-        return view('pages.dashboard.student.index', compact('students', 'schools'))
-            ->title(__('Students'));
-    }
-
-    public function updated($attribute)
-    {
-        $this->resetPage();
     }
 
     public function setSearchSchool(School $school)
@@ -73,6 +83,7 @@ class Index extends Component
     public function setSearchSchoolSearch($data)
     {
         $this->schoolSearch = $data;
+        $this->setSchools();
     }
 
     public function setValueSchool($data)

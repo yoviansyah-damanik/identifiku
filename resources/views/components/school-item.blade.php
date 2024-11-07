@@ -43,10 +43,12 @@
             </x-school-sub-item>
         @endif
         <x-school-sub-item :title="__('Action')">
-            <x-tooltip :title="__('Delete')">
+            <div class="flex flex-col items-start gap-1">
                 <x-button color="red" size="sm" x-on:click="$dispatch('toggle-delete-school-modal')"
-                    wire:click="$dispatch('setDeleteSchool',{ school: '{{ $school->id }}' })" icon="i-ph-trash" />
-            </x-tooltip>
+                    wire:click="$dispatch('setDeleteSchool',{ school: '{{ $school->id }}' })" icon="i-ph-trash">
+                    {{ __('Delete') }}
+                </x-button>
+            </div>
         </x-school-sub-item>
     </div>
 </div>

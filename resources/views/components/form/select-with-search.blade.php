@@ -54,10 +54,10 @@
             @if ($loading)
                 <x-loading />
             @else
-                <ul :id="id" class="h-40 overflow-x-hidden overflow-y-auto snap-y snap-mandatory">
+                <ul :id="id" class="h-40 overflow-x-hidden overflow-y-auto lg:h-64 snap-y snap-mandatory">
                     @forelse ($items as $item)
                         <li class="px-3 snap-start py-2.5 cursor-pointer hover:bg-primary-50 rounded-md relative"
-                            x-on:click="showDropdown = false; setValue('{{ $item['value'] }}','{{ $item['title'] }}')">
+                            x-on:click="showDropdown = false; setValue(`{{ $item['value'] }}`,`{{ $item['title'] }}`)">
                             <div class="flex items-start justify-between">
                                 <div class="flex-1">
                                     {{ $item['title'] }}

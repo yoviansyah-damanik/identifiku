@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('Quiz Category')" :description="__('Manage quiz categories.')" />
+    <x-content.title :title="__('Quiz Category')" :description="__('Manage :manage.', ['manage' => __('Quiz Category')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-button color="primary" icon="i-ph-plus" x-on:click="$dispatch('toggle-create-quiz-category-modal')">

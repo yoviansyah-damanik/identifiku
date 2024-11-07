@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('School')" :description="__('Manage all users.')" />
+    <x-content.title :title="__('Users')" :description="__('Manage :manage.', ['manage' => __('Users')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-form.select class="snap-start" :items="$perPageList" wire:model.live='perPage' />
@@ -13,7 +13,7 @@
         <x-form.select :items="$activationTypes" wire:model.live='activationType' />
     </div>
 
-    <x-table :columns="['#', __('Username'), __('Email'), __('Fullname'), __('Role'), __('Last Login'), __('Status'), '']">
+    <x-table :columns="['#', __('User Data'), __('Email'), __('Role'), __('Last Login'), __('Status'), '']">
         <x-slot name="body">
             @forelse ($users as $user)
                 <x-table.tr>
@@ -21,38 +21,42 @@
                         {{ $users->perPage() * ($users->currentPage() - 1) + $loop->iteration }}
                     </x-table.td>
                     <x-table.td>
+                        <div class="font-bold">
+                            @if (!in_array($user->roleName, ['Superadmin', 'Administrator']))
+                                <x-href
+                                    href="{{ route('dashboard.' . Str::lower($user->roleName), [
+                                        'search' => $user->{Str::lower($user->roleName)}->name,
+                                    ]) }}"
+                                    wire:navigate>
+                                    {{ $user->{Str::lower($user->roleName)}->name }}
+                                </x-href>
+                            @else
+                                {{ $user->{Str::lower($user->roleName)}->name }}
+                            @endif
+                        </div>
                         {{ $user->username }}
                         <div class="text-sm">
                             {{ $user->id }}
+                        </div>
+                        <div class="text-sm">
+                            {{ __('Created at') }}:
+                            <span class="fw-semibold">{{ $user->created_at->translatedFormat('d M Y H:i:s') }}</span>
                         </div>
                     </x-table.td>
                     <x-table.td>
                         {{ $user->email }}
                     </x-table.td>
-                    <x-table.td>
-                        @if ($user->role_name == 'School')
-                            <x-href href="{{ route('dashboard.school', ['search' => $user->dataRelation->name]) }}"
-                                wire:navigate>
-                                {{ $user->dataRelation->name }}
-                            </x-href>
-                        @elseif ($user->role_name == 'Student')
-                            <x-href href="{{ route('dashboard.student', ['search' => $user->dataRelation->name]) }}"
-                                wire:navigate>
-                                {{ $user->dataRelation->name }}
-                            </x-href>
-                        @endif
-                    </x-table.td>
                     <x-table.td centered>
-                        <x-badge size="sm" :type="$user->role_name == 'Superadmin'
+                        <x-badge size="sm" :type="$user->roleName == 'Superadmin'
                             ? 'black'
-                            : ($user->role_name == 'Administrator'
+                            : ($user->roleName == 'Administrator'
                                 ? 'success'
-                                : ($user->role_name == 'School'
+                                : ($user->roleName == 'School'
                                     ? 'info'
-                                    : ($user->role_name == 'Student'
+                                    : ($user->roleName == 'Student'
                                         ? 'warning'
-                                        : 'danger')))">
-                            {{ __($user->role_name) }}
+                                        : 'error')))">
+                            {{ __($user->roleName) }}
                         </x-badge>
                     </x-table.td>
                     <x-table.td centered>

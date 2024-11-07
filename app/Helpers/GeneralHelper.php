@@ -45,4 +45,9 @@ class GeneralHelper
     {
         return Str::random(12);
     }
+
+    public static function isProduction()
+    {
+        return env('APP_ENV') == 'production';
+    }
 }

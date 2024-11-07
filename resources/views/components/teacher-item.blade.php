@@ -26,10 +26,24 @@
             </div>
         </x-teacher-sub-item>
         <x-school-sub-item :title="__('Action')">
-            <x-tooltip :title="__('Delete')">
+            <div class="flex flex-col items-start gap-1">
                 <x-button color="red" size="sm" x-on:click="$dispatch('toggle-delete-teacher-modal')"
-                    wire:click="$dispatch('setDeleteTeacher',{ teacher: '{{ $teacher->id }}' })" icon="i-ph-trash" />
-            </x-tooltip>
+                    wire:click="$dispatch('setDeleteTeacher',{ teacher: '{{ $teacher->id }}' })" icon="i-ph-trash">
+                    {{ __('Delete') }}
+                </x-button>
+                <x-button size="sm" icon="i-ph-key" color="cyan"
+                    x-on:click="$dispatch('toggle-forgot-password-modal')"
+                    wire:click="$dispatch('setForgotPassword',{ user: '{{ $teacher->user->id }}' })">
+                    {{ __('Forgot Password') }}
+                </x-button>
+                @if ($teacher->user->type != \App\Models\Staff::class)
+                    <x-button size="sm" icon="i-ph-user-check" color="green"
+                        x-on:click="$dispatch('toggle-user-activation-modal')"
+                        wire:click="$dispatch('setUserActivation',{ user: '{{ $teacher->user->id }}' })">
+                        {{ __('Activation Menu') }}
+                    </x-button>
+                @endif
+            </div>
         </x-school-sub-item>
     </div>
 </div>

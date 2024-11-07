@@ -1,8 +1,8 @@
 <x-content>
-    <x-content.title :title="__('Account Settings')" :description="__('Manage your account.')" />
+    <x-content.title :title="__('Your Account')" :description="__('Manage :manage.', ['manage' => __('Your Account')])" />
 
-    <div class="flex gap-5">
-        <div class="flex-none bg-white p-7 flex flex-col gap-3 w-72 rounded-lg">
+    <div class="flex items-start gap-5">
+        <div class="flex flex-col flex-none gap-3 bg-white rounded-lg p-7 w-72">
             @foreach ($choices as $item)
                 <x-button block wire:click="$set('choice','{{ $item }}')" :color="$choice == $item ? 'primary' : 'primary-transparent'">
                     {{ __(Str::of($item)->headline()->value) }}
@@ -10,8 +10,17 @@
             @endforeach
         </div>
 
-        <div class="flex-1 bg-white p-7 flex flex-col gap-3 rounded-lg">
-            <livewire:dashboard.account.administrator />
+        <div class="flex flex-col flex-1 gap-3 bg-white rounded-lg max-w-[920px] p-7">
+            <div class="font-bold">
+                {{ $choice == 'user' ? __('User Data') : ($choice == 'account' ? __('Account') : __('Password')) }}
+            </div>
+            @if ($choice == 'user')
+                <livewire:dashboard.account.user />
+            @elseif ($choice == 'password')
+                <livewire:dashboard.account.password />
+            @else
+                @livewire('dashboard.account.' . Str::lower(auth()->user()->roleName != 'Superadmin' ? auth()->user()->roleName : 'Administrator'))
+            @endif
         </div>
     </div>
 </x-content>

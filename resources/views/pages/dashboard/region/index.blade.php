@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('Region')" :description="__('Manage education levels.')" />
+    <x-content.title :title="__('Region')" :description="__('Manage :manage.', ['manage' => __('Region')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-button base="snap-start" color="primary" icon="i-ph-plus" x-on:click="$dispatch('toggle-create-region-modal')">

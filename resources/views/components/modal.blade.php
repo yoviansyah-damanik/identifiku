@@ -13,7 +13,6 @@
         x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-90" x-show="showModal">
         <div class="{{ $modalClass }}" x-on:click.outside="closeModal">
-            {{-- <div class="{{ $modalClass }}"> --}}
             <x-modal.header :title="$modalTitle" />
             {{ $slot }}
         </div>

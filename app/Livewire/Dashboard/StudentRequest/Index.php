@@ -22,6 +22,7 @@ class Index extends Component
     #[Url]
     public string $search = '';
 
+    public array $schools;
     public string $schoolSearch = '';
     public string $school = '';
 
@@ -31,6 +32,7 @@ class Index extends Component
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
+        $this->setSchools();
     }
 
     public function render()
@@ -40,21 +42,11 @@ class Index extends Component
             'grade'
         )
             ->when($this->school, fn($q) => $q->where('school_id', $this->school))
-            // ->when(auth()->user()->roleName == 'School', fn($q) => $q->where('school_id', auth()->user()->roleName))
+            // ->when(auth()->user()->roleName == 'School', fn($q) => $q->where('school_id', auth()->user()->id()))
             ->whereAny(['nisn', 'nis', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 
-        $schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($school) => [
-                'title' => $school->name,
-                'value' => $school->id,
-                'description' => $school->fullAddress,
-            ])
-            ->toArray();
-
-        return view('pages.dashboard.student-request.index', compact('students', 'schools'))
+        return view('pages.dashboard.student-request.index', compact('students'))
             ->title(__('Student Request'));
     }
 
@@ -69,9 +61,23 @@ class Index extends Component
         $this->dispatch('setTitleSchool', $school->name);
     }
 
-    public function setSearchSearchSchool($data)
+    public function setSchools()
+    {
+        $this->schools = School::where('name', 'like', '%' . $this->schoolSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($school) => [
+                'title' => $school->name,
+                'value' => $school->id,
+                'description' => $school->fullAddress,
+            ])
+            ->toArray();
+    }
+
+    public function setSearchSchoolSearch($data)
     {
         $this->schoolSearch = $data;
+        $this->setSchools();
     }
 
     public function setValueSchool($data)

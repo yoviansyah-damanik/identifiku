@@ -56,13 +56,13 @@ class Index extends Component
 
     public function render()
     {
-        $users = User::with('roles')
-            ->when($this->activationType != 'all', fn($q) => $q->where('is_suspended', $this->activationType))
-            ->when($this->role != 'all', fn($q) => $q->role($this->role))
+        $users = User::with('roles', 'hasRelation', 'school', 'teacher', 'student', 'administrator')
+            ->when($this->activationType != 'all' && collect($this->activationTypes)->some(fn($activationType) => $activationType['value'] == $this->activationType), fn($q) => $q->where('is_suspended', $this->activationType))
+            ->when($this->role != 'all' && collect($this->roles)->some(fn($role) => $role['value'] == $this->role), fn($q) => $q->role($this->role))
             ->whereAny(['id', 'username', 'email'], 'like', '%' . $this->search . '%')
             ->latest()
             ->paginate($this->perPage);
-
+        // dd($users);
         return view('pages.dashboard.users.index', compact('users'))
             ->title(__('Users'));
     }

@@ -1,11 +1,11 @@
-<div id="hero" class="h-[340px] lg:h-[640px] w-full bg-gradient-to-br from-primary-500 to-primary-700">
+<div id="hero" class="h-[480px] lg:h-[640px] w-full bg-gradient-to-br from-primary-500 to-primary-700">
     <div class="flex flex-col items-center justify-center h-full gap-5 px-5 xl:px-7">
         <div
             class="text-4xl md:text-5xl tracking-[.25em] text-center lg:text-6xl 2xl:text-8xl font-hero font-bold uppercase bg-gradient-to-r from-red-500 to-secondary-500 text-transparent bg-clip-text leading-snug">
-            Asesmen Diagnostik
+            {{ __('Diagnostic Assessment') }}
         </div>
         <div class="text-lg text-center lg:text-2xl 2xl:text-3xl text-secondary-50">
-            Kebutuhan Pembelajaran Berdiferensiasi pada Kurikulum Merdeka
+            {{ __('Differentiated Learning Needs in the Merdeka Curriculum') }}
         </div>
         {{-- <button class="flex items-center gap-3 bg-primary-50 text-primary-500 ">
             <span class="i-ph-arrow-right"></span>

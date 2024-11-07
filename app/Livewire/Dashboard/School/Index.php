@@ -4,7 +4,6 @@ namespace App\Livewire\Dashboard\School;
 
 use App\Models\School;
 use Livewire\Component;
-use Illuminate\Support\Str;
 use App\Models\SchoolStatus;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
@@ -77,21 +76,16 @@ class Index extends Component
 
     public function render()
     {
-
         $schools = School::with(
-            'province',
-            'regency',
-            'district',
-            'village',
             'educationLevel',
             'status',
             'user',
         )
             ->withCount('students')
-            ->when($this->educationLevel != 'all', fn($q) => $q->where('education_level_id', $this->educationLevel))
-            ->when($this->schoolStatus != 'all', fn($q) => $q->where('school_status_id', $this->schoolStatus))
-            ->when($this->activationStatus != 'all', fn($q) => $q->where('is_active', $this->activationStatus))
-            ->when($this->openStatus != 'all', fn($q) => $q->where('is_open', $this->openStatus))
+            ->when($this->educationLevel != 'all' && collect($this->educationLevels)->some(fn($educationLevel) => $educationLevel['value'] == $this->educationLevel), fn($q) => $q->where('education_level_id', $this->educationLevel))
+            ->when($this->schoolStatus != 'all' && collect($this->schoolStatuses)->some(fn($schoolStatus) => $schoolStatus['value'] == $this->schoolStatus), fn($q) => $q->where('school_status_id', $this->schoolStatus))
+            ->when($this->activationStatus != 'all' && collect($this->activationStatuses)->some(fn($activationStatus) => $activationStatus['value'] == $this->activationStatus), fn($q) => $q->where('is_active', $this->activationStatus))
+            ->when($this->openStatus != 'all' && collect($this->openStatuses)->some(fn($openStatus) => $openStatus['value'] == $this->openStatus), fn($q) => $q->where('is_open', $this->openStatus))
             ->whereAny(['npsn', 'nss', 'nis', 'name'], 'like', "%$this->search%")
             ->orderBy('name', 'asc')
             ->paginate($this->perPage);

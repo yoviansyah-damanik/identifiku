@@ -13,6 +13,7 @@ class Administrator extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $guarded = ['id'];
     /**
      * Get the attributes that should be cast.
      *

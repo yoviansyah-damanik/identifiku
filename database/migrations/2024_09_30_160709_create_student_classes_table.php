@@ -20,6 +20,8 @@ return new class extends Migration
                 ->on('teachers');
             $table->timestamp('expired_at')
                 ->nullable();
+            $table->boolean('is_active')
+                ->default(true);
             $table->timestamps();
         });
     }

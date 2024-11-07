@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('Quiz')" :description="__('Manage all quizzes.')" />
+    <x-content.title :title="__('Quiz')" :description="__('Manage :manage.', ['manage' => __('Quiz')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-button color="primary" icon="i-ph-plus" href="">
@@ -13,7 +13,7 @@
             wire:model.live.debounce.750ms='search' />
     </div>
 
-    <div class="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-7">
+    <div class="grid flex-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-7">
         @forelse ($quizzes as $quiz)
             <x-quiz-box :$quiz withBox />
 
@@ -22,7 +22,7 @@
                 <x-no-data />
             </div>
         @endforelse
-        <div class="px-8 col-span-full py-3 bg-white dark:bg-slate-800 min-h-14 mt-9">
+        <div class="px-8 py-3 bg-white col-span-full dark:bg-slate-800 min-h-14 mt-9">
             {{ $quizzes->links() }}
         </div>
     </div>
