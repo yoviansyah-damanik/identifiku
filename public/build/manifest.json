@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-CnAn1V4W.css",
+    "file": "assets/app-RhjW09ap.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -36,13 +36,17 @@
     "file": "assets/default-avatar-D_8jpos8.jpg",
     "src": "resources/images/default-avatar.jpg"
   },
+  "resources/images/default-class.webp": {
+    "file": "assets/default-class-KUofLNsD.webp",
+    "src": "resources/images/default-class.webp"
+  },
   "resources/images/default-quiz.webp": {
     "file": "assets/default-quiz-APngFDH5.webp",
     "src": "resources/images/default-quiz.webp"
   },
   "resources/images/default-school.webp": {
-    "file": "assets/default-school-KUofLNsD.webp",
-    "src": "resources/images/default-school.webp"
+    "file": "assets/default-class-KUofLNsD.webp",
+    "src": "resources/images/default-class.webp"
   },
   "resources/images/drtpm-bima.png": {
     "file": "assets/drtpm-bima-3JnmpG1v.png",
