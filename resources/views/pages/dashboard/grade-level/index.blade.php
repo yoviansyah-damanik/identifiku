@@ -21,7 +21,7 @@
         __('Number of :subject', ['subject' => __('Schools')]),
         __('Number of :subject', ['subject' => __('Students')]),
         __('Action'),
-    ]">
+    ]" :hasPages="$gradeLevels->hasPages()">
         <x-slot name="body">
             @forelse ($gradeLevels as $gradeLevel)
                 <x-table.tr>

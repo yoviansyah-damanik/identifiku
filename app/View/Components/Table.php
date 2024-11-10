@@ -18,6 +18,7 @@ class Table extends Component
         public ?string $tableClass = null,
         public ?string $baseClass = null,
         public ?string $thClass = null,
+        public bool $hasPages = false
     ) {
         $this->baseClass = join(' ', [
             'w-auto overflow-x-auto relative',

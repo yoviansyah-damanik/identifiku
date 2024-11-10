@@ -16,9 +16,17 @@
                 <div class="flex gap-3">
                     <div class="w-48">{{ __('Number of :subject', ['subject' => __('Schools')]) }}</div>
                     <div class="flex-1 font-semibold">
-                        {{ GeneralHelper::numberFormat($schoolStatus->schools->count()) .
+                        {{ GeneralHelper::numberFormat($schoolStatus->schools_count) .
                             ' ' .
-                            ($schoolStatus->schools->count() > 1 ? __('Schools') : __('School')) }}
+                            ($schoolStatus->schools_count > 1 ? __('Schools') : __('School')) }}
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <div class="w-48">{{ __('Number of :subject', ['subject' => __('Students')]) }}</div>
+                    <div class="flex-1 font-semibold">
+                        {{ GeneralHelper::numberFormat($schoolStatus->schools->sum(fn($q) => $q->students->count())) .
+                            ' ' .
+                            ($schoolStatus->schools->sum(fn($q) => $q->students->count()) > 1 ? __('Students') : __('Student')) }}
                     </div>
                 </div>
             </div>

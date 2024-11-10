@@ -388,7 +388,11 @@ class QuestionSeeder extends Seeder
                     $newQuestion =  Question::create(['question_group_id' => $newGroup->id, ...collect($question)->only('text', 'type')->toArray()]);
 
                     foreach ($question['answers'] as $answer) {
-                        AnswerChoice::create(['question_id' => $newQuestion->id, ...$answer]);
+                        AnswerChoice::create([
+                            'question_id' => $newQuestion->id,
+                            ...$answer,
+                            'correct_answer_value' => isset($answer['is_correct']) ? 1 : 0
+                        ]);
                     }
                 }
             }

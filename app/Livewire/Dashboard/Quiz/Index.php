@@ -44,6 +44,8 @@ class Index extends Component
             ->where('name', 'like', '%' . $this->search . '%')
             ->when($this->quizCategory, fn($q) => $q->where('quiz_category_id', $this->quizCategory))
             ->when($this->quizPhase, fn($q) => $q->where('quiz_phase_id', $this->quizPhase))
+            ->orderBy('is_active', 'desc')
+            ->orderBy('name', 'asc')
             ->paginate($this->perPage);
 
         return view('pages.dashboard.quiz.index', compact('quizzes'))
@@ -94,13 +96,13 @@ class Index extends Component
         $this->setQuizCategories();
     }
 
-    public function setValueQuizCategory($data)
+    public function setValueQuizCategorySearch($data)
     {
         $this->quizCategory = $data;
         $this->resetPage();
     }
 
-    public function resetValueQuizCategory()
+    public function resetValueQuizCategorySearch()
     {
         $this->resetPage();
         $this->reset('quizCategory', 'quizCategorySearch');
@@ -118,13 +120,13 @@ class Index extends Component
         $this->setQuizPhases();
     }
 
-    public function setValueQuizPhase($data)
+    public function setValueQuizPhaseSearch($data)
     {
         $this->quizPhase = $data;
         $this->resetPage();
     }
 
-    public function resetValueQuizPhase()
+    public function resetValueQuizPhaseSearch()
     {
         $this->resetPage();
         $this->reset('quizPhase', 'quizPhaseSearch');

@@ -18,7 +18,7 @@
         __('Number of :subject', ['subject' => __('Schools')]),
         __('Number of :subject', ['subject' => __('Students')]),
         __('Action'),
-    ]">
+    ]" :hasPages="$educationLevels->hasPages()">
         <x-slot name="body">
             @forelse ($educationLevels as $educationLevel)
                 <x-table.tr>
@@ -63,7 +63,7 @@
                 </x-table.tr>
             @empty
                 <x-table.tr>
-                    <x-table.td colspan="5">
+                    <x-table.td colspan="7">
                         <x-no-data />
                     </x-table.td>
                 </x-table.tr>

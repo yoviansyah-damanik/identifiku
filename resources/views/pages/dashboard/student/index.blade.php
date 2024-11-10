@@ -3,8 +3,10 @@
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-form.select class="snap-start" :items="$perPageList" wire:model.live='perPage' />
-        <x-form.select-with-search class="w-72 snap-start" block searchVar="schoolSearch" :items="$schools"
-            wire:model="school" error="{{ $errors->first('school') }}" :withReset="true" :buttonText="__('Choose a :item', ['item' => __('School')])" />
+        @if (auth()->user()->isAdmin)
+            <x-form.select-with-search class="w-72 snap-start" block searchVar="schoolSearch" :items="$schools"
+                wire:model="schoolSearch" error="{{ $errors->first('school') }}" :withReset="true" :buttonText="__('Choose a :item', ['item' => __('School')])" />
+        @endif
         <x-form.input class="flex-1 min-w-48 snap-start" type="search" :placeholder="__('Search by :1, :2, or :3', [
             '1' => 'NISN',
             '2' => 'NIS',
@@ -20,7 +22,12 @@
         <x-no-data />
     @endforelse
 
-    {{ $students->links() }}
+    @if ($students->hasPages())
+        <div class="px-8 py-3 bg-white col-span-full dark:bg-slate-800 min-h-14 mt-9">
+            {{ $students->links() }}
+        </div>
+    @endif
+
     <div wire:ignore>
         <x-modal name="delete-student-modal" size="2xl" :modalTitle="__('Delete :delete', ['delete' => __('Student')])">
             <livewire:dashboard.student.delete />

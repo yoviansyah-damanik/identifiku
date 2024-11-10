@@ -37,7 +37,7 @@ class Approve extends Component
 
     public function approve()
     {
-        if (in_array($this->request->student_class_id, $this->request->student->hasClass->pluck('student_class_id')->toArray())) {
+        if (in_array($this->request->student_class_id, $this->request->student->hasClasses->pluck('student_class_id')->toArray())) {
             $this->alert('warning', __('You have been in this class'));
             return;
         }

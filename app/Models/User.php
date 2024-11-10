@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
@@ -125,5 +126,10 @@ class User extends Authenticatable
     {
         return $this->hasOneThrough(Administrator::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
             ->where('modelable_type', Administrator::class);
+    }
+
+    public function schoolData(): BelongsTo
+    {
+        return $this->belongsTo(School::class, 'school_id', 'id');
     }
 }

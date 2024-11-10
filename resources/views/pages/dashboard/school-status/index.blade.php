@@ -1,5 +1,5 @@
 <x-content>
-    <x-content.title :title="__('School Status')" :description="__('Manage education levels.')" />
+    <x-content.title :title="__('School Status')" :description="__('Manage :manage.', ['manage' => __('School Status')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
         <x-button color="primary" base="snap-start" icon="i-ph-plus"
@@ -18,7 +18,7 @@
         __('Number of :subject', ['subject' => __('Schools')]),
         __('Number of :subject', ['subject' => __('Students')]),
         __('Action'),
-    ]">
+    ]" :hasPages="$schoolStatuses->hasPages()">
         <x-slot name="body">
             @forelse ($schoolStatuses as $schoolStatus)
                 <x-table.tr>

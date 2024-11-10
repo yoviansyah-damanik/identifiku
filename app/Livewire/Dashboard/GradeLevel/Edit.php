@@ -17,8 +17,19 @@ class Edit extends Component
     public string $name;
     public string $description;
     public string $educationLevelSearch = '';
+    public array $educationLevels;
     public string $educationLevel;
     public string $educationLevelName;
+
+    public function mount()
+    {
+        $this->setEducationLevels();
+    }
+
+    public function render()
+    {
+        return view('pages.dashboard.grade-level.edit');
+    }
 
     #[On('setEditGradeLevel')]
     public function setEditGradeLevel(GradeLevel $gradeLevel)
@@ -50,21 +61,6 @@ class Edit extends Component
         ];
     }
 
-    public function render()
-    {
-        $educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($educationLevel) => [
-                'title' => $educationLevel->name,
-                'value' => $educationLevel->id,
-                'description' => $educationLevel->fullAddress,
-            ])
-            ->toArray();
-
-        return view('pages.dashboard.grade-level.edit', compact('educationLevels'));
-    }
-
     public function save()
     {
         $this->validate();
@@ -91,9 +87,23 @@ class Edit extends Component
         }
     }
 
-    public function setSearchSearchEducationLevel($data)
+    public function setEducationLevels()
+    {
+        $this->educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($educationLevel) => [
+                'title' => $educationLevel->name,
+                'value' => $educationLevel->id,
+                'description' => $educationLevel->fullAddress,
+            ])
+            ->toArray();
+    }
+
+    public function setSearchEducationLevelSearch($data)
     {
         $this->educationLevelSearch = $data;
+        $this->setEducationLevels();
     }
 
     public function setValueEducationLevel($data)

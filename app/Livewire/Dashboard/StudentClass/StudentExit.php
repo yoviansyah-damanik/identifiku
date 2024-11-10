@@ -35,7 +35,7 @@ class StudentExit extends Component
 
     public function exit()
     {
-        if (in_array($this->class->id, auth()->user()->student->hasClass->pluck('student_class_id')->toArray())) {
+        if (in_array($this->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
             $this->alert('warning', __('You have been in this class'));
             return;
         }

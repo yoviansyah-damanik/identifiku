@@ -45,8 +45,8 @@
                 </button>
             @endif
         </div>
-        <div class="z-50 px-3 mt-1 w-full max-w-[420px] bg-white border rounded-lg shadow-md" x-show="showDropdown"
-            x-on:click.outside="showDropdown = false" x-transition
+        <div class="z-dropdown px-3 mt-1 w-full max-w-[420px] bg-white border rounded-lg shadow-md"
+            x-show="showDropdown" x-on:click.outside="showDropdown = false" x-transition
             x-anchor.no-style="$refs.selectWithSearch{{ Str::of($attributes->whereStartsWith('wire:model')->first())->camel()->ucfirst() }}"
             x-bind:style="{ position: 'fixed', top: $anchor.y + 'px', left: $anchor.x + 'px' }">
             <input type="search" class="block py-2.5 px-3 border rounded-lg w-full mt-3"

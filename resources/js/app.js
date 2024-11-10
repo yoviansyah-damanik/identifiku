@@ -9,3 +9,6 @@ Alpine.plugin(anchor)
 
 import sort from '@alpinejs/sort';
 Alpine.plugin(sort)
+
+import collapse from '@alpinejs/collapse';
+Alpine.plugin(collapse)

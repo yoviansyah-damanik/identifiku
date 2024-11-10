@@ -129,10 +129,16 @@ class Sidebar extends Component
                 'title' => __('Quiz'),
                 'items' => [
                     [
+                        'title' => __('Available Quiz'),
+                        'icon' => 'i-fluent-emoji-flat-abacus',
+                        'to' => route('dashboard.quiz.available'),
+                        'isActive' => request()->routeIs('dashboard.quiz.available')
+                    ],
+                    [
                         'title' => __('Quiz'),
                         'icon' => 'i-fluent-emoji-flat-abacus',
                         'to' => route('dashboard.quiz'),
-                        'isActive' => request()->routeIs('dashboard.quiz')
+                        'isActive' => request()->routeIs('dashboard.quiz*') && !request()->routeIs('dashboard.quiz.available')
                     ],
                     [
                         'title' => __('Quiz Category'),

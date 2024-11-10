@@ -51,11 +51,11 @@ class Index extends Component
                     fn($r) => $r->where('teacher_id', auth()->user()->teacher->id)
                         ->whereHas(
                             'teacher',
-                            fn($s) => $s->where('school_id', auth()->user()->teacher->school->id)
+                            fn($s) => $s->where('school_id', auth()->user()->schoolData->id)
                         ),
                     fn($r) => $r->whereHas(
                         'teacher',
-                        fn($s) => $s->where('school_id', auth()->user()->school->id)
+                        fn($s) => $s->where('school_id', auth()->user()->schoolData->id)
                     )
                 ),
             )

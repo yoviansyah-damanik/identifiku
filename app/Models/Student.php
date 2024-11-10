@@ -68,8 +68,8 @@ class Student extends Model
         return $this->hasMany(ClassRequest::class);
     }
 
-    public function hasClass(): HasMany
+    public function hasClasses(): HasMany
     {
-        return $this->hasMany(StudentHasClass::class);
+        return $this->hasMany(StudentHasClass::class, 'student_id', 'id');
     }
 }

@@ -12,7 +12,7 @@ Route::get('/assessment', \App\Livewire\Main\Assessment\Index::class)
     ->name('assessment');
 Route::get('/assessment/{quiz:id}', \App\Livewire\Main\Assessment\Show::class)
     ->name('assessment.show');
-Route::get('/assessment/preview/{quiz:id}', \App\Livewire\Main\Assessment\Preview::class)
+Route::get('/assessment/{quiz:id}/preview', \App\Livewire\Main\Assessment\Preview::class)
     ->name('assessment.preview');
 // Route::get('/assessment/play/{quiz:id}', \App\Livewire\Main\Assessment\Show::class)
 //     ->name('assessment.play');
@@ -99,10 +99,14 @@ Route::prefix('dashboard')
 
         Route::get('/quiz', \App\Livewire\Dashboard\Quiz\Index::class)
             ->name('.quiz');
+        Route::get('/quiz/available', \App\Livewire\Dashboard\Quiz\Available::class)
+            ->name('.quiz.available');
         Route::get('/quiz/create', \App\Livewire\Dashboard\Quiz\Create::class)
             ->name('.quiz.create');
-        Route::get('/quiz/show/{quiz:id}', \App\Livewire\Dashboard\Quiz\Create::class)
+        Route::get('/quiz/show/{quiz:id}', \App\Livewire\Dashboard\Quiz\Show::class)
             ->name('.quiz.show');
+        Route::get('/quiz/show/{quiz:id}/preview', \App\Livewire\Dashboard\Quiz\Preview::class)
+            ->name('.quiz.preview');
         Route::get('/quiz/edit/{quiz:id}', \App\Livewire\Dashboard\Quiz\Edit::class)
             ->name('.quiz.edit');
         Route::get('/quiz-category', \App\Livewire\Dashboard\QuizCategory\Index::class)

@@ -20,7 +20,11 @@
         <x-no-data />
     @endforelse
 
-    {{ $teachers->links() }}
+    @if ($teachers->hasPages())
+        <div class="px-8 py-3 bg-white col-span-full dark:bg-slate-800 min-h-14 mt-9">
+            {{ $teachers->links() }}
+        </div>
+    @endif
     <div wire:ignore>
         <x-modal name="delete-teacher-modal" size="2xl" :modalTitle="__('Delete :delete', ['delete' => __('Teacher')])">
             <livewire:dashboard.teacher.delete />

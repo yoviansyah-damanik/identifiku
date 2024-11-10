@@ -20,6 +20,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('question_groups')
                 ->onDelete('cascade');
+            $table->enum('time_unit', ['sec', 'min']);
             $table->integer('priority')
                 ->default(0);
             $table->timestamps();

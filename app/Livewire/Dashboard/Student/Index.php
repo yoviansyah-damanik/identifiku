@@ -34,7 +34,8 @@ class Index extends Component
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
-        $this->setSchools();
+        if (auth()->user()->isAdmin)
+            $this->setSchools();
     }
 
     public function render()
@@ -44,11 +45,10 @@ class Index extends Component
             'grade',
             'user',
         )
-            // ->when(
-            //     auth()->user()->roleName == 'Superadmin',
-            //     fn($q) => $q->when($this->school, fn($q) => $q->where('school_id', $this->school))
-            // )
-            ->when($this->school, fn($q) => $q->where('school_id', $this->school))
+            ->when(
+                auth()->user()->roleName == 'Superadmin',
+                fn($q) => $q->when($this->school, fn($q) => $q->where('school_id', $this->school))
+            )
             ->whereAny(['nisn', 'nis', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 
@@ -86,13 +86,13 @@ class Index extends Component
         $this->setSchools();
     }
 
-    public function setValueSchool($data)
+    public function setValueSchoolSearch($data)
     {
         $this->school = $data;
         $this->resetPage();
     }
 
-    public function resetValueSchool()
+    public function resetValueSchoolSearch()
     {
         $this->resetPage();
         $this->reset('school', 'schoolSearch');

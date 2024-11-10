@@ -17,7 +17,9 @@ class Delete extends Component
     #[On('setDeleteSchoolStatus')]
     public function setDeleteSchoolStatus(SchoolStatus $schoolStatus)
     {
-        $this->schoolStatus = $schoolStatus;
+        $this->isLoading = true;
+        $this->schoolStatus = $schoolStatus->load('schools')
+            ->loadCount('schools');
         $this->isLoading = false;
     }
 
@@ -50,5 +52,12 @@ class Delete extends Component
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
         }
+    }
+
+    #[On('clearModal')]
+    public function clearModal()
+    {
+        $this->reset();
+        $this->isLoading = true;
     }
 }

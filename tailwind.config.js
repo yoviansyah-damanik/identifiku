@@ -18,9 +18,10 @@ export default {
             zIndex: {
                 'header': '990',
                 'sidebar': '991',
-                'modal': '992',
-                'loading-state': '993',
-                'loading-screen': '994',
+                'dropdown': '992',
+                'modal': '993',
+                'loading-state': '994',
+                'loading-screen': '995',
             },
             fontFamily: {
                 'body': ['QuickSand', 'sans-serif'],

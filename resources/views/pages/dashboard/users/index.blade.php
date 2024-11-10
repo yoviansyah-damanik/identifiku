@@ -13,7 +13,7 @@
         <x-form.select :items="$activationTypes" wire:model.live='activationType' />
     </div>
 
-    <x-table :columns="['#', __('User Data'), __('Email'), __('Role'), __('Last Login'), __('Status'), '']">
+    <x-table :columns="['#', __('User Data'), __('Email'), __('Role'), __('Last Login'), __('Status'), '']" :hasPages="$users->hasPages()">
         <x-slot name="body">
             @forelse ($users as $user)
                 <x-table.tr>

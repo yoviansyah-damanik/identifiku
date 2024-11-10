@@ -19,6 +19,7 @@ class Edit extends Component
     #[On('setEditSchoolStatus')]
     public function setEditSchoolStatus(SchoolStatus $schoolStatus)
     {
+        $this->isLoading = true;
         $this->schoolStatus = $schoolStatus;
         $this->name = $schoolStatus->name;
         $this->description = $schoolStatus->description;

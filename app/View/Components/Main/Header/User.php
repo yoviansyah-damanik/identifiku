@@ -24,17 +24,17 @@ class User extends Component
         $navigations = [
             [
                 'title' => __('Dashboard'),
-                'icon' => 'i-ph-house',
+                'icon' => 'i-fluent-emoji-flat-antenna-bars',
                 'url' => route('dashboard'),
             ],
             [
                 'title' => __('Assessment History'),
-                'icon' => 'i-ph-house',
+                'icon' => 'i-fluent-emoji-flat-bookmark-tabs',
                 'url' => route('dashboard.assessment-history'),
             ],
             [
                 'title' => __('Account Settings'),
-                'icon' => 'i-ph-house',
+                'icon' => 'i-fluent-emoji-flat-identification-card',
                 'url' => route('dashboard.account'),
             ],
         ];

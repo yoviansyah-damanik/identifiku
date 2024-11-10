@@ -21,7 +21,7 @@
         </table>
     </div>
 
-    @if (isset($paginate) && !$paginate->isEmpty())
+    @if ($hasPages)
         <div class="px-8 py-3 bg-white dark:bg-slate-800 min-h-14 mt-9">
             {{ $paginate }}
         </div>

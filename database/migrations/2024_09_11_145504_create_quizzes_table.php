@@ -29,6 +29,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('quiz_phases');
             $table->boolean('is_active')->default(false);
+            $table->string('type');
             $table->softDeletes();
             $table->timestamps();
         });

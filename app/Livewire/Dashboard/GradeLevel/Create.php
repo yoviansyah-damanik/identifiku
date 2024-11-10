@@ -15,12 +15,23 @@ class Create extends Component
     public string $name;
     public string $description;
 
-    public string $educationLevelSearch = '';
-    public string $educationLevel = '';
+    public array $educationLevels;
+    public string $educationLevel;
+    public string $educationLevelSearch  = '';
+
+    public function mount()
+    {
+        $this->setEducationLevels();
+    }
 
     public function render()
     {
-        $educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch . '%')
+        return view('pages.dashboard.grade-level.create');
+    }
+
+    public function setEducationLevels()
+    {
+        $this->educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch  . '%')
             ->limit(10)
             ->get()
             ->map(fn($educationLevel) => [
@@ -29,8 +40,6 @@ class Create extends Component
                 'description' => $educationLevel->fullAddress,
             ])
             ->toArray();
-
-        return view('pages.dashboard.grade-level.create', compact('educationLevels'));
     }
 
     public function rules()
@@ -80,9 +89,10 @@ class Create extends Component
         }
     }
 
-    public function setSearchSearchEducationLevel($data)
+    public function setSearchEducationLevelSearch($data)
     {
         $this->educationLevelSearch = $data;
+        $this->setEducationLevels();
     }
 
     public function setValueEducationLevel($data)
@@ -101,7 +111,6 @@ class Create extends Component
     {
         $this->resetValueEducationLevel();
         $this->dispatch('resetValueEducationLevel');
-        $this->reset();
         $this->isLoading = false;
     }
 }

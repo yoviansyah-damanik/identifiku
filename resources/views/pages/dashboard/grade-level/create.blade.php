@@ -5,7 +5,7 @@
                 error="{{ $errors->first('name') }}" wire:model.blur='name' required />
             <x-form.input :loading="$isLoading" :label="__('Description')" block :placeholder="__('Entry :entry', ['entry' => __('Description')])" type='text'
                 error="{{ $errors->first('description') }}" wire:model.blur='description' required />
-            <x-form.select-with-search :loading="$isLoading" block searchVar="searchEducationLevel" :items="$educationLevels"
+            <x-form.select-with-search :loading="$isLoading" block searchVar="educationLevelSearch" :items="$educationLevels"
                 wire:model="educationLevel" error="{{ $errors->first('educationLevel') }}" :label="__('Choose a :item', ['item' => __('Education Level')])"
                 :buttonText="__('Choose a :item', ['item' => __('Education Level')])" />
         </div>

@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\QuizCategory;
-use App\Models\QuizPhase;
 use App\Models\User;
+use App\Enums\QuizType;
+use App\Models\QuizPhase;
+use App\Models\QuizCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,6 +29,7 @@ class QuizFactory extends Factory
             'user_id' => User::role(['Superadmin', 'Administrator'])->inRandomOrder()->first()->id,
             'quiz_category_id' => QuizCategory::inRandomOrder()->first()->id,
             'quiz_phase_id' => QuizPhase::inRandomOrder()->first()->id,
+            'type' => QuizType::cases()[rand(0, count(QuizType::cases()) - 1)]
         ];
     }
 }

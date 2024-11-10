@@ -14,7 +14,6 @@ class QuizBox extends Component
      */
     public function __construct(
         public Quiz $quiz,
-        public bool $withBox = false
     ) {
         //
     }
