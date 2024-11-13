@@ -16,14 +16,23 @@
         <x-teacher-sub-item :title="__('Age')" :value="GeneralHelper::getAge($teacher->date_of_birth, true, true)" />
         <x-teacher-sub-item :title="__(':name Name', ['name' => __('School')])">
             <div class="flex items-center gap-3">
-                <x-href href="{{ route('dashboard.school', ['search' => $teacher->school->name]) }}" wire:navigate>
+                @if (auth()->user()->isAdmin)
+                    <x-href href="{{ route('dashboard.school', ['search' => $teacher->school->name]) }}" wire:navigate>
+                        {{ $teacher->school->name }}
+                    </x-href>
+                    <x-tooltip :title="__('View all teachers')">
+                        <x-button color="primary-transparent" size="sm" icon="i-ph-list-magnifying-glass"
+                            x-on:click="$wire.setSearchSchool('{{ $teacher->school_id }}')" />
+                    </x-tooltip>
+                @else
                     {{ $teacher->school->name }}
-                </x-href>
-                <x-tooltip :title="__('View all teachers')">
-                    <x-button color="primary-transparent" size="sm" icon="i-ph-list-magnifying-glass"
-                        x-on:click="$wire.setSearchSchool('{{ $teacher->school_id }}')" />
-                </x-tooltip>
+                @endif
             </div>
+        </x-teacher-sub-item>
+        <x-teacher-sub-item :title="__('User Status')">
+            <x-badge :type="$teacher->user->is_suspended ? 'error' : 'success'">
+                {{ $teacher->user->is_suspended ? __('Suspended') : __('Active') }}
+            </x-badge>
         </x-teacher-sub-item>
         <x-school-sub-item :title="__('Action')">
             <div class="flex flex-col items-start gap-1">

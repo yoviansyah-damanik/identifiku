@@ -45,7 +45,7 @@ class Available extends Component
                 !auth()->user()->isAdmin,
                 fn($q) => $q->whereHas(
                     'teacher',
-                    fn($r) => $r->where('school_id', auth()->user()->schoolData->id)
+                    fn($r) => $r->where('school_id', auth()->user()->getSchoolData->id)
                 ),
                 fn($q) => $q->whereHas(
                     'teacher',

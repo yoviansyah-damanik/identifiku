@@ -47,7 +47,8 @@ class Index extends Component
         )
             ->when(
                 auth()->user()->roleName == 'Superadmin',
-                fn($q) => $q->when($this->school, fn($q) => $q->where('school_id', $this->school))
+                fn($q) => $q->when($this->school, fn($q) => $q->where('school_id', $this->school)),
+                fn($q) => $q->where('school_id', auth()->user()->getSchoolData->id)
             )
             ->whereAny(['nisn', 'nis', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);

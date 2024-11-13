@@ -30,7 +30,7 @@
             <div class="flex flex-col items-start gap-1">
                 @role('Student')
                     <x-button color="cyan" size="sm" icon="i-ph-eye"
-                        href="{{ route('dashboard.student-class.show', $class->id) }}">
+                        href="{{ route('dashboard.student-class.show', $class->class) }}">
                         {{ __('Show') }}
                     </x-button>
                     <x-button color="red" size="sm" icon="i-ph-arrow-square-out"

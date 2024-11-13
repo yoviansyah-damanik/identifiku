@@ -27,5 +27,11 @@
         <x-modal name="delete-school-modal" size="2xl" :modalTitle="__('Delete :delete', ['delete' => __('School')])">
             <livewire:dashboard.school.delete />
         </x-modal>
+        <x-modal name="user-activation-modal" size="xl" :modalTitle="__('User Activation')">
+            <livewire:dashboard.users.user-activation />
+        </x-modal>
+        <x-modal name="forgot-password-modal" size="xl" :modalTitle="__('Forgot Password')">
+            <livewire:dashboard.users.forgot-password />
+        </x-modal>
     </div>
 </x-content>

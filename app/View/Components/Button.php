@@ -68,6 +68,7 @@ class Button extends Component
             'default' => 'text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700',
             'transparent' => 'bg-transparent dark:text-gray-500 dark:hover:text-primary-500 outline-none border-none',
             'primary-transparent' => 'bg-primary-50 hover:text-primary-500 hover:bg-primary-100 dark:text-gray-500 dark:hover:text-primary-500 outline-none border-none',
+            'secondary-transparent' => 'bg-secondary-50 hover:text-secondary-500 hover:bg-secondary-100 dark:text-gray-500 dark:hover:text-secondary-500 outline-none border-none',
             'inactive' => 'bg-gray-100 border border-gray-200'
         ];
 
@@ -78,7 +79,7 @@ class Button extends Component
     {
         $sizeVariants = [
             'sm' => 'text-sm py-1.5 px-2',
-            'md' => 'py-2.5 px-5'
+            'md' => 'py-2.5 px-9'
         ];
         return $sizeVariants[$size];
     }

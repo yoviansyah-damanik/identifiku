@@ -45,18 +45,18 @@
     </div>
     @if ($step <= $stepMax)
         <div class="flex justify-between items-center !mt-7">
-            <x-button type="button" color="red" icon='i-ph-arrow-left' :loading="$step == 1" wire:click="prev"
-                wire:loading.attr="disabled" wire:target="prev, next, submit">
+            <x-button type="button" color="red" icon='i-ph-arrow-left' :withBorderIcon="false" :loading="$step == 1"
+                wire:click="prev" :target="['prev', 'next', 'submit']">
                 {{ __('Previous') }}
             </x-button>
             @if ($step != $stepMax)
-                <x-button type="button" color="green" icon='i-ph-arrow-right' iconPosition='right' wire:click="next"
-                    wire:loading.attr="disabled" wire:target="prev, next, submit">
+                <x-button type="button" color="green" icon='i-ph-arrow-right' :withBorderIcon="false" iconPosition='right'
+                    wire:click="next" :target="['prev', 'next', 'submit']">
                     {{ __('Next') }}
                 </x-button>
             @else
-                <x-button color="primary" wire:loading.attr="disabled" wire:target="prev, next, submit">
-                    {{ __('Submit') }}
+                <x-button color="primary" :target="['prev', 'next', 'submit']">
+                    {{ __('Save') }}
                 </x-button>
             @endif
         </div>

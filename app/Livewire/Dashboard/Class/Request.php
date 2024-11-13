@@ -49,11 +49,11 @@ class Request extends Component
                     fn($r) => $r->whereHas('class', fn($s) => $s->where('teacher_id', auth()->user()->teacher->id))
                         ->whereHas(
                             'class.teacher',
-                            fn($s) => $s->where('school_id', auth()->user()->schoolData->id)
+                            fn($s) => $s->where('school_id', auth()->user()->getSchoolData->id)
                         ),
                     fn($r) => $r->whereHas(
                         'class.teacher',
-                        fn($s) => $s->where('school_id', auth()->user()->schoolData->id)
+                        fn($s) => $s->where('school_id', auth()->user()->getSchoolData->id)
                     )
                 ),
                 fn($q) => $q->whereHas(

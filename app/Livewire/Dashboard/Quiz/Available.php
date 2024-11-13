@@ -44,7 +44,7 @@ class Available extends Component
             ->where('name', 'like', '%' . $this->search . '%')
             ->when($this->quizCategory, fn($q) => $q->where('quiz_category_id', $this->quizCategory))
             ->when($this->quizPhase, fn($q) => $q->where('quiz_phase_id', $this->quizPhase))
-            ->where('is_active', true)
+            ->published()
             ->paginate($this->perPage);
 
         return view('pages.dashboard.quiz.available', compact('quizzes'))

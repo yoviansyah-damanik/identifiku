@@ -52,14 +52,14 @@
             </div>
         </div>
         <div class="flex items-center justify-between mt-3">
-            <x-badge :type="$quiz->is_active ? 'success' : 'error'" size="sm">
+            {{-- <x-badge :type="$quiz->is_active ? 'success' : 'error'" size="sm">
                 {{ $quiz->is_active ? __('Active') : __('Inactive') }}
-            </x-badge>
+            </x-badge> --}}
             @if (request()->routeIs('dashboard*'))
                 <div>
                     <x-tooltip :title="__('Show')">
                         <x-button icon="i-ph-eye" color="cyan" size="sm"
-                            href="{{ route('dashboard.quiz.show', $quiz->id) }}" />
+                            href="{{ route('dashboard.quiz.show', $quiz->slug) }}" />
                     </x-tooltip>
                     <x-tooltip :title="__('Edit')">
                         <x-button icon="i-ph-pen" color="yellow" size="sm" />
@@ -67,6 +67,6 @@
                 </div>
             @endif
         </div>
-        <a class="absolute inset-0" href="{{ route('assessment.show', $quiz->id) }}" wire:navigate></a>
+        <a class="absolute inset-0" href="{{ route('assessment.show', $quiz->slug) }}" wire:navigate></a>
     </div>
 </div>

@@ -62,7 +62,7 @@
                             <x-table.td centered>
                                 <x-button color="red" size="sm" icon="i-ph-arrow-square-out"
                                     x-on:click="$dispatch('toggle-kick-class-modal')"
-                                    wire:click="$dispatch('setKickStudent',{class: '{{ $class->id }}', student:'{{ $student->id }}'})">
+                                    wire:click="$dispatch('setKickStudent',{class: '{{ $class->slug }}', student:'{{ $student->id }}'})">
                                     {{ __('Get Student Out') }}
                                 </x-button>
                             </x-table.td>

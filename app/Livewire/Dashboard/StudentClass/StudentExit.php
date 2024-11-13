@@ -35,19 +35,15 @@ class StudentExit extends Component
 
     public function exit()
     {
-        if (in_array($this->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
-            $this->alert('warning', __('You have been in this class'));
-            return;
-        }
-
-        if (!in_array($this->class->id, auth()->user()->student->classRequests->pluck('student_class_id')->toArray())) {
+        if (!in_array($this->class->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
             $this->alert('warning', __('You never made a class request for this class'));
             return;
         }
 
         try {
-            // ClassRequest::where('student_class_id', $this->class->id)
-            //     ->delete();
+            StudentHasClass::where('student_id', auth()->user()->student->id)
+                ->where('student_class_id', $this->class->class->id)
+                ->delete();
 
             $this->dispatch('toggle-exit-class-modal');
             $this->dispatch('refreshClassData');

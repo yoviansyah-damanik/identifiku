@@ -47,8 +47,8 @@
             title: '{{ __(':attribute copied successfully.', ['attribute' => __('Token')]) }}'
         });
     },
-    copyLink() {
-        const text = '{{ route('registration.student.final', ['school' => $school->id, 'token' => $school->token]) }}';
+    copyLink(type) {
+        const text = type == 'student' ? '{{ route('registration.student.final', ['school' => $school->id, 'token' => $school->token]) }}' : '{{ route('registration.teacher.final', ['school' => $school->id, 'token' => $school->token]) }}';
 
         if (!navigator.clipboard) {
             this.fallbackCopyTextToClipboard(text);
@@ -93,8 +93,11 @@
         <x-tooltip :title="__('Copy')">
             <x-button color="primary-transparent" size="sm" x-on:click="copyToken()" icon="i-ph-clipboard" />
         </x-tooltip>
-        <x-tooltip :title="__('Copy Link')">
-            <x-button color="primary-transparent" size="sm" x-on:click="copyLink()" icon="i-ph-link" />
+        <x-tooltip :title="__('Copy Link for Student')">
+            <x-button color="primary-transparent" size="sm" x-on:click="copyLink('student')" icon="i-ph-link" />
+        </x-tooltip>
+        <x-tooltip :title="__('Copy Link for Teacher')">
+            <x-button color="primary-transparent" size="sm" x-on:click="copyLink('teacher')" icon="i-ph-link" />
         </x-tooltip>
         <x-tooltip :title="__('Regenerate')">
             <x-button color="primary-transparent" size="sm"

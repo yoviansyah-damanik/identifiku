@@ -14,7 +14,7 @@ class Index extends Component
     public function mount()
     {
         $this->choices = ['account', 'user', 'password'];
-        $this->choice = $this->choices[1];
+        $this->choice = $this->choices[0];
     }
 
     public function render()

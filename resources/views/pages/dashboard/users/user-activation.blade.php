@@ -29,17 +29,23 @@
                 </div>
 
                 <div class="space-y-1">
-                    <div class="flex">
-                        <div class="w-48">{{ __('Username') }}</div>
-                        <div class="flex-1 font-semibold">{{ $user->username }}</div>
-                    </div>
-                    <div class="flex">
-                        <div class="w-48">{{ __('Email') }}</div>
-                        <div class="flex-1 font-semibold">{{ $user->email }}</div>
-                    </div>
-                    <div class="flex">
+                    @if (auth()->user()->isAdmin)
+                        <div class="flex gap-3">
+                            <div class="w-48">{{ __('Username') }}</div>
+                            <div class="flex-1 font-semibold">{{ $user->username }}</div>
+                        </div>
+                        <div class="flex gap-3">
+                            <div class="w-48">{{ __('Email') }}</div>
+                            <div class="flex-1 font-semibold">{{ $user->email }}</div>
+                        </div>
+                    @endif
+                    <div class="flex gap-3">
                         <div class="w-48">{{ __('Fullname') }}</div>
                         <div class="flex-1 font-semibold">{{ $user->{Str::lower($user->roleName)}->name }}</div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="w-48">{{ __(':name Name', ['name' => __('School')]) }}</div>
+                        <div class="flex-1 font-semibold">{{ $user->getSchoolData->name }}</div>
                     </div>
                 </div>
             </div>
@@ -52,7 +58,7 @@
             {{ __('Close') }}
         </x-button>
         <x-button color="primary" wire:click='save' :loading="$isLoading">
-            {{ __('Submit') }}
+            {{ __('Save') }}
         </x-button>
     </x-modal.footer>
 </div>

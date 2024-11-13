@@ -22,6 +22,7 @@ class Show extends Component
                 fn($q) => $q->where('quiz_category_id', $this->quiz->quiz_category_id)
                     ->orWhere('quiz_phase_id', $this->quiz->quiz_phase_id)
             )
+            ->published()
             ->inRandomOrder()
             ->limit(4)
             ->get();

@@ -53,23 +53,19 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-between mt-3">
-            <x-badge :type="$quiz->is_active ? 'success' : 'error'" size="sm">
-                {{ $quiz->is_active ? __('Active') : __('Inactive') }}
-            </x-badge>
-            <div>
+        <div class="flex items-center justify-end gap-1 mt-3">
+            @haspermission('quiz show')
                 <x-tooltip :title="__('Show')">
                     <x-button icon="i-ph-eye" color="cyan" size="sm"
-                        href="{{ route('dashboard.quiz.show', $quiz->id) }}" />
+                        href="{{ route('dashboard.quiz.show', $quiz->slug) }}" />
                 </x-tooltip>
-                @role('Teacher')
-                    <x-tooltip :title="__('Add')">
-                        <x-button icon="i-ph-plus" x-on:click="$dispatch('toggle-add-quiz-modal')"
-                            wire:click="$dispatch('setAddQuiz',{quiz:'{{ $quiz->id }}'})" color="primary"
-                            size="sm" />
-                    </x-tooltip>
-                @endrole
-            </div>
+            @endhaspermission
+            @haspermission('quiz add')
+                <x-tooltip :title="__('Add')">
+                    <x-button icon="i-ph-plus" x-on:click="$dispatch('toggle-add-quiz-modal')"
+                        wire:click="$dispatch('setAddQuiz',{quiz:'{{ $quiz->slug }}'})" color="primary" size="sm" />
+                </x-tooltip>
+            @endhaspermission
         </div>
     </div>
 </div>

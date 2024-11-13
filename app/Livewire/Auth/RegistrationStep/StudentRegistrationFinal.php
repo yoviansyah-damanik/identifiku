@@ -5,6 +5,7 @@ namespace App\Livewire\Auth\RegistrationStep;
 use Carbon\Carbon;
 use App\Jobs\Mailer;
 use App\Enums\Genders;
+use App\Helpers\GeneralHelper;
 use App\Models\School;
 use Livewire\Component;
 use App\Models\GradeLevel;
@@ -40,9 +41,6 @@ class StudentRegistrationFinal extends Component
     public string $password;
     public string $rePassword;
 
-    public string $gradeLevelSearch = '';
-    public string $gradeLevel = '';
-
     public string $schoolId;
     public string $token;
 
@@ -61,6 +59,10 @@ class StudentRegistrationFinal extends Component
     public int $maxNisn = 8;
 
     public bool $isLoading = false;
+
+    public array $gradeLevels;
+    public ?string $gradeLevel = null;
+    public string $gradeLevelSearch  = '';
 
     public function dev()
     {
@@ -81,7 +83,9 @@ class StudentRegistrationFinal extends Component
 
     public function mount()
     {
-        $this->dev();
+        if (!GeneralHelper::isProduction())
+            $this->dev();
+
         $this->schoolId = Route::current()->parameter('school');
         $this->token = Route::current()->parameter('token');
         $school = School::whereId($this->schoolId)->whereToken($this->token)->first();
@@ -97,24 +101,40 @@ class StudentRegistrationFinal extends Component
             ->map(fn($gender) => ['value' => $gender->name, 'label' => $gender->value])
             ->toArray();
 
+        $this->setGradeLevels();
         $this->successfulMessage = __('Student enrollment was successful. Please contact the School Administrator to confirm.');
     }
 
     public function render()
     {
-        $gradeLevels = GradeLevel::where('name', 'like', '%' . $this->gradeLevelSearch . '%')
+        return view('pages.auth.registration-step.student-registration-final')
+            ->title(__('Registration'));
+    }
+
+    public function setGradeLevels()
+    {
+        $this->gradeLevels = GradeLevel::where('name', 'like', '%' . $this->gradeLevelSearch  . '%')
             ->where('education_level_id', $this->educationLevel)
             ->limit(10)
             ->get()
             ->map(fn($gradeLevel) => [
                 'title' => $gradeLevel->name,
                 'value' => $gradeLevel->id,
-                // 'description' => $gradeLevel->description,
+                'description' => $gradeLevel->fullAddress,
             ])
             ->toArray();
+    }
 
-        return view('pages.auth.registration-step.student-registration-final', compact('gradeLevels'))
-            ->title(__('Registration'));
+    public function setSearchGradeLevelSearch($data)
+    {
+        $this->gradeLevelSearch = $data;
+        $this->setGradeLevels();
+    }
+
+    public function setValueGradeLevel($data)
+    {
+        $this->gradeLevel = $data;
+        $this->resetValidation('gradeLevel');
     }
 
     public function rules()
@@ -219,22 +239,6 @@ class StudentRegistrationFinal extends Component
     public function resetStep()
     {
         $this->step = $this->stepMin;
-    }
-
-    public function setSearchSearchGradeLevel($data)
-    {
-        $this->gradeLevelSearch = $data;
-    }
-
-    public function setValueGradeLevel($data)
-    {
-        $this->gradeLevel = $data;
-        $this->resetValidation('gradeLevel');
-    }
-
-    public function resetValueGradeLevel()
-    {
-        $this->reset('gradeLevel', 'gradeLevelSearch');
     }
 
     public function submit()

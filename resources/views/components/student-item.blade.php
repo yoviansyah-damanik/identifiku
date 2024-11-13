@@ -18,13 +18,18 @@
         <x-student-sub-item :title="__('Age')" :value="GeneralHelper::getAge($student->date_of_birth, true, true)" />
         <x-student-sub-item :title="__(':name Name', ['name' => __('School')])">
             <div class="flex items-center gap-3">
-                <x-href href="{{ route('dashboard.school', ['search' => $student->school->name]) }}" wire:navigate>
+                @if (auth()->user()->isAdmin)
+                    <x-href href="{{ route('dashboard.school', ['search' => $student->school->name]) }}" wire:navigate>
+                        {{ $student->school->name }}
+                    </x-href>
+
+                    <x-tooltip :title="__('View all students')">
+                        <x-button color="primary-transparent" size="sm" icon="i-ph-list-magnifying-glass"
+                            x-on:click="$wire.setSearchSchool('{{ $student->school_id }}')" />
+                    </x-tooltip>
+                @else
                     {{ $student->school->name }}
-                </x-href>
-                <x-tooltip :title="__('View all students')">
-                    <x-button color="primary-transparent" size="sm" icon="i-ph-list-magnifying-glass"
-                        x-on:click="$wire.setSearchSchool('{{ $student->school_id }}')" />
-                </x-tooltip>
+                @endif
             </div>
         </x-student-sub-item>
         <x-student-sub-item :title="__('User Status')">
@@ -43,13 +48,11 @@
                     wire:click="$dispatch('setForgotPassword',{ user: '{{ $student->user->id }}' })">
                     {{ __('Forgot Password') }}
                 </x-button>
-                @if ($student->user->type != \App\Models\Staff::class)
-                    <x-button size="sm" icon="i-ph-user-check" color="green"
-                        x-on:click="$dispatch('toggle-user-activation-modal')"
-                        wire:click="$dispatch('setUserActivation',{ user: '{{ $student->user->id }}' })">
-                        {{ __('Activation Menu') }}
-                    </x-button>
-                @endif
+                <x-button size="sm" icon="i-ph-user-check" color="green"
+                    x-on:click="$dispatch('toggle-user-activation-modal')"
+                    wire:click="$dispatch('setUserActivation',{ user: '{{ $student->user->id }}' })">
+                    {{ __('Activation Menu') }}
+                </x-button>
             </div>
         </x-student-sub-item>
     </div>

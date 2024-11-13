@@ -58,7 +58,7 @@
             <div>
                 <x-tooltip :title="__('Show')">
                     <x-button icon="i-ph-eye" color="cyan" size="sm"
-                        href="{{ route('dashboard.quiz.show', $quiz->id) }}" />
+                        href="{{ route('dashboard.quiz.show', $quiz->slug) }}" />
                 </x-tooltip>
                 <x-tooltip :title="__('Edit')">
                     <x-button icon="i-ph-pen" color="yellow" size="sm" />

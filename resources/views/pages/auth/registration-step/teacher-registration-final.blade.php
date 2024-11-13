@@ -8,7 +8,7 @@
             <x-form.input class="flex-1" block :loading="$isLoading" :label="__('Subject')" :placeholder="__('Entry :entry', ['entry' => __('Subject')])" type='text'
                 wire:model.blur='subject' error="{{ $errors->first('subject') }}" />
         </div>
-        <x-form.input :loading="$isLoading" :label="__(':name Name', ['name' => __('Student')])" block :placeholder="__('Entry :entry', ['entry' => __(':name Name', ['name' => __('Student')])])" type='text' wire:model.blur='name'
+        <x-form.input :loading="$isLoading" :label="__(':name Name', ['name' => __('Teacher')])" block :placeholder="__('Entry :entry', ['entry' => __(':name Name', ['name' => __('Teacher')])])" type='text' wire:model.blur='name'
             error="{{ $errors->first('name') }}" />
         <div class="flex items-center gap-3 sm:gap-4">
             <x-form.input class="flex-1" block :loading="$isLoading" :label="__('Place of Birth')" :placeholder="__('Entry :entry', ['entry' => __('Place of Birth')])" type='text'
@@ -53,7 +53,7 @@
                 </x-button>
             @else
                 <x-button color="primary" wire:loading.attr="disabled" wire:target="prev, next, submit">
-                    {{ __('Submit') }}
+                    {{ __('Save') }}
                 </x-button>
             @endif
         </div>

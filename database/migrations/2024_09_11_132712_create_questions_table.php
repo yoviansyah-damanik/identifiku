@@ -15,13 +15,11 @@ return new class extends Migration
             $table->uuid('id')
                 ->primary();
             $table->string('text');
-            $table->string('type');
             $table->foreignId('question_group_id')
                 ->references('id')
                 ->on('question_groups')
                 ->onDelete('cascade');
-            $table->enum('time_unit', ['sec', 'min']);
-            $table->integer('priority')
+            $table->integer('order')
                 ->default(0);
             $table->timestamps();
         });

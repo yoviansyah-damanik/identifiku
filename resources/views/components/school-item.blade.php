@@ -24,6 +24,13 @@
                     ($school->students_count > 1 ? __('Students') : __('Student')) }}
             </x-href>
         </x-school-sub-item>
+        <x-school-sub-item :title="__('Number of :subject', ['subject' => __('Teachers')])">
+            <x-href href="{{ route('dashboard.teacher', ['school' => $school->id]) }}" wire:navigate>
+                {{ GeneralHelper::numberFormat($school->teachers_count) .
+                    ' ' .
+                    ($school->teachers_count > 1 ? __('Teachers') : __('Teacher')) }}
+            </x-href>
+        </x-school-sub-item>
         <x-school-sub-item :title="__('Activation')">
             <x-form.toggle :label="__('Active')" :label2="__('Inactive')" :isChecked="$school->is_active"
                 wire:change="setActivationStatus('{{ $school->id }}')" />
@@ -47,6 +54,16 @@
                 <x-button color="red" size="sm" x-on:click="$dispatch('toggle-delete-school-modal')"
                     wire:click="$dispatch('setDeleteSchool',{ school: '{{ $school->id }}' })" icon="i-ph-trash">
                     {{ __('Delete') }}
+                </x-button>
+                <x-button size="sm" icon="i-ph-key" color="cyan"
+                    x-on:click="$dispatch('toggle-forgot-password-modal')"
+                    wire:click="$dispatch('setForgotPassword',{ user: '{{ $school->user->id }}' })">
+                    {{ __('Forgot Password') }}
+                </x-button>
+                <x-button size="sm" icon="i-ph-user-check" color="green"
+                    x-on:click="$dispatch('toggle-user-activation-modal')"
+                    wire:click="$dispatch('setUserActivation',{ user: '{{ $school->user->id }}' })">
+                    {{ __('Activation Menu') }}
                 </x-button>
             </div>
         </x-school-sub-item>

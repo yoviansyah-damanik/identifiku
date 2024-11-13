@@ -32,7 +32,7 @@ class Delete extends Component
         $this->isLoading = true;
         try {
             $this->class->quizzes()->delete();
-            $this->class->students()->delete();
+            $this->class->studentHasClasses()->delete();
             $this->class->delete();
 
             $this->dispatch('toggle-delete-class-modal');

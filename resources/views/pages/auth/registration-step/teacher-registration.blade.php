@@ -5,6 +5,6 @@
         error="{{ $errors->first('token') }}" />
     <x-button :loading="$isLoading" wire:target="login,school,token" color="primary" type="submit" block
         radius="rounded-full" base="!mt-8 lg:!mt-10">
-        {{ __('Submit') }}
+        {{ __('Save') }}
     </x-button>
 </form>

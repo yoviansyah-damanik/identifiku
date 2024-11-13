@@ -74,6 +74,25 @@ class User extends Authenticatable
         );
     }
 
+    public function getSchoolData(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                if ($this->roleName == 'Student') {
+                    return $this->student->school;
+                }
+
+                if ($this->roleName == 'Teacher') {
+                    return $this->teacher->school;
+                }
+
+                if ($this->roleName == 'School') {
+                    return $this->school;
+                }
+            }
+        );
+    }
+
     public function roleName(): Attribute
     {
         return new Attribute(
@@ -126,10 +145,5 @@ class User extends Authenticatable
     {
         return $this->hasOneThrough(Administrator::class, UserHasRelation::class, 'user_id', 'id', 'id', 'modelable_id')
             ->where('modelable_type', Administrator::class);
-    }
-
-    public function schoolData(): BelongsTo
-    {
-        return $this->belongsTo(School::class, 'school_id', 'id');
     }
 }

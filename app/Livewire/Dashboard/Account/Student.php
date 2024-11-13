@@ -2,12 +2,114 @@
 
 namespace App\Livewire\Dashboard\Account;
 
+use Carbon\Carbon;
+use App\Enums\Genders;
 use Livewire\Component;
+use App\Rules\PhoneNumber;
+use Illuminate\Validation\Rule;
+use Illuminate\Database\Query\Builder;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Student extends Component
 {
+    use LivewireAlert;
+
+    public string $name;
+    public string $dateOfBirth;
+    public string $placeOfBirth;
+    public string $address;
+    public string $phoneNumber;
+    public string $gender;
+
+    public array $genders;
+    public bool $isLoading = false;
+
+    public int $maxNis = 8;
+    public int $maxNisn = 8;
+
+    public function mount()
+    {
+        $this->genders = collect(Genders::cases())
+            ->map(fn($gender) => ['value' => $gender->name, 'label' => $gender->value])
+            ->toArray();
+
+        $user = auth()->user()->student;
+        $this->name = $user->name;
+        $this->dateOfBirth = $user->date_of_birth->format('Y-m-d');
+        $this->placeOfBirth = $user->place_of_birth;
+        $this->address = $user->address;
+        $this->phoneNumber = $user->phone_number;
+        $this->gender = $user->gender;
+    }
+
     public function render()
     {
         return view('pages.dashboard.account.student');
+    }
+
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:60',
+            'nis' => [
+                'nullable',
+                'string',
+                'digits:' . $this->maxNis,
+                'unique:student_requests,nis',
+                Rule::unique('students', 'nis')->where(fn(Builder $query) => $query->where('school_id', $this->schoolId))->ignore(auth()->user()->student->id)
+            ],
+            'nisn' => 'required|string|digits:' . $this->maxNisn . '|unique:students,nisn|unique:student_requests,nisn',
+            'address' => 'required|string|max:255',
+            'placeOfBirth' => 'required|string|max:40',
+            'dateOfBirth' => 'required|date|beforeOrEqual:' . \Carbon\Carbon::now()->addYears(-5)->format('Y-m-d'),
+            'gender' => [
+                'required',
+                Rule::in(Genders::names())
+            ],
+            'phoneNumber' => ['required', new PhoneNumber],
+            'gradeLevel' => [
+                'required',
+                Rule::in($this->gradeLevelList)
+            ]
+        ];
+    }
+
+    public function validationAttributes()
+    {
+        return [
+            'nis' => 'NIS',
+            'nisn' => 'NISN',
+            'name' => __(':name Name', ['name' => __('Student')]),
+            'placeOfBirth' => __('Place of Birth'),
+            'dateOfBirth' => __('Date of Birth'),
+            'gender' => __('Gender'),
+            'phoneNumber' => __('Phone Number'),
+            'address' => __('Address'),
+            'gradeLevel' => __('Grade Level'),
+        ];
+    }
+
+    public function submit()
+    {
+        $this->validate();
+        $this->isLoading = true;
+        try {
+            auth()->user()->student->update([
+                'name' => $this->name,
+                'address' => $this->address,
+                'place_of_birth' => $this->placeOfBirth,
+                'date_of_birth' => \Carbon\Carbon::parse($this->dateOfBirth)->format('Y-m-d'),
+                'gender' => $this->gender,
+                'phone_number' => $this->phoneNumber,
+            ]);
+            $this->isLoading = false;
+            $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Account')]));
+        } catch (\Exception $e) {
+            $this->isLoading = false;
+            $this->alert('warning', $e->getMessage());
+        } catch (\Throwable $e) {
+            $this->isLoading = false;
+            $this->alert('warning', $e->getMessage());
+        }
     }
 }

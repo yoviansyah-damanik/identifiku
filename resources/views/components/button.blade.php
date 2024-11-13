@@ -9,9 +9,9 @@
             ])>
                 <div @class([
                     'grid border-inherit place-items-center',
-                    'border-r pr-2' =>
+                    'border-e pe-2' =>
                         !$slot->isEmpty() && $iconPosition == 'left' && $withBorderIcon,
-                    'border-l pl-2' =>
+                    'border-s ps-2' =>
                         !$slot->isEmpty() && $iconPosition == 'right' && $withBorderIcon,
                 ])>
                     <span class="{{ $iconClass }}"></span>
@@ -38,7 +38,10 @@
             ])>
                 <div @class([
                     'grid border-inherit place-items-center',
-                    'border-r pr-2' => !$slot->isEmpty() && $iconPosition != 'right',
+                    'border-e pe-2' =>
+                        !$slot->isEmpty() && $iconPosition == 'left' && $withBorderIcon,
+                    'border-s ps-2' =>
+                        !$slot->isEmpty() && $iconPosition == 'right' && $withBorderIcon,
                 ])>
                     <span class="{{ $iconClass }}"></span>
                 </div>

@@ -17,7 +17,7 @@ class Index extends Component
 {
     use WithPagination, LivewireAlert;
 
-    protected $listeners = ['refreshSchoolData' => '$refresh'];
+    protected $listeners = ['refreshSchoolData' => '$refresh', 'refreshUserActivation' => '$refresh'];
     public int $perPage;
 
     #[Url]
@@ -81,7 +81,7 @@ class Index extends Component
             'status',
             'user',
         )
-            ->withCount('students')
+            ->withCount('students', 'teachers')
             ->when($this->educationLevel != 'all' && collect($this->educationLevels)->some(fn($educationLevel) => $educationLevel['value'] == $this->educationLevel), fn($q) => $q->where('education_level_id', $this->educationLevel))
             ->when($this->schoolStatus != 'all' && collect($this->schoolStatuses)->some(fn($schoolStatus) => $schoolStatus['value'] == $this->schoolStatus), fn($q) => $q->where('school_status_id', $this->schoolStatus))
             ->when($this->activationStatus != 'all' && collect($this->activationStatuses)->some(fn($activationStatus) => $activationStatus['value'] == $this->activationStatus), fn($q) => $q->where('is_active', $this->activationStatus))

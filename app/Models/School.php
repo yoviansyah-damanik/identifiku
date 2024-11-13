@@ -40,6 +40,11 @@ class School extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function teachers(): HasMany
+    {
+        return $this->hasMany(Teacher::class);
+    }
+
     public function status(): BelongsTo
     {
         return $this->belongsTo(SchoolStatus::class, 'school_status_id', 'id');

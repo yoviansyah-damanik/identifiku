@@ -8,7 +8,7 @@
 
     <div class="text-end">
         <x-button :loading="$isLoading" type="submit" color="primary" radius="rounded-full" base="!mt-8 lg:!mt-10">
-            {{ __('Submit') }}
+            {{ __('Save') }}
         </x-button>
     </div>
 </form>

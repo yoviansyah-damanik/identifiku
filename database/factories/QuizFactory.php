@@ -29,7 +29,9 @@ class QuizFactory extends Factory
             'user_id' => User::role(['Superadmin', 'Administrator'])->inRandomOrder()->first()->id,
             'quiz_category_id' => QuizCategory::inRandomOrder()->first()->id,
             'quiz_phase_id' => QuizPhase::inRandomOrder()->first()->id,
-            'type' => QuizType::cases()[rand(0, count(QuizType::cases()) - 1)]
+            'type' => QuizType::cases()[rand(0, count(QuizType::cases()) - 1)],
+            'status' => 'published',
+            'is_active' => true
         ];
     }
 }

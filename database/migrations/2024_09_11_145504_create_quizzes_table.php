@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->uuid('id')
                 ->primary();
+            $table->string('slug')->unique();
             $table->string('name');
             $table->integer('estimation_time');
             $table->text('content_coverage');
@@ -30,6 +31,7 @@ return new class extends Migration
                 ->on('quiz_phases');
             $table->boolean('is_active')->default(false);
             $table->string('type');
+            $table->enum('status', ['draft', 'published'])->default('draft');
             $table->softDeletes();
             $table->timestamps();
         });

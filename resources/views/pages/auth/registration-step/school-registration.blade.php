@@ -73,7 +73,7 @@
                 </x-button>
             @else
                 <x-button color="primary">
-                    {{ __('Submit') }}
+                    {{ __('Save') }}
                 </x-button>
             @endif
         </div>

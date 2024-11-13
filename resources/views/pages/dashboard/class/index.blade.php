@@ -2,11 +2,11 @@
     <x-content.title :title="__('Class')" :description="__('Manage :manage.', ['manage' => __('Class')])" />
 
     <div class="box-border flex w-full gap-3 overflow-x-auto overflow-y-hidden snap-proximity snap-x">
-        {{-- @if (!auth()->user()->isAdmin) --}}
-        <x-button color="primary" icon="i-ph-plus" x-on:click="$dispatch('toggle-create-class-modal')">
-            {{ __('Add :add', ['add' => __('Class')]) }}
-        </x-button>
-        {{-- @endif --}}
+        @haspermission('class create')
+            <x-button color="primary" icon="i-ph-plus" x-on:click="$dispatch('toggle-create-class-modal')">
+                {{ __('Add :add', ['add' => __('Class')]) }}
+            </x-button>
+        @endhaspermission
         <x-form.select class="snap-start" :items="$perPageList" wire:model.live='perPage' />
         @if (auth()->user()->isAdmin)
             <x-form.select-with-search class="w-72 snap-start" block searchVar="schoolSearch" :items="$schools"
@@ -27,16 +27,20 @@
 
     {{ $classes->links() }}
     <div wire:ignore>
-        {{-- @if (!auth()->user()->isAdmin) --}}
-        <x-modal name="create-class-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Class')])">
-            <livewire:dashboard.class.create />
-        </x-modal>
-        {{-- @endif --}}
-        <x-modal name="edit-class-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Class')])">
-            <livewire:dashboard.class.edit />
-        </x-modal>
-        <x-modal name="delete-class-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Class')])">
-            <livewire:dashboard.class.delete />
-        </x-modal>
+        @haspermission('class create')
+            <x-modal name="create-class-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Class')])">
+                <livewire:dashboard.class.create />
+            </x-modal>
+        @endhaspermission
+        @haspermission('class edit')
+            <x-modal name="edit-class-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Class')])">
+                <livewire:dashboard.class.edit />
+            </x-modal>
+        @endhaspermission
+        @haspermission('class delete')
+            <x-modal name="delete-class-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Class')])">
+                <livewire:dashboard.class.delete />
+            </x-modal>
+        @endhaspermission
     </div>
 </x-content>

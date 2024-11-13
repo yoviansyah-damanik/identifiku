@@ -3,15 +3,15 @@
 namespace App\Livewire\Dashboard\StudentClass;
 
 use Livewire\Component;
-use App\Models\StudentHasClass;
+use App\Models\StudentClass;
 use Livewire\Attributes\Layout;
 
 #[Layout('layouts.dashboard')]
 class Show extends Component
 {
-    public StudentHasClass $class;
+    public StudentClass $class;
 
-    public function mount(StudentHasClass $class)
+    public function mount(StudentClass $class)
     {
         $this->class = $class;
     }

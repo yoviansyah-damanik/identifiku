@@ -39,13 +39,13 @@
 
                         <x-button color="red" size="sm" icon="i-ph-minus"
                             x-on:click="$dispatch('toggle-cancel-class-modal')"
-                            wire:click="$dispatch('setCancelClass',{class: '{{ $class->id }}'})">
+                            wire:click="$dispatch('setCancelClass',{class: '{{ $class->slug }}'})">
                             {{ __('Cancel') }}
                         </x-button>
                     @else
                         <x-button color="primary" size="sm" icon="i-ph-plus"
                             x-on:click="$dispatch('toggle-join-class-modal')"
-                            wire:click="$dispatch('setJoinClass',{class: '{{ $class->id }}'})">
+                            wire:click="$dispatch('setJoinClass',{class: '{{ $class->slug }}'})">
                             {{ __('Join') }}
                         </x-button>
                     @endif

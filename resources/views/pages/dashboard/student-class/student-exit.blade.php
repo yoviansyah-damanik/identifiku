@@ -19,8 +19,8 @@
         @endif
     </x-modal.body>
     <x-modal.footer>
-        <x-button color="primary" wire:click='cancel' :loading="$isLoading">
-            {{ __('Cancel') }}
+        <x-button color="primary" wire:click='exit' :loading="$isLoading">
+            {{ __('Exit') }}
         </x-button>
     </x-modal.footer>
 </div>

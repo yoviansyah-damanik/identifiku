@@ -28,12 +28,13 @@ class Administrator extends Component
             ->map(fn($gender) => ['value' => $gender->name, 'label' => $gender->value])
             ->toArray();
 
-        $this->name = auth()->user()->administrator->name;
-        $this->dateOfBirth = auth()->user()->administrator->date_of_birth->format('Y-m-d');
-        $this->placeOfBirth = auth()->user()->administrator->place_of_birth;
-        $this->address = auth()->user()->administrator->address;
-        $this->phoneNumber = auth()->user()->administrator->phone_number;
-        $this->gender = auth()->user()->administrator->gender;
+        $user = auth()->user()->administrator;
+        $this->name = $user->name;
+        $this->dateOfBirth = $user->date_of_birth->format('Y-m-d');
+        $this->placeOfBirth = $user->place_of_birth;
+        $this->address = $user->address;
+        $this->phoneNumber = $user->phone_number;
+        $this->gender = $user->gender;
     }
 
     public function render()

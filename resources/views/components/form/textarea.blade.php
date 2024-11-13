@@ -1,7 +1,7 @@
 <div x-data='{
         id: $id("{{ $attributes->whereStartsWith('wire:model')->first() }}"),
         limit: {{ $limit }},
-        content: "{{ $content }}",
+        content: $wire.{{ $attributes->whereStartsWith('wire:model')->first() }} ?? "",
         isMax: false,
         get count() {
             count = this.content.length
@@ -30,16 +30,18 @@
                 <span x-text="count"></span>/<span x-text="limit"></span>
             </div>
         @endif
-    </div>
-    @if ($error)
-        <x-form.error-message>
-            {{ $error }}
-        </x-form.error-message>
-    @else
-        @if ($info)
-            <x-form.info-message>
-                {{ $info }}
-            </x-form.info-message>
+
+        @if ($error)
+            <x-form.error-message>
+                {{ $error }}
+            </x-form.error-message>
+        @else
+            @if ($info)
+                <x-form.info-message>
+                    {{ $info }}
+                </x-form.info-message>
+            @endif
         @endif
-    @endif
+    </div>
+
 </div>

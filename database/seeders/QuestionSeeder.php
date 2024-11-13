@@ -25,10 +25,10 @@ class QuestionSeeder extends Seeder
                     [
                         'name' => 'Kemampuan Literasi',
                         'description' => '-',
+                        'type' => QuestionTypes::MultipleChoice->name,
                         'questions' => [
                             [
                                 'text' => 'Lawannya \'Hemat\' ialah....',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Murah'
@@ -50,7 +50,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Seorang paman ........ lebih tua dari kemenakannya.',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Jarang'
@@ -72,7 +71,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Hari setelah hari minggu adalah...',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Rabu'
@@ -92,28 +90,15 @@ class QuestionSeeder extends Seeder
                                     ],
                                 ]
                             ],
-                            [
-                                'text' => 'Populasi bekantan menurun karena perburuan liar dan kerusakan hutan.',
-                                'type' => QuestionTypes::Dichotomous->name,
-                                'answers' => [
-                                    [
-                                        'text' => 'Benar',
-                                        'is_correct' => true
-                                    ],
-                                    [
-                                        'text' => 'Salah'
-                                    ],
-                                ]
-                            ]
                         ]
                     ],
                     [
                         'name' => 'Kemampuan Numerisasi',
                         'description' => '-',
+                        'type' => QuestionTypes::MultipleChoice->name,
                         'questions' => [
                             [
                                 'text' => 'Lawannya \'Hemat\' ialah....',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Murah'
@@ -135,7 +120,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Seorang paman ........ lebih tua dari kemenakannya.',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Jarang'
@@ -157,7 +141,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Hari setelah hari minggu adalah...',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Rabu'
@@ -177,28 +160,15 @@ class QuestionSeeder extends Seeder
                                     ],
                                 ]
                             ],
-                            [
-                                'text' => 'Populasi bekantan menurun karena perburuan liar dan kerusakan hutan.',
-                                'type' => QuestionTypes::Dichotomous->name,
-                                'answers' => [
-                                    [
-                                        'text' => 'Benar',
-                                        'is_correct' => true
-                                    ],
-                                    [
-                                        'text' => 'Salah'
-                                    ],
-                                ]
-                            ]
                         ]
                     ],
                     [
                         'name' => 'Kemampuan Spasial',
                         'description' => '-',
+                        'type' => QuestionTypes::MultipleChoice->name,
                         'questions' => [
                             [
                                 'text' => 'Lawannya \'Hemat\' ialah....',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Murah'
@@ -220,7 +190,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Seorang paman ........ lebih tua dari kemenakannya.',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Jarang'
@@ -242,7 +211,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Hari setelah hari minggu adalah...',
-                                'type' => QuestionTypes::MultipleChoice->name,
                                 'answers' => [
                                     [
                                         'text' => 'Rabu'
@@ -262,19 +230,6 @@ class QuestionSeeder extends Seeder
                                     ],
                                 ]
                             ],
-                            [
-                                'text' => 'Populasi bekantan menurun karena perburuan liar dan kerusakan hutan.',
-                                'type' => QuestionTypes::Dichotomous->name,
-                                'answers' => [
-                                    [
-                                        'text' => 'Benar',
-                                        'is_correct' => true
-                                    ],
-                                    [
-                                        'text' => 'Salah'
-                                    ],
-                                ]
-                            ]
                         ]
                     ]
                 ]
@@ -286,10 +241,10 @@ class QuestionSeeder extends Seeder
                     [
                         'name' => 'Lingkungan Pergaulan/Aktivitas Peserta Didik di Luar Sekolah dan Luar Rumah',
                         'description' => '-',
+                        'type' => QuestionTypes::Dichotomous->name,
                         'questions' => [
                             [
                                 'text' => 'Belajar bersama Ayah',
-                                'type' => QuestionTypes::Dichotomous->name,
                                 'answers' => [
                                     [
                                         'text' => 'Ya',
@@ -302,7 +257,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Belajar bersama Ibu',
-                                'type' => QuestionTypes::Dichotomous->name,
                                 'answers' => [
                                     [
                                         'text' => 'Ya',
@@ -315,7 +269,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Kegiatan di rumah sering bermain',
-                                'type' => QuestionTypes::Dichotomous->name,
                                 'answers' => [
                                     [
                                         'text' => 'Ya',
@@ -331,10 +284,10 @@ class QuestionSeeder extends Seeder
                     [
                         'name' => 'Gaya Belajar',
                         'description' => '-',
+                        'type' => QuestionTypes::Dichotomous->name,
                         'questions' => [
                             [
                                 'text' => 'Suka menjiplak',
-                                'type' => QuestionTypes::Dichotomous->name,
                                 'answers' => [
                                     [
                                         'text' => 'Ya',
@@ -347,7 +300,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Saya mudah mengingat sesuatu jika saya melihat',
-                                'type' => QuestionTypes::Dichotomous->name,
                                 'answers' => [
                                     [
                                         'text' => 'Ya',
@@ -360,7 +312,6 @@ class QuestionSeeder extends Seeder
                             ],
                             [
                                 'text' => 'Suka mencatat disertai gambar',
-                                'type' => QuestionTypes::Dichotomous->name,
                                 'answers' => [
                                     [
                                         'text' => 'Ya',
@@ -382,7 +333,9 @@ class QuestionSeeder extends Seeder
             $newType = QuestionType::create(collect($type)->only('name', 'description')->toArray());
 
             foreach ($type['groups'] as $group) {
-                $newGroup =  QuestionGroup::create(['question_type_id' => $newType->id, ...collect($group)->only('name', 'description')->toArray()]);
+                $newGroup =  QuestionGroup::create(
+                    ['question_type_id' => $newType->id, ...collect($group)->only('name', 'description', 'type')->toArray()]
+                );
 
                 foreach ($group['questions'] as $question) {
                     $newQuestion =  Question::create(['question_group_id' => $newGroup->id, ...collect($question)->only('text', 'type')->toArray()]);

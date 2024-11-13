@@ -36,10 +36,11 @@ class Index extends Component
 
     public function render()
     {
-        $classes = StudentClass::with('teacher')->withCount(
-            'students',
-            'quizzes'
-        )
+        $classes = StudentClass::with('teacher')
+            ->withCount(
+                'students',
+                'quizzes'
+            )
             ->when(
                 auth()->user()->isAdmin,
                 fn($q) => $q->when(
@@ -51,12 +52,9 @@ class Index extends Component
                     fn($r) => $r->where('teacher_id', auth()->user()->teacher->id)
                         ->whereHas(
                             'teacher',
-                            fn($s) => $s->where('school_id', auth()->user()->schoolData->id)
+                            fn($s) => $s->where('school_id', auth()->user()->getSchoolData->id)
                         ),
-                    fn($r) => $r->whereHas(
-                        'teacher',
-                        fn($s) => $s->where('school_id', auth()->user()->schoolData->id)
-                    )
+                    fn($r) => $r->where('teacher_id', auth()->user()->getSchoolData->id)
                 ),
             )
             ->whereAny(['name'], 'like', "%$this->search%")

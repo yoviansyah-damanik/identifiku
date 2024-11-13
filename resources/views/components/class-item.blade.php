@@ -35,19 +35,25 @@
         </x-class-sub-item>
         <x-class-sub-item :title="__('Action')">
             <div class="flex flex-col items-start gap-1">
-                <x-button color="cyan" size="sm" icon="i-ph-eye"
-                    href="{{ route('dashboard.class.show', $class->id) }}">
-                    {{ __('Show') }}
-                </x-button>
-                <x-button color="yellow" size="sm" icon="i-ph-pen"
-                    x-on:click="$dispatch('toggle-edit-class-modal')"
-                    wire:click="$dispatch('setEditClass',{class:'{{ $class->id }}'})">
-                    {{ __('Edit') }}
-                </x-button>
-                <x-button color="red" size="sm" x-on:click="$dispatch('toggle-delete-class-modal')"
-                    wire:click="$dispatch('setDeleteClass',{class:'{{ $class->id }}'})" icon="i-ph-trash">
-                    {{ __('Disband') }}
-                </x-button>
+                @haspermission('class show')
+                    <x-button color="cyan" size="sm" icon="i-ph-eye"
+                        href="{{ route('dashboard.class.show', $class->slug) }}">
+                        {{ __('Show') }}
+                    </x-button>
+                @endhaspermission
+                @haspermission('class edit')
+                    <x-button color="yellow" size="sm" icon="i-ph-pen"
+                        x-on:click="$dispatch('toggle-edit-class-modal')"
+                        wire:click="$dispatch('setEditClass',{class:'{{ $class->slug }}'})">
+                        {{ __('Edit') }}
+                    </x-button>
+                @endhaspermission
+                @haspermission('class delete')
+                    <x-button color="red" size="sm" x-on:click="$dispatch('toggle-delete-class-modal')"
+                        wire:click="$dispatch('setDeleteClass',{class:'{{ $class->slug }}'})" icon="i-ph-trash">
+                        {{ __('Disband') }}
+                    </x-button>
+                @endhaspermission
             </div>
         </x-class-sub-item>
     </div>

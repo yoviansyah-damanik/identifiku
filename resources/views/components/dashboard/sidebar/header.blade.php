@@ -19,8 +19,8 @@
             {{-- Lorem, ipsum dolor. --}}
         </div>
         <div class="px-5 text-sm sm:text-xs text-sky-100" :class="sidebarToggle ? 'block' : 'hidden'">
-            <div>
-                {{ auth()->user()->{Str::lower(auth()->user()->roleName)}?->school->name ?? '-' }}
+            <div class="mb-1">
+                {{ auth()->user()?->getSchoolData?->name ?? '-' }}
                 {{-- Lorem, ipsum dolor. --}}
             </div>
             <div>

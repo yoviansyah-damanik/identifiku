@@ -53,8 +53,7 @@ class TeacherRegistrationFinal extends Component
 
     public string $successfulMessage;
 
-    public int $maxNis = 8;
-    public int $maxNisn = 8;
+    public int $maxNuptk = 8;
 
     public bool $isLoading = false;
 
@@ -105,7 +104,7 @@ class TeacherRegistrationFinal extends Component
         if ($this->step == 1) {
             return [
                 'name' => 'required|string|max:60',
-                'nuptk' => 'required|string|digits:' . $this->maxNisn . '|unique:teachers,nuptk|unique:teacher_requests,nuptk',
+                'nuptk' => 'required|string|digits:' . $this->maxNuptk . '|unique:teachers,nuptk|unique:teacher_requests,nuptk',
                 'address' => 'required|string|max:255',
                 'placeOfBirth' => 'required|string|max:40',
                 'dateOfBirth' => 'required|date|beforeOrEqual:' . \Carbon\Carbon::now()->addYears(-5)->format('Y-m-d'),

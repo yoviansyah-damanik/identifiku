@@ -14,10 +14,17 @@ class RegionSeeder extends Seeder
     public function run(): void
     {
         $json = file_get_contents(public_path('region.json'));
-        $regions = json_decode($json, true);
+        $regions = collect(json_decode($json, true))->map(fn($item) => [
+            'code' => $item['id'],
+            'name' => $item['name'],
+            'created_at' => now(),
+            'updated_at' => now()
+        ])
+            ->chunk(300);
 
         foreach ($regions as $region) {
-            Region::create(['code' => $region['id'], 'name' => $region['name']]);
+            // Region::create(['code' => $region['id'], 'name' => $region['name']]);
+            Region::insert($region->toArray());
         }
     }
 }

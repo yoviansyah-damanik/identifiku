@@ -15,7 +15,7 @@ class Index extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['refreshTeacherData' => '$refresh'];
+    protected $listeners = ['refreshTeacherData' => '$refresh', 'refreshUserActivation' => '$refresh'];
 
     public int $perPage;
 
@@ -34,7 +34,8 @@ class Index extends Component
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
-        $this->setSchools();
+        if (auth()->user()->isAdmin)
+            $this->setSchools();
     }
 
     public function render()
@@ -42,7 +43,11 @@ class Index extends Component
         $teachers = Teacher::with(
             'school',
         )
-            ->when($this->school, fn($q) => $q->where('school_id', $this->school))
+            ->when(
+                auth()->user()->roleName == 'Superadmin',
+                fn($q) => $q->when($this->school, fn($q) => $q->where('school_id', $this->school)),
+                fn($q) => $q->where('school_id', auth()->user()->getSchoolData->id)
+            )
             ->whereAny(['nuptk', 'name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 

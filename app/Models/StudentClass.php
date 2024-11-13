@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -12,9 +13,29 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class StudentClass extends Model
 {
-    use HasFactory, HasUuids;
+    use HasFactory, HasUuids, Sluggable;
 
     protected $guarded = ['id'];
+
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     // protected $appends = ['isStatusActive'];
 
     /**
@@ -48,7 +69,7 @@ class StudentClass extends Model
         return $this->belongsTo(Teacher::class);
     }
 
-    public function studentsHasClass(): HasMany
+    public function studentHasClasses(): HasMany
     {
         return $this->hasMany(StudentHasClass::class);
     }

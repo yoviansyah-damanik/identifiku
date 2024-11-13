@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             });
 
         User::factory()
-            ->count(3)
+            ->count(1)
             ->create()
             ->each(function ($user, $idx) {
                 $user->update(['username' => 'administrator-' . $idx + 1]);
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
 
 
         User::factory()
-            ->count(5)
+            ->count(1)
             ->create()
             ->each(function ($user) {
                 $user->assignRole('School');
@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             });
 
         User::factory()
-            ->count(10)
+            ->count(1)
             ->create()
             ->each(function ($user) {
                 $user->assignRole('Teacher');
