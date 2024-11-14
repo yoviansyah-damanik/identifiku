@@ -13,9 +13,6 @@ return new class extends Migration
     {
         Schema::create('result_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_type_id')
-                ->references('id')
-                ->on('question_types');
             $table->double('value');
             $table->text('conclusion')
                 ->nullable();
@@ -23,6 +20,10 @@ return new class extends Migration
                 ->nullable();
             $table->text('message')
                 ->nullable();
+            $table->foreignUuid('question_type_id')
+                ->references('id')
+                ->on('question_types')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

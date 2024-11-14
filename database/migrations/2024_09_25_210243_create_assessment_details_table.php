@@ -20,10 +20,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('questions')
                 ->onDelete('cascade');
-            $table->foreignId('question_group_id')
-                ->references('id')
-                ->on('question_groups')
-                ->onDelete('cascade');
             $table->boolean('is_correct');
         });
     }

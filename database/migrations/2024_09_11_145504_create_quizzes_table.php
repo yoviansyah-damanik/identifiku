@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('estimation_time');
             $table->text('content_coverage');
             $table->text('assessment_objectives');
-            $table->text('question_composition');
+            $table->text('overview');
             $table->foreignUuid('user_id')
                 ->references('id')
                 ->on('users');

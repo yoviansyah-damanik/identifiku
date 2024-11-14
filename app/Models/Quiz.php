@@ -58,11 +58,6 @@ class Quiz extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function details(): HasMany
-    {
-        return $this->hasMany(QuizDetail::class);
-    }
-
     public function phase(): BelongsTo
     {
         return $this->belongsTo(QuizPhase::class, 'quiz_phase_id', 'id');
@@ -79,9 +74,10 @@ class Quiz extends Model
             ->where('type', 'picture');
     }
 
-    public function types(): HasManyThrough
+    public function types(): HasMany
     {
-        return $this->hasManyThrough(QuestionType::class, QuizDetail::class, 'quiz_id', 'id', 'id', 'question_type_id');
+        return $this->hasMany(QuestionType::class)
+            ->orderBy('order', 'asc');
     }
 
     public function assessments(): HasMany

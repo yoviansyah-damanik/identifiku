@@ -1,4 +1,9 @@
 <div class="relative self-start pb-3 group">
+    @if ($quiz->status == 'draft')
+        <div class="absolute inset-0 z-10 text-3xl font-semibold">
+            {{ __('Draft') }}
+        </div>
+    @endif
     <div @class([
         'relative aspect-[16/9] bg-primary-50 rounded-lg grid place-items-center overflow-hidden after:absolute after:bottom-0 after:inset-x-0 after:h-16 after:bg-gradient-to-t after:from-primary-500 after:to-transparent',
         'grayscale' => !$quiz->is_active,
@@ -50,22 +55,6 @@
                     {{ $quiz->questionsTotal > 1 ? __('Questions') : __('Question') }}
                 </div>
             </div>
-        </div>
-        <div class="flex items-center justify-between mt-3">
-            {{-- <x-badge :type="$quiz->is_active ? 'success' : 'error'" size="sm">
-                {{ $quiz->is_active ? __('Active') : __('Inactive') }}
-            </x-badge> --}}
-            @if (request()->routeIs('dashboard*'))
-                <div>
-                    <x-tooltip :title="__('Show')">
-                        <x-button icon="i-ph-eye" color="cyan" size="sm"
-                            href="{{ route('dashboard.quiz.show', $quiz->slug) }}" />
-                    </x-tooltip>
-                    <x-tooltip :title="__('Edit')">
-                        <x-button icon="i-ph-pen" color="yellow" size="sm" />
-                    </x-tooltip>
-                </div>
-            @endif
         </div>
         <a class="absolute inset-0" href="{{ route('assessment.show', $quiz->slug) }}" wire:navigate></a>
     </div>

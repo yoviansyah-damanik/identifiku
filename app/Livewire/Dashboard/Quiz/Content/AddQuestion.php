@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dashboard\Quiz;
+namespace App\Livewire\Dashboard\Quiz\Content;
 
 use Livewire\Component;
 
@@ -8,6 +8,6 @@ class AddQuestion extends Component
 {
     public function render()
     {
-        return view('pages.dashboard.quiz.add-question');
+        return view('pages.dashboard.quiz.content.add-question');
     }
 }

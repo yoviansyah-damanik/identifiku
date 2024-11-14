@@ -133,7 +133,7 @@ Route::prefix('dashboard')
         Route::get('/quiz/show/{quiz}/preview', \App\Livewire\Dashboard\Quiz\Preview::class)
             ->middleware('permission:quiz show')
             ->name('.quiz.preview');
-        Route::get('/quiz/edit/{quiz}', \App\Livewire\Dashboard\Quiz\Edit::class)
+        Route::get('/quiz/{quiz:id}', \App\Livewire\Dashboard\Quiz\Edit::class)
             ->middleware('permission:quiz edit')
             ->name('.quiz.edit');
 

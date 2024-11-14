@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             EducationLevelSeeder::class,
             SchoolStatusSeeder::class,
             UserSeeder::class,
-            QuestionSeeder::class,
+            // QuestionSeeder::class,
             QuizPhaseSeeder::class,
             QuizCategorySeeder::class,
             QuizSeeder::class,

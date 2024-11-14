@@ -13,9 +13,6 @@ return new class extends Migration
     {
         Schema::create('quiz_assessments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_type_id')
-                ->references('id')
-                ->on('question_types');
             $table->double('min');
             $table->double('max');
             $table->text('result');
@@ -23,6 +20,10 @@ return new class extends Migration
                 ->nullable();
             $table->text('message')
                 ->nullable();
+            $table->foreignUuid('question_type_id')
+                ->references('id')
+                ->on('question_types')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

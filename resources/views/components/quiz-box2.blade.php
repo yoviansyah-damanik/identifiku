@@ -12,7 +12,7 @@
             </div>
         </div>
     </div>
-    <div class="px-1 lg:px-3 md:px-2">
+    <div class="px-3 ">
         <div class="mt-3 font-semibold line-clamp-2 group-hover:text-secondary-500">
             {{ $quiz->name }}
         </div>
@@ -61,7 +61,8 @@
                         href="{{ route('dashboard.quiz.show', $quiz->slug) }}" />
                 </x-tooltip>
                 <x-tooltip :title="__('Edit')">
-                    <x-button icon="i-ph-pen" color="yellow" size="sm" />
+                    <x-button icon="i-ph-pen" color="yellow" size="sm"
+                        href="{{ route('dashboard.quiz.edit', $quiz->id) }}" />
                 </x-tooltip>
             </div>
         </div>

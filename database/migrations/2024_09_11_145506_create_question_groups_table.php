@@ -11,16 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('question_groups', function (Blueprint $table) {
             $table->uuid('id')
                 ->primary();
-            $table->string('text');
-            $table->foreignId('question_group_id')
+            $table->string('name');
+            $table->text('description');
+            $table->string('type');
+            $table->integer('order')->default(0);
+            $table->foreignUuid('question_type_id')
                 ->references('id')
-                ->on('question_groups')
+                ->on('question_types')
                 ->onDelete('cascade');
-            $table->integer('order')
-                ->default(0);
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('question_groups');
     }
 };

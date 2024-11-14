@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Dashboard\Quiz;
+namespace App\Livewire\Dashboard\Quiz\Content;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
@@ -13,12 +13,13 @@ class AddGroup extends Component
 
     public string $name;
     public string $description;
+    public string $typeId;
 
     public bool $isLoading = false;
 
     public function render()
     {
-        return view('pages.dashboard.quiz.add-group');
+        return view('pages.dashboard.quiz.content.add-group');
     }
 
     public function rules()
@@ -26,6 +27,7 @@ class AddGroup extends Component
         return [
             'name' => 'required|string|max:40',
             'description' => 'required|string|max:80',
+            'typeId' => 'required'
         ];
     }
 
@@ -38,9 +40,9 @@ class AddGroup extends Component
     }
 
     #[On('setAddGroup')]
-    public function setAddGroup(String $typeId)
+    public function setAddGroup(string $typeId)
     {
-        $this->reset();
+        $this->typeId = $typeId;
         $this->isLoading = false;
 
         if (!GeneralHelper::isProduction())
@@ -57,9 +59,9 @@ class AddGroup extends Component
     {
         $this->validate();
         $this->isLoading = true;
-        $this->dispatch('addType', ['name' => $this->name, 'description' => $this->description]);
-        $this->dispatch('toggle-add-type-modal');
-        $this->alert('success', __(':attribute added successfully.', ['attribute' => __(':type Type', ['type' => __('Quiz')])]));
+        $this->dispatch('addGroup', $this->typeId, ['name' => $this->name, 'description' => $this->description]);
+        $this->dispatch('toggle-add-group-modal');
+        $this->alert('success', __(':attribute added successfully.', ['attribute' => __(':group Group', ['group' => __('Quiz')])]));
         $this->reset();
     }
 }

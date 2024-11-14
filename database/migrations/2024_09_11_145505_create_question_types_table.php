@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('question_types', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')
+                ->primary();
             $table->string('name');
             $table->string('description')->nullable();
+            $table->integer('order')->default(0);
+            $table->foreignUuid('quiz_id')
+                ->references('id')
+                ->on('quizzes')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
