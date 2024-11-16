@@ -12,15 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('answer_choices', function (Blueprint $table) {
+            $table->id();
             $table->foreignUuid('question_id')
                 ->references('id')
                 ->on('questions')
                 ->onDelete('cascade');
             $table->string('text');
+            $table->integer('value')
+                ->nullable();
             $table->boolean('is_correct')
-                ->default(false);
-            $table->double('correct_answer_value')
-                ->default(1);
+                ->nullable();
+            $table->integer('order')
+                ->default(0);
         });
     }
 

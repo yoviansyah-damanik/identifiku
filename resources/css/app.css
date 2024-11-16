@@ -119,32 +119,32 @@
         width: 100%;
     }
 
-    :where(trix-editor, .explanation) h1 {
+    :where(trix-editor) h1 {
         font-size: 1.25rem !important;
         line-height: 1.25rem !important;
         margin-bottom: 1rem;
         font-weight: 600;
     }
 
-    :where(trix-editor, .explanation) a:not(.no-underline) {
+    :where(trix-editor) a:not(.no-underline) {
         text-decoration: underline;
     }
 
-    :where(trix-editor, .explanation) a:visited {
+    :where(trix-editor) a:visited {
         color: green;
     }
 
-    :where(trix-editor, .explanation) ul {
+    :where(trix-editor) ul {
         list-style-type: disc;
         padding-left: 1rem;
     }
 
-    :where(trix-editor, .explanation) ol {
+    :where(trix-editor) ol {
         list-style-type: decimal;
         padding-left: 1rem;
     }
 
-    :where(trix-editor, .explanation) pre {
+    :where(trix-editor) pre {
         display: inline-block;
         width: 100%;
         vertical-align: top;
@@ -156,7 +156,7 @@
         overflow-x: auto;
     }
 
-    :where(trix-editor, .explanation) blockquote {
+    :where(trix-editor) blockquote {
         border: 0 solid #ccc;
         border-left-width: 0px;
         border-left-width: 0.3em;

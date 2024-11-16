@@ -8,8 +8,8 @@ enum QuestionTypes: string
 {
     use EnumTrait;
 
-    case Essay = 'Essay';
+        // case Essay = 'Essay';
     case MultipleChoice = 'MultipleChoice';
     case Dichotomous = 'Dichotomous';
-    case Checkbox = 'Checkbox';
+    // case Checkbox = 'Checkbox';
 }

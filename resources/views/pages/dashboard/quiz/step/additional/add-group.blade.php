@@ -5,11 +5,13 @@
                 error="{{ $errors->first('name') }}" wire:model.blur='name' required />
             <x-form.input :loading="$isLoading" :label="__('Description')" block :placeholder="__('Description')" type='text'
                 error="{{ $errors->first('description') }}" wire:model.blur='description' required />
+            <x-form.select :loading="$isLoading" :label="__('Type')" block :items="$types" wire:model="type"
+                :error="$errors->first('type')" required />
         </div>
     </x-modal.body>
     <x-modal.footer>
-        <x-button x-on:click="closeModal" :loading="$isLoading">
-            {{ __('Close') }}
+        <x-button wire:click="refresh" :loading="$isLoading">
+            {{ __('Reset') }}
         </x-button>
         <x-button color="primary" wire:click='add' :loading="$isLoading">
             {{ __('Add') }}

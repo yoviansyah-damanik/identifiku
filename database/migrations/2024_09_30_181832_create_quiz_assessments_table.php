@@ -20,10 +20,10 @@ return new class extends Migration
                 ->nullable();
             $table->text('message')
                 ->nullable();
-            $table->foreignUuid('question_type_id')
-                ->references('id')
-                ->on('question_types')
-                ->onDelete('cascade');
+            // $table->foreignUuid('question_type_id')
+            //     ->references('id')
+            //     ->on('question_types')
+            //     ->onDelete('cascade');
             $table->timestamps();
         });
     }

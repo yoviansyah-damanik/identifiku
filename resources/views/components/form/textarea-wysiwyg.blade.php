@@ -1,9 +1,9 @@
 <div x-data='{
-    id: $id("{{ $attributes->whereStartsWith('wire:model')->first() }}"),
-    content: "",
+    id: $id("{{ Str::of($attributes->whereStartsWith('wire:model')->first())->explode('.')[0] }}"),
+    content: $wire.{{ $attributes->whereStartsWith('wire:model')->first() }} ?? "",
     get result() {
-        $wire.{{ $attributes->whereStartsWith('wire:model')->first() }} = this.content
-        return content
+        $wire.{{ $attributes->whereStartsWith('wire:model')->first() }} = this.content;
+        return content;
     }
 }'
     x-on:clear-textarea.window = "content = ''"
@@ -11,20 +11,22 @@
     @if ($label)
         <label :for="id" class="{{ $labelClass }}">{{ $label }}</label>
     @endif
-    <div class="relative" wire:ignore>
-        <input type="hidden" x-text="result" :id="id" />
-        <trix-editor class="{{ $baseClass }}" x-model="content" :input="id" wire:loading.attr='disabled'
-            @required($required) @disabled($loading)></trix-editor>
-    </div>
-    @if ($error)
-        <x-form.error-message>
-            {{ $error }}
-        </x-form.error-message>
-    @else
-        @if ($info)
-            <x-form.info-message>
-                {{ $info }}
-            </x-form.info-message>
+    <div class="relative">
+        <div wire:ignore>
+            <input type="hidden" x-text="result" :id="id" />
+            <trix-editor class="{{ $baseClass }}" x-model="content" :input="id" wire:loading.attr='disabled'
+                @required($required) @disabled($loading)></trix-editor>
+        </div>
+        @if ($error)
+            <x-form.error-message>
+                {{ $error }}
+            </x-form.error-message>
+        @else
+            @if ($info)
+                <x-form.info-message>
+                    {{ $info }}
+                </x-form.info-message>
+            @endif
         @endif
-    @endif
+    </div>
 </div>

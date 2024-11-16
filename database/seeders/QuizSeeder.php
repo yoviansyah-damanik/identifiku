@@ -15,7 +15,6 @@ class QuizSeeder extends Seeder
     {
         Quiz::factory()
             ->count(30)
-            ->hasDetails()
             ->create();
     }
 }

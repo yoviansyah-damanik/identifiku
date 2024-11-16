@@ -28,7 +28,7 @@ class TextareaWysiwyg extends Component
         public ?string $info = null,
     ) {
         $this->baseClass = join(' ', [
-            'relative h-64 overflow-y-auto border outline-none disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none',
+            'relative h-40 overflow-y-auto border outline-none disabled:bg-slate-50 disabled:text-slate-500 disabled:border-slate-200 disabled:shadow-none',
             $block ? 'block w-full' : 'min-w-16',
             $error ? 'invalid:border-red-500 invalid:text-red-600 focus:invalid:border-red-500 focus:invalid:ring-red-500 border-red-500' : '',
             $this->colorVariant($color),

@@ -3,16 +3,12 @@
 namespace App\Livewire\Dashboard\Quiz;
 
 use App\Models\Quiz;
-use App\Enums\QuizType;
 use Livewire\Component;
 use App\Models\QuizPhase;
-use Illuminate\Support\Str;
-use Livewire\Attributes\On;
 use App\Models\QuizCategory;
 use App\Helpers\GeneralHelper;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
-use Illuminate\Support\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 #[Layout('layouts.dashboard')]
@@ -26,72 +22,33 @@ class Create extends Component
     public string $quizName;
     public string $quizDescription;
     public string $estimationTime;
-    public array $quizCategories;
-    public array $quizPhases;
-    public string $quizCategory;
-    public string $quizPhase;
     public string $contentCoverage;
     public string $overview;
     public string $assessmentObjectives;
+
     public array $quizTypes;
     public string $quizType;
 
-    public ?QuizPhase $selectedQuizPhase;
-    public ?QuizCategory $selectedQuizCategory;
+    public string $quizCategorySearch = '';
+    public array $quizCategories;
+    public string $quizCategory = '';
+
+    public string $quizPhaseSearch = '';
+    public array $quizPhases;
+    public string $quizPhase = '';
 
     public bool $isLoading = false;
 
     public function mount()
     {
-        $this->quizTypes = collect(QuizType::names())
-            ->map(fn($item) => [
-                'value' => $item,
-                'title' => __(Str::headline($item))
-            ])->toArray();
+        $this->quizTypes = GeneralHelper::getQuizType();
         $this->quizType = $this->quizTypes[0]['value'];
 
-        $this->steps = [
-            [
-                'step' => 1,
-                'title' => __('Register a Quiz'),
-                'description' => __('You are required to register for the quiz first.')
-            ],
-            [
-                'step' => 2,
-                'title' => __('Quiz Content'),
-                'description' => __('Add :add', ['add' => __('Quiz Content')])
-            ],
-            [
-                'step' => 3,
-                'title' => __('Result Set'),
-                'description' => __('Add :add', ['add' => __('Result Set')])
-            ],
-            [
-                'step' => 4,
-                'title' => __('Confirmation'),
-                'description' => __('Quiz Confirmation')
-            ]
-        ];
-
+        $this->steps = GeneralHelper::getQuizStep();
         $this->step = 1;
 
-        $this->quizCategories = QuizCategory::get()
-            ->map(fn($quizCategory) => [
-                'title' => $quizCategory->name,
-                'value' => $quizCategory->id,
-                'description' => $quizCategory->description,
-            ])
-            ->toArray();
-        $this->quizCategory = $this->quizCategories[0]['value'];
-
-        $this->quizPhases = QuizPhase::get()
-            ->map(fn($quizPhase) => [
-                'title' => $quizPhase->name,
-                'value' => $quizPhase->id,
-                'description' => $quizPhase->grades->pluck('name')->join(', '),
-            ])
-            ->toArray();
-        $this->quizPhase = $this->quizPhases[0]['value'];
+        $this->setQuizCategories();
+        $this->setQuizPhases();
 
         if (!GeneralHelper::isProduction())
             $this->dev();
@@ -113,6 +70,79 @@ class Create extends Component
             ->title(__('Add :add', ['add' => __('Quiz')]));
     }
 
+    public function setQuizCategories()
+    {
+        $this->quizCategories = QuizCategory::where('name', 'like', '%' . $this->quizCategorySearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($quizCategory) => [
+                'title' => $quizCategory->name,
+                'value' => $quizCategory->id,
+                'description' => $quizCategory->description,
+            ])
+            ->toArray();
+    }
+
+    public function setQuizPhases()
+    {
+        $this->quizPhases = QuizPhase::with('grades')
+            ->where('name', 'like', '%' . $this->quizPhaseSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($quizPhase) => [
+                'title' => $quizPhase->name,
+                'value' => $quizPhase->id,
+                'description' => $quizPhase->grades->pluck('name')->join(', '),
+            ])
+            ->toArray();
+    }
+
+    public function setSearchQuizCategory(QuizCategory $quizCategory)
+    {
+        $this->quizCategory = $quizCategory->id;
+        $this->dispatch('setTitleQuizCategory', $quizCategory->name);
+    }
+
+    public function setSearchQuizCategorySearch($data)
+    {
+        $this->quizCategorySearch = $data;
+        $this->setQuizCategories();
+    }
+
+    public function setValueQuizCategorySearch($data)
+    {
+        $this->quizCategory = $data;
+        $this->resetValidation('quizCategory');
+    }
+
+    public function resetValueQuizCategorySearch()
+    {
+        $this->reset('quizCategory', 'quizCategorySearch');
+    }
+
+    public function setSearchQuizPhase(QuizPhase $quizPhase)
+    {
+        $this->quizPhase = $quizPhase->id;
+        $this->dispatch('setTitleQuizPhase', $quizPhase->name);
+    }
+
+    public function setSearchQuizPhaseSearch($data)
+    {
+        $this->quizPhaseSearch = $data;
+        $this->setQuizPhases();
+    }
+
+    public function setValueQuizPhaseSearch($data)
+    {
+        $this->quizPhase = $data;
+        $this->resetValidation('quizPhase');
+    }
+
+    public function resetValueQuizPhaseSearch()
+    {
+        $this->reset('quizPhase', 'quizPhaseSearch');
+    }
+
     public function rules()
     {
         return [
@@ -129,10 +159,14 @@ class Create extends Component
                 'required',
                 Rule::in(collect($this->quizCategories)->pluck('value')->toArray())
             ],
+            // 'questionType' => [
+            //     'required',
+            //     Rule::in(collect($this->questionTypes)->pluck('value')->toArray())
+            // ],
             'estimationTime' => 'required|numeric|min:1',
-            'contentCoverage' => 'required|string|max:250',
-            'overview' => 'required|string|max:250',
-            'assessmentObjectives' => 'required|string|max:250',
+            'contentCoverage' => 'required|string',
+            'overview' => 'required|string',
+            'assessmentObjectives' => 'required|string',
         ];
     }
 
@@ -147,6 +181,7 @@ class Create extends Component
             'contentCoverage' => __('Content Coverage'),
             'overview' => __('Overview'),
             'assessmentObjectives' => __('Assessment Objectives'),
+            // 'questionType' => __(':type Type', ['type' => __('Question')]),
         ];
     }
 
@@ -164,7 +199,8 @@ class Create extends Component
                 'overview' => $this->overview,
                 'assessment_objectives' => $this->assessmentObjectives,
                 'user_id' => auth()->user()->id,
-                'status' => 'draft'
+                'status' => 'draft',
+                // 'question_type' => $this->questionType
             ]);
 
             $this->redirectRoute('dashboard.quiz.edit', $newQuiz->id, navigate: true);

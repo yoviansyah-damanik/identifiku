@@ -23,6 +23,7 @@ class AddType extends Component
     {
         $this->quiz = $quiz;
     }
+
     public function render()
     {
         return view('pages.dashboard.quiz.content.add-type');
@@ -47,11 +48,16 @@ class AddType extends Component
     #[On('setAddType')]
     public function setAddType()
     {
-        $this->reset('name', 'description');
+        $this->refresh();
         $this->isLoading = false;
 
         if (!GeneralHelper::isProduction())
             $this->dev();
+    }
+
+    public function refresh()
+    {
+        $this->reset('name', 'description');
     }
 
     public function dev()

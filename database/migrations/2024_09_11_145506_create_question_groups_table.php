@@ -16,11 +16,14 @@ return new class extends Migration
                 ->primary();
             $table->string('name');
             $table->text('description');
-            $table->string('type');
             $table->integer('order')->default(0);
-            $table->foreignUuid('question_type_id')
+            // $table->foreignUuid('question_type_id')
+            //     ->references('id')
+            //     ->on('question_types')
+            //     ->onDelete('cascade');
+            $table->foreignUuid('quiz_id')
                 ->references('id')
-                ->on('question_types')
+                ->on('quizzes')
                 ->onDelete('cascade');
             $table->timestamps();
         });

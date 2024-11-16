@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
@@ -74,14 +75,24 @@ class Quiz extends Model
             ->where('type', 'picture');
     }
 
-    public function types(): HasMany
+    // public function types(): HasMany
+    // {
+    //     return $this->hasMany(QuestionType::class)
+    //         ->orderBy('order', 'asc');
+    // }
+    public function groups(): HasMany
     {
-        return $this->hasMany(QuestionType::class)
+        return $this->hasMany(QuestionGroup::class)
             ->orderBy('order', 'asc');
     }
 
     public function assessments(): HasMany
     {
         return $this->hasMany(Assessment::class);
+    }
+
+    public function assessmentRule(): HasOne
+    {
+        return $this->hasOne(AssessmentRule::class);
     }
 }
