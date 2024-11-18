@@ -17,17 +17,10 @@ class EditIndicator extends Component
     public string $indicator;
     public ?int $value_min;
     public ?int $value_max;
-
-    public array $operators;
-    public string $operator;
+    public int | string | null $score;
+    public string $default;
 
     public bool $isLoading = true;
-
-    public function mount()
-    {
-        $this->operators = ["<", "<=", "=", ">=", ">"];
-        $this->operator = "=";
-    }
 
     public function render()
     {
@@ -42,6 +35,7 @@ class EditIndicator extends Component
         $this->indicator = $detail->indicator;
         $this->value_min = $detail->value_min;
         $this->value_max = $detail->value_max;
+        $this->score = $detail->score;
         $this->dispatch('set-indicator-textarea-value', $detail->indicator);
         $this->isLoading = false;
     }
@@ -67,12 +61,17 @@ class EditIndicator extends Component
                 'gt:value_min',
                 Rule::requiredIf($this->detail->main->type == 'summative')
             ],
-            'operator' => [
+            'score' => [
+                'nullable',
+                $this->detail->main->type == 'calculation-2' ? 'numeric' : 'string',
+                $this->detail->main->type == 'calculation-2' ? 'digits_between:1,3' : '',
+                $this->detail->main->type == 'summative' ? 'max:3' : '',
+                Rule::requiredIf(in_array($this->detail->main->type, ['calculation-2', 'summative']))
+            ],
+            'default' => [
                 'nullable',
                 'string',
-                Rule::requiredIf($this->detail->main->type == 'summative'),
-                Rule::in($this->operators)
-            ]
+            ],
         ];
     }
 
@@ -82,7 +81,7 @@ class EditIndicator extends Component
             'indicator' => __('Indicator'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
-            'operator' => __('Operator')
+            'score' => __('Score')
         ];
     }
 
@@ -95,6 +94,8 @@ class EditIndicator extends Component
                 'indicator' => $this->indicator,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,
+                'default' => $this->default ?? null,
+                'score' => $this->score ?? null,
             ]);
 
             $this->dispatch('toggle-edit-indicator-modal');

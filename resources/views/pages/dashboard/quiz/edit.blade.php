@@ -1,6 +1,7 @@
 <x-content>
-    <ol
-        class="flex flex-col justify-around overflow-hidden text-sm font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow lg:items-center lg:flex-row dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 rtl:space-x-reverse">
+    <ol @class([
+        'flex flex-col justify-around overflow-hidden text-sm font-medium text-center text-gray-500 bg-white border border-gray-200 rounded-lg shadow lg:items-stretch lg:flex-row dark:text-gray-400 sm:text-base dark:bg-gray-800 dark:border-gray-700 rtl:space-x-reverse',
+    ])>
         @foreach ($steps as $item)
             <li wire:click="setStep({{ $item['step'] }})" @class([
                 'flex items-center justify-center flex-1 p-4 cursor-pointer select-none border-r last:border-r-0',

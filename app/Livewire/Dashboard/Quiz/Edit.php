@@ -54,12 +54,11 @@ class Edit extends Component
 
     public string $current;
 
-
     public function mount(Quiz $quiz)
     {
-        $this->quiz = $quiz->load(['groups']);
+        $this->quiz = $quiz;
         $this->steps = GeneralHelper::getQuizStep();
-        $this->current = $this->steps[2]['step'];
+        $this->current = $this->steps[0]['step'];
     }
 
     public function render()
@@ -72,66 +71,49 @@ class Edit extends Component
     public function setStep($step)
     {
         if ($step == 3) {
-            $hasAssessmentRule = $this->quiz->assessmentRule;
-            if (!$hasAssessmentRule) {
-                $this->alert('warning', __('Please complete the assessment rules first.'));
-                $this->current = 2;
-                return;
-            }
-
-            $detailsAreComplete = $hasAssessmentRule->max_item == $hasAssessmentRule->details->count();
-
-            if (!$detailsAreComplete) {
-                $this->alert('warning', __('Please complete the detailed assessment rules first.'));
-                $this->current = 2;
+            if (!$this->checkStepThree()) {
                 return;
             }
 
             $this->current = 3;
+        } else if ($step == 4) {
+            if (!$this->checkStepThree()) {
+                return;
+            }
+
+            if (!$this->checkStepFour()) {
+                return;
+            }
+
+            $this->current = 4;
         } else {
             $this->current = $step;
         }
     }
 
-    public function reorderQuizType($id, $position)
+    public function checkStepThree()
     {
-        $this->isLoading = true;
-        DB::beginTransaction();
-        try {
-            $exist = QuestionType::where('id', $id)->first();
-
-            if ($exist->order < $position + 1) {
-                $exist->update(['order' => $position + 1]);
-                QuestionType::where('quiz_id', $this->quiz->id)
-                    ->whereNot('id', $id)
-                    ->where('order', '<=', $position + 1)
-                    ->orderBy('order', 'asc')
-                    ->each(function ($item, $key) {
-                        $item->update(['order' => $key + 1]);
-                    });
-            } else {
-                $exist->update(['order' => $position + 1]);
-                QuestionType::where('quiz_id', $this->quiz->id)
-                    ->whereNot('id', $id)
-                    ->where('order', '>=', $position + 1)
-                    ->orderBy('order', 'asc')
-                    ->each(function ($item, $key) use ($position) {
-                        $item->update(['order' => ($position + 1) + $key + 1]);
-                    });
-            }
-
-            DB::commit();
-            $this->quiz->refresh();
-            $this->isLoading = false;
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $this->isLoading = false;
-            $this->alert('error', $e->getMessage());
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            $this->isLoading = false;
-            $this->alert('error', $e->getMessage());
+        $hasAssessmentRule = $this->quiz->assessmentRule;
+        if (!$hasAssessmentRule) {
+            $this->alert('warning', __('Please complete the assessment rules first.'));
+            $this->current = 2;
+            return false;
         }
+
+        $detailsAreComplete = $hasAssessmentRule->max_item == $hasAssessmentRule->details->count();
+
+        if (!$detailsAreComplete) {
+            $this->alert('warning', __('Please complete the detailed assessment rules first.'));
+            $this->current = 2;
+            return false;
+        }
+
+        return true;
+    }
+
+    public function checkStepFour()
+    {
+        return true;
     }
 
     public function reorderQuizGroup($id, $position)

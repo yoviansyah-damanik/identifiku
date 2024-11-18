@@ -7,6 +7,7 @@ use App\Enums\QuizType;
 use Livewire\Component;
 use App\Models\QuizPhase;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use App\Models\QuizCategory;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -43,11 +44,11 @@ class StepOne extends Component
     public function mount(Quiz $quiz)
     {
         $this->quiz = $quiz;
-        $this->quizName = $this->quiz->name;
-        $this->estimationTime = $this->quiz->estimation_time;
-        $this->contentCoverage = $this->quiz->content_coverage;
-        $this->overview = $this->quiz->overview;
-        $this->assessmentObjectives = $this->quiz->assessment_objectives;
+        $this->quizName = $quiz->name;
+        $this->estimationTime = $quiz->estimation_time;
+        $this->contentCoverage = $quiz->content_coverage;
+        $this->overview = $quiz->overview;
+        $this->assessmentObjectives = $quiz->assessment_objectives;
 
         $this->quizTypes = collect(QuizType::names())
             ->map(fn($item) => [
@@ -58,9 +59,9 @@ class StepOne extends Component
         $this->setQuizCategories();
         $this->setQuizPhases();
 
-        $this->quizCategory = $this->quiz->quiz_category_id;
-        $this->quizPhase = $this->quiz->quiz_phase_id;
-        $this->quizType = $this->quiz->type;
+        $this->quizCategory = $quiz->quiz_category_id;
+        $this->quizPhase = $quiz->quiz_phase_id;
+        $this->quizType = $quiz->type;
 
         $this->initQuizCategory = QuizCategory::where('id', $this->quizCategory)->first()->name;
         $this->initQuizPhase = QuizPhase::where('id', $this->quizPhase)->first()->name;

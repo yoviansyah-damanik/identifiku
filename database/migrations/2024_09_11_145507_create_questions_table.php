@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->uuid('id')
                 ->primary();
-            $table->string('text');
+            $table->string('question');
             $table->integer('order')
                 ->default(0);
             $table->foreignUuid('question_group_id')

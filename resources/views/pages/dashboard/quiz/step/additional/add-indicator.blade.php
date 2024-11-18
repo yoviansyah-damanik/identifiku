@@ -10,6 +10,14 @@
                     <x-form.input class="flex-1" :loading="$isLoading" :label="__('Max')" block :placeholder="__('Max')"
                         type='number' :error="$errors->first('value_max')" wire:model.blur='value_max' required />
                 </div>
+            @else
+                <x-form.input class="flex-1" :info="__('May be left blank')" :loading="$isLoading" :label="__('Default')" block
+                    :placeholder="__('Default')" type='text' :error="$errors->first('default')" wire:model.blur='default' required />
+            @endif
+
+            @if (in_array($rule?->type, ['calculation-2', 'summative']))
+                <x-form.input class="flex-1" :loading="$isLoading" :label="__('Score')" block :placeholder="__('Score')"
+                    :type="$rule?->type == 'summative' ? 'text' : 'number'" :error="$errors->first('score')" wire:model.blur='score' required />
             @endif
         </div>
     </x-modal.body>

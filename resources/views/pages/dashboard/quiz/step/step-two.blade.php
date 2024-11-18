@@ -54,14 +54,10 @@
                     <div class="pb-3 border-b" :key="'indicator-'.$x">
                         <div class="flex">
                             <div
-                                class="grid w-16 text-4xl font-bold border-r aspect-square place-items-center text-primary-300">
-                                @if ($quiz->assessmentRule->type == 'summation')
+                                class="grid w-16 text-4xl font-bold border-r pointer-events-none aspect-square place-items-center text-primary-300">
+                                @if ($quiz->assessmentRule->isAlphabetAnswer)
                                     {{ GeneralHelper::numberToAlpha($loop->iteration) }}
-                                @endif
-                                @if ($quiz->assessmentRule->type == 'calculation')
-                                    {{ GeneralHelper::numberToAlpha($loop->iteration) }}
-                                @endif
-                                @if ($quiz->assessmentRule->type == 'summative')
+                                @else
                                     {{ $loop->iteration }}
                                 @endif
                             </div>
@@ -70,7 +66,7 @@
                                     $detail = $quiz->assessmentRule->details
                                         ->where(
                                             'answer',
-                                            in_array($quiz->assessmentRule->type, ['summation', 'calculation'])
+                                            $quiz->assessmentRule->isAlphabetAnswer
                                                 ? GeneralHelper::numberToAlpha($loop->iteration)
                                                 : $loop->iteration,
                                         )
@@ -78,14 +74,43 @@
                                 @endphp
                                 @if ($detail)
                                     <div class="space-y-3 sm:space-y-4">
-                                        <div>
-                                            <div class="font-semibold">
-                                                {{ __('Value') }}
+                                        @if ($quiz->assessmentRule->type == 'summative')
+                                            <div>
+                                                <div class="font-semibold">
+                                                    {{ __('Min') }}
+                                                </div>
+                                                <div class="">
+                                                    {{ $detail->value_min }}
+                                                </div>
                                             </div>
-                                            <div class="">
-                                                {!! $detail->value !!}
+                                            <div>
+                                                <div class="font-semibold">
+                                                    {{ __('Max') }}
+                                                </div>
+                                                <div class="">
+                                                    {{ $detail->value_max }}
+                                                </div>
                                             </div>
-                                        </div>
+                                        @else
+                                            <div>
+                                                <div class="font-semibold">
+                                                    {{ __('Default') }}
+                                                </div>
+                                                <div class="">
+                                                    {{ $detail->default ?? __('No default value set') }}
+                                                </div>
+                                            </div>
+                                        @endif
+                                        @if (in_array($quiz->assessmentRule->type, ['calculation-2', 'summative']))
+                                            <div>
+                                                <div class="font-semibold">
+                                                    {{ __('Score') }}
+                                                </div>
+                                                <div class="">
+                                                    {!! $detail->score !!}
+                                                </div>
+                                            </div>
+                                        @endif
                                         <div>
                                             <div class="font-semibold">
                                                 {{ __('Indicator') }}
@@ -110,9 +135,7 @@
                                         {{ __('No indicators added yet') }}
                                         <x-button color="primary" size="sm"
                                             x-on:click="$dispatch('toggle-add-indicator-modal')"
-                                            wire:click="$dispatch('setAddIndicator',{ rule: '{{ $quiz->assessmentRule->id }}', 'answer': '{{ in_array($quiz->assessmentRule->type, ['summation', 'calculation'])
-                                                ? GeneralHelper::numberToAlpha($loop->iteration)
-                                                : $loop->iteration }}'})"
+                                            wire:click="$dispatch('setAddIndicator',{ rule: '{{ $quiz->assessmentRule->id }}', 'answer': '{{ $quiz->assessmentRule->isAlphabetAnswer ? GeneralHelper::numberToAlpha($loop->iteration) : $loop->iteration }}'})"
                                             icon="i-ph-plus">{{ __('Add :add', ['add' => __('Indicator')]) }}</x-button>
                                     </div>
                                 @endif

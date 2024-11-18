@@ -5,8 +5,6 @@
                 error="{{ $errors->first('name') }}" wire:model.blur='name' required />
             <x-form.input :loading="$isLoading" :label="__('Description')" block :placeholder="__('Description')" type='text'
                 error="{{ $errors->first('description') }}" wire:model.blur='description' required />
-            <x-form.select :loading="$isLoading" :label="__('Type')" block :items="$types" wire:model="type"
-                :error="$errors->first('type')" required />
         </div>
     </x-modal.body>
     <x-modal.footer>

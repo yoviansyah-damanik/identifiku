@@ -213,8 +213,8 @@ class GeneralHelper
             [
                 'step' => 4,
                 'stepName' => 'step-four',
-                'title' => __('Confirmation'),
-                'description' => __('Quiz Confirmation')
+                'title' => __('Publish'),
+                'description' => __('Enable and publish quiz')
             ]
         ];
     }
@@ -239,7 +239,12 @@ class GeneralHelper
             ],
             [
                 'value' => 'calculation',
-                'title' => __('Calculation'),
+                'title' => __('Calculation') . ' (' . __('Answer') . ')',
+                'description' => __('')
+            ],
+            [
+                'value' => 'calculation-2',
+                'title' => __('Calculation') . ' (' . __('Question') . ')',
                 'description' => __('')
             ],
             [

@@ -4,11 +4,12 @@ namespace App\Livewire\Dashboard\Quiz\Step;
 
 use App\Models\Quiz;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Helpers\GeneralHelper;
 use App\Models\AssessmentRule;
-use App\Models\AssessmentRuleDetail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Models\AssessmentRuleDetail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class StepTwo extends Component
@@ -16,6 +17,7 @@ class StepTwo extends Component
     use LivewireAlert;
 
     protected $listeners = ['refreshQuizData' => '$refresh'];
+
     public Quiz $quiz;
 
     public array $questionTypes;
@@ -42,8 +44,6 @@ class StepTwo extends Component
 
     public function mount(Quiz $quiz)
     {
-        $this->quiz = $quiz->load(['assessmentRule']);
-
         $this->questionTypes = GeneralHelper::getQuestionType();
         $this->questionType = $this->questionTypes[0]['value'];
 
@@ -57,8 +57,17 @@ class StepTwo extends Component
         }
     }
 
-    public function setQuestionType() {}
-    public function setAssessmentRule() {}
+    public function render()
+    {
+        return view('pages.dashboard.quiz.step.step-two');
+    }
+
+    #[On('refreshQuizData')]
+    public function refreshQuizData()
+    {
+        $this->quiz->refresh()
+            ->load(['assessmentRule', 'assessmentRule.details', 'groups', 'groups.questions']);
+    }
 
     public function rules()
     {
@@ -88,11 +97,6 @@ class StepTwo extends Component
         ];
     }
 
-    public function render()
-    {
-        return view('pages.dashboard.quiz.step.step-two');
-    }
-
     public function save()
     {
         $this->validate();
@@ -110,6 +114,7 @@ class StepTwo extends Component
                 );
 
                 $exist->details()->delete();
+                $this->quiz->groups()->delete();
             } else {
                 AssessmentRule::create(
                     [
@@ -122,9 +127,9 @@ class StepTwo extends Component
             }
 
             DB::commit();
+            $this->dispatch('refreshQuizData');
             $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Assessment Rule')]));
             $this->isLoading = false;
-            $this->quiz->refresh();
         } catch (\Exception $e) {
             DB::rollBack();
             $this->isLoading = false;

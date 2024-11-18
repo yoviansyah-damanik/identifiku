@@ -12,53 +12,67 @@
                     </div>
                 </div>
                 <div class="mb-5">
-                    <div class="flex items-center gap-1 text-sm text-white">
-                        <span class="i-ph-line-segments-light"></span>
-                        <div class="flex-1 font-light truncate">
-                            {{ __($selectedQuizPhase) }}
+                    <div class="pb-3 mb-3 border-b">
+                        <div class="flex items-center gap-1 text-sm text-white">
+                            <span class="i-ph-line-segments-light"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ __($selectedQuizPhase) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-center gap-1 text-sm text-white">
-                        <span class="i-ph-stack-simple-light"></span>
-                        <div class="flex-1 font-light truncate">
-                            {{ __($selectedQuizCategory) }}
+                        <div class="flex items-center gap-1 text-sm text-white">
+                            <span class="i-ph-stack-simple-light"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ __($selectedQuizCategory) }}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1 text-sm text-white">
+                            <span class="i-ph-folder"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ __(Str::headline($quizType)) }}
+                            </div>
                         </div>
                     </div>
                     <div class="flex items-center gap-1 text-sm text-white">
                         <span class="i-ph-folder"></span>
                         <div class="flex-1 font-light truncate">
-                            {{ __(Str::headline($quizType)) }}
+                            {{ __(Str::headline($quiz->assessmentRule->question_type)) }}
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1 text-sm text-white">
+                        <span class="i-ph-folder"></span>
+                        <div class="flex-1 font-light truncate">
+                            {{ __(Str::headline($quiz->assessmentRule->typeName)) }}
                         </div>
                     </div>
                 </div>
                 <div class="flex flex-col items-stretch gap-3 lg:items-center lg:flex-row">
                     <x-button size="sm" color="secondary" icon="i-ph-plus"
-                        x-on:click="$dispatch('toggle-group-type-modal')" wire:click="$dispatch('setGroupType')">
+                        x-on:click="$dispatch('toggle-add-group-modal')"
+                        wire:click="$dispatch('setAddGroup',{ quiz: '{{ $quiz->slug }}'})">
                         {{ __('Add :add', ['add' => __(':group Group', ['group' => __('Question')])]) }}
                     </x-button>
                 </div>
             </div>
-            {{-- QUIZ TYPE --}}
+            {{-- QUIZ GROUP --}}
             <div class="mb-4 overflow-hidden bg-white rounded-lg shadow-md">
                 <ul x-data="{
-                    typeActive: '',
+                    groupActive: '',
                     handle: (item, position, last) => {
-                        $wire.reorderQuizType(item, position);
-                        {{-- console.log(item, position); --}}
+                        $wire.reorderQuizGroup(item, position);
                     }
-                }" x-sort.ghost="handle" x-sort:group="types">
-                    {{-- @foreach ($types as $type) --}}
-                    {{-- <livewire:dashboard.quiz.step.additional.question-type :key="$type->id" :$type /> --}}
-                    {{-- @endforeach --}}
+                }" x-sort.ghost="handle" x-sort:group="groups">
+                    @foreach ($quiz->groups as $group)
+                        <livewire:dashboard.quiz.step.additional.question-group :key="$group->id" :$group />
+                    @endforeach
                 </ul>
             </div>
-            {{-- END QUIZ TYPE --}}
+            {{-- END QUIZ GROUP --}}
         </div>
         {{-- END SIDEBAR --}}
 
         {{-- CONTENT --}}
         <div class="flex-1">
-            {{-- <livewire:dashboard.quiz.step.additional.active-type /> --}}
+            <livewire:dashboard.quiz.step.additional.active-group :$activeGroup />
         </div>
         {{-- END CONTENT --}}
     </div>
@@ -67,20 +81,20 @@
         <x-modal name="add-group-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Group')])">
             <livewire:dashboard.quiz.step.additional.add-group :$quiz />
         </x-modal>
-        <x-modal name="add-question-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Question')])">
-            <livewire:dashboard.quiz.step.additional.add-question />
+        <x-modal name="add-question-modal" size="4xl" :modalTitle="__('Add :add', ['add' => __('Question')])">
+            <livewire:dashboard.quiz.step.additional.add-question :$quiz />
         </x-modal>
         <x-modal name="edit-group-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Group')])">
             <livewire:dashboard.quiz.step.additional.edit-group :$quiz />
         </x-modal>
-        <x-modal name="edit-question-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Question')])">
-            <livewire:dashboard.quiz.step.additional.edit-question />
+        <x-modal name="edit-question-modal" size="4xl" :modalTitle="__('Edit :edit', ['edit' => __('Question')])">
+            <livewire:dashboard.quiz.step.additional.edit-question :$quiz />
         </x-modal>
         <x-modal name="delete-group-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Group')])">
             <livewire:dashboard.quiz.step.additional.delete-group :$quiz />
         </x-modal>
         <x-modal name="delete-question-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Question')])">
-            <livewire:dashboard.quiz.step.additional.delete-question />
+            <livewire:dashboard.quiz.step.additional.delete-question :$quiz />
         </x-modal>
     </div>
 </div>

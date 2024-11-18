@@ -2,13 +2,11 @@
 
 namespace App\Livewire\Dashboard\Quiz\Step\Additional;
 
+use App\Models\Quiz;
 use Livewire\Component;
-use Illuminate\Support\Str;
 use Livewire\Attributes\On;
-use App\Enums\QuestionTypes;
-use App\Models\QuestionType;
+use App\Models\QuestionGroup;
 use App\Helpers\GeneralHelper;
-use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class AddGroup extends Component
@@ -18,22 +16,12 @@ class AddGroup extends Component
     public string $name;
     public string $description;
 
-    public QuestionType $questionType;
+    public Quiz $quiz;
 
     public array $types;
     public string $type;
 
     public bool $isLoading = false;
-
-    public function mount()
-    {
-        $this->types = collect(QuestionTypes::names())
-            ->map(fn($item) => [
-                'value' => $item,
-                'title' => __(Str::headline($item))
-            ])->toArray();
-        $this->type = $this->types[0]['value'];
-    }
 
     public function render()
     {
@@ -45,10 +33,6 @@ class AddGroup extends Component
         return [
             'name' => 'required|string|max:40',
             'description' => 'required|string|max:80',
-            'type' => [
-                'required',
-                Rule::in(collect($this->types)->pluck('value')->toArray())
-            ]
         ];
     }
 
@@ -61,10 +45,10 @@ class AddGroup extends Component
     }
 
     #[On('setAddGroup')]
-    public function setAddGroup(QuestionType $questionType)
+    public function setAddGroup(Quiz $quiz)
     {
         $this->isLoading = true;
-        $this->questionType = $questionType;
+        $this->quiz = $quiz;
         $this->isLoading = false;
 
         if (!GeneralHelper::isProduction())
@@ -83,12 +67,13 @@ class AddGroup extends Component
         $this->isLoading = true;
         try {
             QuestionGroup::create([
-                'question_type_id' => $this->questionType->id,
+                'quiz_id' => $this->quiz->id,
                 'name' => $this->name,
                 'description' => $this->description,
-                'type' => $this->type,
-                'order' => $this->questionType->groups->count()
+                'order' => $this->quiz->groups->count() + 1
             ]);
+
+            $this->dispatch('refreshQuizData');
             $this->dispatch('toggle-add-group-modal');
             $this->alert('success', __(':attribute added successfully.', ['attribute' => __(':group Group', ['group' => __('Quiz')])]));
             $this->isLoading = false;
@@ -104,6 +89,5 @@ class AddGroup extends Component
     public function refresh()
     {
         $this->reset('name', 'description');
-        $this->type = $this->types[0]['value'];
     }
 }

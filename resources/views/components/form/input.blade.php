@@ -24,12 +24,12 @@
         @endif
 
         @if ($error)
-            <x-form.error-message>
+            <x-form.error-message :withLabel="$label ? true : false">
                 {{ $error }}
             </x-form.error-message>
         @else
             @if ($info)
-                <x-form.info-message>
+                <x-form.info-message :withLabel="$label ? true : false">
                     {{ $info }}
                 </x-form.info-message>
             @endif

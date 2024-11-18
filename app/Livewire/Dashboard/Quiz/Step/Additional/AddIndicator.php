@@ -17,18 +17,11 @@ class AddIndicator extends Component
     public string $indicator;
     public int $value_min;
     public int $value_max;
+    public int | string $score;
     public string $answer;
-
-    public array $operators;
-    public string $operator;
+    public string $default;
 
     public bool $isLoading = true;
-
-    public function mount()
-    {
-        $this->operators = ["<", "<=", "=", ">=", ">"];
-        $this->operator = "=";
-    }
 
     public function render()
     {
@@ -47,6 +40,7 @@ class AddIndicator extends Component
     public function refresh()
     {
         $this->reset();
+        $this->resetValidation();
         $this->dispatch('clear-textarea');
         $this->isLoading = false;
     }
@@ -66,12 +60,17 @@ class AddIndicator extends Component
                 'gt:value_min',
                 Rule::requiredIf($this->rule->type == 'summative')
             ],
-            'operator' => [
+            'score' => [
+                'nullable',
+                $this->rule->type == 'calculation-2' ? 'numeric' : 'string',
+                $this->rule->type == 'calculation-2' ? 'digits_between:1,3' : '',
+                $this->rule->type == 'summative' ? 'max:3' : '',
+                Rule::requiredIf(in_array($this->rule->type, ['calculation-2', 'summative']))
+            ],
+            'default' => [
                 'nullable',
                 'string',
-                Rule::requiredIf($this->rule->type == 'summative'),
-                Rule::in($this->operators)
-            ]
+            ],
         ];
     }
 
@@ -81,7 +80,8 @@ class AddIndicator extends Component
             'indicator' => __('Indicator'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
-            'operator' => __('Operator')
+            'default' => __('Default'),
+            'score' => __('Score')
         ];
     }
 
@@ -96,6 +96,8 @@ class AddIndicator extends Component
                 'answer' => $this->answer,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,
+                'default' => $this->default ?? null,
+                'score' => $this->score ?? null,
             ]);
 
             $this->dispatch('toggle-add-indicator-modal');

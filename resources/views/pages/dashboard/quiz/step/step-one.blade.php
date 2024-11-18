@@ -2,7 +2,7 @@
     <div class="flex-1 space-y-3 sm:space-y-4">
         <x-form.input :loading="$isLoading" :label="__(':name Name', ['name' => __('Quiz')])" :placeholder="__('Entry :entry', ['entry' => __(':name Name', ['name' => __('Quiz')])])" block type="text" wire:model="quizName"
             :error="$errors->first('quizName')" required />
-        <x-form.select :info="__('You cannot change this once saved')" :loading="$isLoading" :label="__(':type Type', ['type' => __('Quiz')])" block :items="$quizTypes"
+        <x-form.select :info="__('You cannot change this once saved')" :loading="true" :label="__(':type Type', ['type' => __('Quiz')])" block :items="$quizTypes"
             wire:model="quizType" :error="$errors->first('quizType')" required />
         <x-form.select-with-search :buttonText="$initQuizCategory" :label="__('Quiz Category')" searchVar="quizCategorySearch" :items="$quizCategories"
             wire:model="quizCategorySearch" :error="$errors->first('quizCategory')" />

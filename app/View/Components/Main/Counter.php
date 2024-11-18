@@ -36,7 +36,7 @@ class Counter extends Component
             ],
             [
                 'title' => __('Quizzes'),
-                'count' => Quiz::count(),
+                'count' => Quiz::published()->count(),
                 'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, beatae?'
             ]
         ];

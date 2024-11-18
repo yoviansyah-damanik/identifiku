@@ -11,8 +11,11 @@ class QuestionGroup extends Model
 {
     use HasFactory, HasUuids;
 
+    protected $guarded = ['id'];
+
     public function questions(): HasMany
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Question::class)
+            ->orderBy('order', 'asc');
     }
 }

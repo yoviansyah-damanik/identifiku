@@ -17,13 +17,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('questions')
                 ->onDelete('cascade');
+            $table->string('answer');
             $table->string('text');
-            $table->integer('value')
+            $table->integer('score')
                 ->nullable();
             $table->boolean('is_correct')
                 ->nullable();
-            $table->integer('order')
-                ->default(0);
         });
     }
 

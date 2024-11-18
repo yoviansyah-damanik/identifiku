@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class StepFour extends Component
 {
+    public Quiz $quiz;
+
     public function mount(Quiz $quiz)
     {
         $this->quiz = $quiz;
