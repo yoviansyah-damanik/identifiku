@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class AssessmentRule extends Model
 {
     protected $guarded = ['id'];
+    // protected $appends = ['typeName'];
 
-    public function typeName(): Attribute
+    public function getTypeNameAttribute()
     {
-        return new Attribute(
-            get: fn() => collect(GeneralHelper::getAssessmentRuleType())->where('value', $this->type)->first()['title']
-        );
+        return collect(GeneralHelper::getAssessmentRuleType())->where('value', $this->type)->first()['title'];
     }
+
     public function isAlphabetAnswer(): Attribute
     {
         return new Attribute(

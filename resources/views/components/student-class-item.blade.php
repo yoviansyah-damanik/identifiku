@@ -5,32 +5,32 @@
     <div class="lg:[column-count:3] [column-count:2] [column-gap:1.5rem] w-full lg:w-auto flex-1">
         <x-available-class-sub-item :title="__(':name Name', ['name' => __('Class')])">
             <div class="font-bold text-secondary-500">
-                {{ $class->class->name }}
+                {{ $class->name }}
             </div>
         </x-available-class-sub-item>
-        <x-available-class-sub-item :title="__('Description')" :value="$class->class->description" />
-        <x-available-class-sub-item :title="__('Teacher')" :value="$class->class->teacher->name" />
+        <x-available-class-sub-item :title="__('Description')" :value="$class->description" />
+        <x-available-class-sub-item :title="__('Teacher')" :value="$class->teacher->name" />
         @if (auth()->user()->isAdmin)
-            <x-available-class-sub-item :title="__('School')" :value="$class->class->teacher->school->name" />
+            <x-available-class-sub-item :title="__('School')" :value="$class->teacher->school->name" />
         @endif
         <x-available-class-sub-item :title="__('Expired Date')">
-            {{ $class->class->expired_at ? $class->class->expired_at->translatedFormat('d M Y') . ' (' . $class->class->expired_at->diffForHumans() . ')' : '-' }}
+            {{ $class->expired_at ? $class->expired_at->translatedFormat('d M Y') . ' (' . $class->expired_at->diffForHumans() . ')' : '-' }}
         </x-available-class-sub-item>
         <x-available-class-sub-item :title="__('Status')">
-            <x-badge :type="$class->class->isStatusActive ? 'success' : 'error'">
-                {{ $class->class->isStatusActive ? __('Active') : __('Inactive') }}
+            <x-badge :type="$class->isStatusActive ? 'success' : 'error'">
+                {{ $class->isStatusActive ? __('Active') : __('Inactive') }}
             </x-badge>
         </x-available-class-sub-item>
         <x-available-class-sub-item :title="__('Number of :subject', ['subject' => __('Students')])">
-            {{ GeneralHelper::numberFormat($class->class->students_count) .
+            {{ GeneralHelper::numberFormat($class->students_count) .
                 ' ' .
-                ($class->class->students_count > 1 ? __('Students') : __('Student')) }}
+                ($class->students_count > 1 ? __('Students') : __('Student')) }}
         </x-available-class-sub-item>
         <x-available-class-sub-item>
             <div class="flex flex-col items-start gap-1">
                 @role('Student')
                     <x-button color="cyan" size="sm" icon="i-ph-eye"
-                        href="{{ route('dashboard.student-class.show', $class->class) }}">
+                        href="{{ route('dashboard.student-class.show', $class) }}">
                         {{ __('Show') }}
                     </x-button>
                     <x-button color="red" size="sm" icon="i-ph-arrow-square-out"

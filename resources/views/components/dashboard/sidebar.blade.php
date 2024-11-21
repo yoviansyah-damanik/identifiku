@@ -1,4 +1,4 @@
-<div x-init="console.log('im here')" x-data="{ id: 'sidebar' }"
+<div x-data="{ id: 'sidebar' }"
     class="fixed inset-0 flex-col transition-all bg-white shadow lg:sticky lg:top-0 lg:flex dark:bg-slate-900 z-sidebar group h-dvh lg:w-full md:w-72 xl:w-[20rem]"
     :class="sidebarToggle ? 'flex' : 'lg:!w-16 lg:translate-x-0 -translate-x-full'">
     <x-dashboard.sidebar.header />

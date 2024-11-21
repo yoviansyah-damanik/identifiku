@@ -50,10 +50,11 @@ class Quiz extends Model
     {
         return new Attribute(
             get: function () {
-                return $this->types->sum('questionsTotal');
+                return $this->groups->sum('questions_count');
             }
         );
     }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

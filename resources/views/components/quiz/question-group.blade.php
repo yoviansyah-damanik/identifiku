@@ -15,13 +15,13 @@
                 {{ $group->description }}
             </div>
             <div class="text-sm font-light">
-                {{-- <div class="flex items-center gap-1 text-xs">
+                <div class="flex items-center gap-1 text-xs">
                     <span class="i-ph-list-checks-light"></span>
                     <div class="flex-1 font-light truncate">
                         {{ $group->questions->count() }}
                         {{ $group->questions->count() > 1 ? __('Questions') : __('Question') }}
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center gap-1 bg-gradient-to-r from-transparent from-10% to-secondary-50 px-7"

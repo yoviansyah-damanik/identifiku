@@ -3,11 +3,11 @@
 namespace App\Livewire\Dashboard\StudentClass;
 
 use Livewire\Component;
+use App\Models\StudentClass;
 use Livewire\Attributes\Url;
-use App\Helpers\GeneralHelper;
-use App\Models\StudentHasClass;
-use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
+use App\Helpers\GeneralHelper;
+use Livewire\Attributes\Layout;
 
 #[Layout('layouts.dashboard')]
 class Index extends Component
@@ -20,6 +20,7 @@ class Index extends Component
 
     public int $perPage;
     public array $perPageList;
+
     public function mount()
     {
         $this->perPageList = GeneralHelper::getPerPageList();
@@ -28,14 +29,11 @@ class Index extends Component
 
     public function render()
     {
-        $classes = StudentHasClass::with(
-            [
-                'class' => fn($q) => $q->withCount('students'),
-                'student'
-            ]
+        $classes = StudentClass::whereHas(
+            'students',
+            fn($q) => $q->where('students.id', auth()->user()->student->id)
         )
-            ->where('student_id', auth()->user()->student->id)
-            ->whereHas('class', fn($q) => $q->whereAny(['name'], 'like', "%$this->search%"))
+            ->whereAny(['name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 
         return view('pages.dashboard.student-class.index', compact('classes'))

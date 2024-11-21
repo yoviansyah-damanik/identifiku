@@ -119,11 +119,11 @@ class EditQuestion extends Component
             // $newQuestion->mediables->create([]);
 
             DB::commit();
-            $this->reset('question', 'answers', '_question');
             $this->dispatch('toggle-edit-question-modal');
-            $this->dispatch('refreshQuizData');
+            $this->dispatch('refreshQuizData', group: $this->question->group->id);
             $this->dispatch('refreshGroupData');
             $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Question')]));
+            $this->reset('question', 'answers', '_question');
             $this->isLoading = false;
         } catch (\Exception $e) {
             DB::rollBack();

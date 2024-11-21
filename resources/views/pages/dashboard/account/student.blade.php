@@ -6,7 +6,7 @@
             wire:model.blur='nisn' error="{{ $errors->first('nisn') }}" />
         <x-form.select-with-search class="flex-none w-full lg:w-auto lg:flex-1" block searchVar="gradeLevelSearch"
             :items="$gradeLevels" wire:model="gradeLevel" error="{{ $errors->first('gradeLevel') }}" :label="__('Choose a :item', ['item' => __('Grade Level')])"
-            :buttonText="__('Choose a :item', ['item' => __('Grade Level')])" />
+            :buttonText="auth()->user()->student->grade->name" />
     </div>
     <x-form.input :loading="$isLoading" :label="__(':name Name', ['name' => __('Student')])" block :placeholder="__('Entry :entry', ['entry' => __(':name Name', ['name' => __('Student')])])" type='text' wire:model.blur='name'
         error="{{ $errors->first('name') }}" />

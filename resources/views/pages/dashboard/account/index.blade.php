@@ -11,16 +11,14 @@
         </div>
 
         <div class="flex flex-col flex-1 gap-3 bg-white rounded-lg max-w-[920px] p-7">
-            <div class="font-bold">
-                {{ $choice == 'user' ? __('User Data') : ($choice == 'account' ? __('Account') : __('Password')) }}
-            </div>
-            @if ($choice == 'user')
+            <livewire:is :component="'dashboard.account.' . $choice" :key="$choice" />
+            {{-- @if ($choice == 'user')
                 <livewire:dashboard.account.user />
             @elseif ($choice == 'password')
                 <livewire:dashboard.account.password />
             @else
                 @livewire('dashboard.account.' . Str::lower(auth()->user()->roleName != 'Superadmin' ? auth()->user()->roleName : 'Administrator'))
-            @endif
+            @endif --}}
         </div>
     </div>
 </x-content>

@@ -5,8 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Helpers\ConfigurationHelper;
-use App\Helpers\GeneralHelper;
-use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -15,7 +13,6 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
@@ -71,6 +68,27 @@ class User extends Authenticatable
     {
         return new Attribute(
             get: fn() => in_array($this->roleName, ['Administrator', 'Superadmin'])
+        );
+    }
+
+    public function isTeacher(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->roleName === 'Teacher'
+        );
+    }
+
+    public function isStudent(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->roleName === 'Student'
+        );
+    }
+
+    public function isSchool(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->roleName === 'School'
         );
     }
 

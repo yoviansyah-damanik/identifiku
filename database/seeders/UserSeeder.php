@@ -85,7 +85,7 @@ class UserSeeder extends Seeder
             });
 
         User::factory()
-            ->count(1)
+            ->count(2)
             ->create()
             ->each(function ($user) {
                 $user->assignRole('Teacher');

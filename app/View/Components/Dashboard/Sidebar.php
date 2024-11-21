@@ -5,7 +5,6 @@ namespace App\View\Components\Dashboard;
 use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Route;
 
 class Sidebar extends Component
 {
@@ -168,14 +167,14 @@ class Sidebar extends Component
                         'title' => __('Available Quiz'),
                         'icon' => 'i-fluent-emoji-flat-abacus',
                         'to' => route('dashboard.quiz.available'),
-                        'isActive' => request()->routeIs('dashboard.quiz.available') || request()->routeIs('dashboard.quiz.show'),
+                        'isActive' => request()->routeIs('dashboard.quiz.available') || request()->routeIs('dashboard.quiz.show') || request()->routeIs('dashboard.quiz.preview'),
                         'permission' => 'quiz available'
                     ],
                     [
                         'title' => __('Quiz'),
                         'icon' => 'i-fluent-emoji-flat-abacus',
                         'to' => route('dashboard.quiz'),
-                        'isActive' => request()->routeIs('dashboard.quiz*') && !request()->routeIs('dashboard.quiz.available'),
+                        'isActive' => request()->routeIs('dashboard.quiz.*') && !request()->routeIs('dashboard.quiz.available'),
                         'permission' => 'quiz'
                     ],
                     [

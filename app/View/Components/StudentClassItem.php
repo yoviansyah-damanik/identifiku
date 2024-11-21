@@ -2,7 +2,7 @@
 
 namespace App\View\Components;
 
-use App\Models\StudentHasClass;
+use App\Models\StudentClass;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -13,7 +13,7 @@ class StudentClassItem extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public StudentHasClass $class
+        public StudentClass $class
     ) {
         //
     }

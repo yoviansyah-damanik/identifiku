@@ -79,6 +79,11 @@ class StudentClass extends Model
         return $this->hasManyThrough(Student::class, StudentHasClass::class, 'student_class_id', 'id', 'id', 'student_id');
     }
 
+    public function assessments(): HasMany
+    {
+        return $this->hasMany(Assessment::class);
+    }
+
     public function quizzes(): HasMany
     {
         return $this->hasMany(ClassHasQuiz::class);

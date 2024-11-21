@@ -1,4 +1,4 @@
-<li x-data="{ id: '{{ $question->id }}' }" class="relative flex items-center justify-between gap-3 overflow-hidden bg-white"
+<li x-data="{ id: '{{ $question->id }}' }" class="relative flex items-center justify-between gap-3 overflow-hidden bg-white shadow-md"
     x-sort:item="'{{ $question->id }}'">
     <div class="flex items-center justify-start flex-1 gap-3">
         <div class="grid self-stretch w-12 bg-secondary-50 place-items-center cursor-grab [body:not(.sorting)_&]:hover:bg-secondary-100"

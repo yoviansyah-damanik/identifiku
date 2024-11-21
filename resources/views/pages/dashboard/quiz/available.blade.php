@@ -28,8 +28,10 @@
     </div>
 
     <div wire:ignore>
-        <x-modal name="add-quiz-modal" size="screen" :modalTitle="__('Add :add', ['add' => __('Quiz')])">
-            <livewire:dashboard.quiz.add />
-        </x-modal>
+        @haspermission('quiz add')
+            <x-modal name="add-quiz-modal" size="2xl" :modalTitle="__('Add :add', ['add' => __('Quiz')])">
+                <livewire:dashboard.quiz.add />
+            </x-modal>
+        @endhaspermission
     </div>
 </x-content>

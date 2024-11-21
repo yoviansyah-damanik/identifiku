@@ -41,14 +41,12 @@ class DeleteQuestion extends Component
                     $item->update(['order' => $key + 1]);
                 });
 
-            $this->reset('question');
-            $this->isLoading = true;
             DB::commit();
-
-            $this->dispatch('refreshGroupData');
-            // $this->dispatch('refreshQuizData');
+            $this->dispatch('refreshQuizData', group: $this->question->group->id);
             $this->dispatch('toggle-delete-question-modal');
             $this->alert('success', __(':attribute deleted successfully.', ['attribute' => __('Question')]));
+            $this->reset('question');
+            $this->isLoading = true;
         } catch (\Exception $e) {
             DB::rollBack();
             $this->alert('error', $e->getMessage());

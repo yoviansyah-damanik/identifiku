@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('answer')->nullable();
             $table->integer('value_min')->nullable();
             $table->integer('value_max')->nullable();
-            $table->varchar('score', 5)->nullable();
+            $table->string('score', 5)->nullable();
             $table->string('default')->nullable();
         });
     }

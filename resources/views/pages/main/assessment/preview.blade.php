@@ -13,5 +13,7 @@
         ],
     ]" />
 
-    <x-assessment-information-box :$quiz />
+    <x-container>
+        <x-preview :$quiz :$selectedQuizPhase :$selectedQuizCategory :$activeGroup />
+    </x-container>
 </div>

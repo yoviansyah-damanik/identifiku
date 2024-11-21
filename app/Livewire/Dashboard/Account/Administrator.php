@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Account;
 use App\Enums\Genders;
 use Livewire\Component;
 use App\Rules\PhoneNumber;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
@@ -74,7 +75,7 @@ class Administrator extends Component
         $this->validate();
         $this->isLoading = true;
         try {
-            auth()->user()->administrator->update([
+            auth()->user()->{Str::lower(auth()->user()->roleName)}->update([
                 'name' => $this->name,
                 'address' => $this->address,
                 'place_of_birth' => $this->placeOfBirth,

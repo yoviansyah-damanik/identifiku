@@ -20,7 +20,7 @@
                     wire:model="quizPhaseSearch" error="{{ $errors->first('quizPhase') }}" :withReset="true"
                     :buttonText="__('Choose a :item', ['item' => __('Quiz Phase')])" />
             </div>
-            <div class="grid flex-1 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7">
+            <div class="grid flex-1 grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-7">
                 @forelse ($quizzes as $quiz)
                     <x-quiz-box :$quiz />
                 @empty

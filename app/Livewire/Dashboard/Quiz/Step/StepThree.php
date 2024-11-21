@@ -17,18 +17,10 @@ class StepThree extends Component
 
     public Quiz $quiz;
 
-    public string $quizName;
-    public string $quizType;
-    public string $quizDescription;
-    public string $estimationTime;
-    public string $contentCoverage;
-    public string $overview;
-    public string $assessmentObjectives;
-
     public string $selectedQuizPhase;
     public string $selectedQuizCategory;
 
-    public ?QuestionGroup $activeGroup;
+    public ?QuestionGroup $activeGroup = null;
 
     public bool $isLoading = false;
 
@@ -36,12 +28,6 @@ class StepThree extends Component
     {
         $this->quiz = $quiz
             ->load(['assessmentRule', 'assessmentRule.details', 'groups', 'groups.questions', 'groups.questions.answers']);
-        $this->quizName = $quiz->name;
-        $this->quizType = $quiz->type;
-        $this->estimationTime = $quiz->estimation_time;
-        $this->contentCoverage = $quiz->content_coverage;
-        $this->overview = $quiz->overview;
-        $this->assessmentObjectives = $quiz->assessment_objectives;
 
         $this->selectedQuizPhase = QuizPhase::where('id', $quiz->quiz_phase_id)->first()->name;
         $this->selectedQuizCategory = QuizCategory::where('id', $quiz->quiz_category_id)->first()->name;
@@ -52,11 +38,27 @@ class StepThree extends Component
         return view('pages.dashboard.quiz.step.step-three');
     }
 
-    #[On('refreshQuizData')]
-    public function refreshQuizData($group = null)
+    public function placeholder()
     {
-        $this->quiz = $this->quiz->refresh()
+        return <<<'HTML'
+        <div class="text-center">
+            <!-- Loading spinner... -->
+            <x-loading/>
+        </div>
+        HTML;
+    }
+
+    #[On('refreshQuizData')]
+    public function refreshQuizData($group = null, $isResetActiveGroup = false)
+    {
+        // dd($group, $isResetActiveGroup);
+        if ($isResetActiveGroup) {
+            $this->reset('activeGroup');
+        }
+
+        $this->quiz->refresh()
             ->load(['assessmentRule', 'assessmentRule.details', 'groups', 'groups.questions', 'groups.questions.answers']);
+
         $this->setGroupActive($group);
     }
 
@@ -64,12 +66,20 @@ class StepThree extends Component
     public function setGroupActive($group = null)
     {
         if ($group)
-            $this->activeGroup = $this->quiz->groups
+            $this->activeGroup = $this->quiz->refresh()->groups
                 ->where('id', $group)
                 ->first()
                 ->load(['questions', 'questions.answers']);
-        else
-            $this->activeGroup = $this->activeGroup;
+        else {
+            if (!empty($this->activeGroup['questions'])) {
+                $this->activeGroup = $this->activeGroup
+                    ->load(['questions', 'questions.answers']);
+            } else {
+                $this->activeGroup = $this->activeGroup;
+            }
+        }
+
+        $this->dispatch('setActiveGroup', $this->activeGroup);
     }
 
     public function reorderQuizGroup($id, $position)
@@ -91,6 +101,47 @@ class StepThree extends Component
             } else {
                 $exist->update(['order' => $position + 1]);
                 QuestionGroup::where('quiz_id', $this->quiz->id)
+                    ->whereNot('id', $id)
+                    ->where('order', '>=', $position + 1)
+                    ->orderBy('order', 'asc')
+                    ->each(function ($item, $key) use ($position) {
+                        $item->update(['order' => ($position + 1) + $key + 1]);
+                    });
+            }
+
+            DB::commit();
+            $this->refreshQuizData();
+            $this->isLoading = false;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->isLoading = false;
+            $this->alert('error', $e->getMessage());
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            $this->isLoading = false;
+            $this->alert('error', $e->getMessage());
+        }
+    }
+
+    public function reorderQuestion($id, $position)
+    {
+        $this->isLoading = true;
+        DB::beginTransaction();
+        try {
+            $exist = Question::where('id', $id)->first();
+
+            if ($exist->order < $position + 1) {
+                $exist->update(['order' => $position + 1]);
+                Question::where('quiz_id', $this->quiz->id)
+                    ->whereNot('id', $id)
+                    ->where('order', '<=', $position + 1)
+                    ->orderBy('order', 'asc')
+                    ->each(function ($item, $key) {
+                        $item->update(['order' => $key + 1]);
+                    });
+            } else {
+                $exist->update(['order' => $position + 1]);
+                Question::where('quiz_id', $this->quiz->id)
                     ->whereNot('id', $id)
                     ->where('order', '>=', $position + 1)
                     ->orderBy('order', 'asc')

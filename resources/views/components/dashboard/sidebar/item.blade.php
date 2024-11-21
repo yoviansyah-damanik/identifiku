@@ -6,8 +6,7 @@
             $menu['isActive']
                 ? 'bg-primary-100 dark:bg-slate-800'
                 : 'hover:bg-primary-50 dark:hover:bg-slate-700',
-        ]) wire:navigate x-on:click="sidebarToggle = false"
-            x-ref="item">
+        ]) wire:navigate {{-- x-on:click="sidebarToggle = false" --}} x-ref="item">
             <div @class([
                 'relative grid flex-none w-16 h-full overflow-hidden place-items-center',
                 $menu['isActive'] ? 'bg-primary-700 text-white' : '',

@@ -62,11 +62,21 @@ class StepTwo extends Component
         return view('pages.dashboard.quiz.step.step-two');
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div class="text-center">
+            <!-- Loading spinner... -->
+            <x-loading/>
+        </div>
+        HTML;
+    }
+
     #[On('refreshQuizData')]
     public function refreshQuizData()
     {
-        $this->quiz->refresh()
-            ->load(['assessmentRule', 'assessmentRule.details', 'groups', 'groups.questions']);
+        $this->quiz = $this->quiz->refresh()
+            ->load(['assessmentRule', 'assessmentRule.details']);
     }
 
     public function rules()

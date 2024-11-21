@@ -54,14 +54,14 @@
                     <div class="pb-3 border-b" :key="'indicator-'.$x">
                         <div class="flex">
                             <div
-                                class="grid w-16 text-4xl font-bold border-r pointer-events-none aspect-square place-items-center text-primary-300">
+                                class="grid w-16 text-4xl font-bold pointer-events-none place-items-center text-primary-300">
                                 @if ($quiz->assessmentRule->isAlphabetAnswer)
                                     {{ GeneralHelper::numberToAlpha($loop->iteration) }}
                                 @else
                                     {{ $loop->iteration }}
                                 @endif
                             </div>
-                            <div class="flex-1 py-3 px-9">
+                            <div class="flex-1 px-5 py-3 sm:px-9">
                                 @php
                                     $detail = $quiz->assessmentRule->details
                                         ->where(

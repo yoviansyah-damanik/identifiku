@@ -1,14 +1,14 @@
 <div>
     <div class="flex flex-col items-start gap-4 lg:flex-row">
         {{-- SIDEBAR --}}
-        <div class="w-auto lg:w-full lg:max-w-[380px] 2xl:max-w-[450px]">
+        <div class="w-full lg:max-w-[380px] 2xl:max-w-[450px]">
             <div class="p-6 mb-4 rounded-lg shadow-md bg-primary-500 sm:p-8 dark:bg-slate-800">
                 <div class="pb-3 mb-3 border-b">
                     <div class="text-xl font-bold text-secondary-500">
-                        {{ $quizName }}
+                        {{ $quiz->name }}
                     </div>
                     <div class="text-sm font-light text-white">
-                        {{ $quizDescription }}
+                        {{ $quiz->escription }}
                     </div>
                 </div>
                 <div class="mb-5">
@@ -28,7 +28,7 @@
                         <div class="flex items-center gap-1 text-sm text-white">
                             <span class="i-ph-folder"></span>
                             <div class="flex-1 font-light truncate">
-                                {{ __(Str::headline($quizType)) }}
+                                {{ __(Str::headline($quiz->type)) }}
                             </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
                     }
                 }" x-sort.ghost="handle" x-sort:group="groups">
                     @foreach ($quiz->groups as $group)
-                        <livewire:dashboard.quiz.step.additional.question-group :key="$group->id" :$group />
+                        <x-quiz.question-group :key="$group->id" :$group />
                     @endforeach
                 </ul>
             </div>
@@ -72,7 +72,7 @@
 
         {{-- CONTENT --}}
         <div class="flex-1">
-            <livewire:dashboard.quiz.step.additional.active-group :$activeGroup />
+            <x-quiz.active-group :$activeGroup />
         </div>
         {{-- END CONTENT --}}
     </div>

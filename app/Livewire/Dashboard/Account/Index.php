@@ -3,6 +3,7 @@
 namespace App\Livewire\Dashboard\Account;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Layout;
 
 #[Layout('layouts.dashboard')]
@@ -13,7 +14,12 @@ class Index extends Component
 
     public function mount()
     {
-        $this->choices = ['account', 'user', 'password'];
+        $this->choices = [
+            Str::lower(auth()->user()->roleName == 'Superadmin' ? 'Administrator' : auth()->user()->roleName),
+            'user',
+            'password'
+        ];
+
         $this->choice = $this->choices[0];
     }
 

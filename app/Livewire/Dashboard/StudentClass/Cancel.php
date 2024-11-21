@@ -36,6 +36,8 @@ class Cancel extends Component
 
     public function cancel()
     {
+        $this->authorize('cancel', $this->class);
+
         if (in_array($this->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
             $this->alert('warning', __('You have been in this class'));
             return;

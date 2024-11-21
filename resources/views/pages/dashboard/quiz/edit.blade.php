@@ -37,7 +37,7 @@
         @endforeach
     </ol>
 
-    <livewire:is :component="'dashboard.quiz.step.step-' . GeneralHelper::numberToWord($current)" :key="$current" :$quiz />
+    <livewire:is :component="'dashboard.quiz.step.step-' . GeneralHelper::numberToWord($current)" :key="$current" :$quiz lazy />
 
     <div class="flex justify-end pt-3 border-t sm:pt-4">
         <x-button color="primary" icon="i-ph-question-fill" x-on:click="$dispatch('toggle-help-modal')" :withBorderIcon="false">
@@ -54,6 +54,10 @@
     </div>
 </x-content>
 
+@push('headers')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css" />
+@endpush
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/sort@3.x.x/dist/cdn.min.js"></script>
 @endpush

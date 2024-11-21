@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Account;
 use Carbon\Carbon;
 use App\Enums\Genders;
 use Livewire\Component;
+use App\Models\GradeLevel;
 use App\Rules\PhoneNumber;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
@@ -14,6 +15,8 @@ class Student extends Component
 {
     use LivewireAlert;
 
+    public string $nis;
+    public string $nisn;
     public string $name;
     public string $dateOfBirth;
     public string $placeOfBirth;
@@ -27,24 +30,66 @@ class Student extends Component
     public int $maxNis = 8;
     public int $maxNisn = 8;
 
+    public array $gradeLevels;
+    public ?string $gradeLevel = null;
+    public string $gradeLevelSearch  = '';
+
+    public string $educationLevel;
+    public array $gradeLevelList;
+
     public function mount()
     {
         $this->genders = collect(Genders::cases())
             ->map(fn($gender) => ['value' => $gender->name, 'label' => $gender->value])
             ->toArray();
 
-        $user = auth()->user()->student;
-        $this->name = $user->name;
-        $this->dateOfBirth = $user->date_of_birth->format('Y-m-d');
-        $this->placeOfBirth = $user->place_of_birth;
-        $this->address = $user->address;
-        $this->phoneNumber = $user->phone_number;
-        $this->gender = $user->gender;
+        $student = auth()->user()->student;
+        $this->nis = $student->nis;
+        $this->nisn = $student->nisn;
+        $this->name = $student->name;
+        $this->dateOfBirth = $student->date_of_birth->format('Y-m-d');
+        $this->placeOfBirth = $student->place_of_birth;
+        $this->address = $student->address;
+        $this->phoneNumber = $student->phone_number;
+        $this->gender = $student->gender;
+        $this->gradeLevel = $student->grade_level_id;
+
+        $educationLevel = auth()->user()->getSchoolData->educationLevel;
+        $this->educationLevel = $educationLevel->id;
+        $this->gradeLevelList = $educationLevel->grades->pluck('id')->toArray();
+
+        $this->setGradeLevels();
     }
 
     public function render()
     {
         return view('pages.dashboard.account.student');
+    }
+
+    public function setGradeLevels()
+    {
+        $this->gradeLevels = GradeLevel::where('name', 'like', '%' . $this->gradeLevelSearch  . '%')
+            ->where('education_level_id', $this->educationLevel)
+            ->limit(10)
+            ->get()
+            ->map(fn($gradeLevel) => [
+                'title' => $gradeLevel->name,
+                'value' => $gradeLevel->id,
+                'description' => $gradeLevel->fullAddress,
+            ])
+            ->toArray();
+    }
+
+    public function setSearchGradeLevelSearch($data)
+    {
+        $this->gradeLevelSearch = $data;
+        $this->setGradeLevels();
+    }
+
+    public function setValueGradeLevel($data)
+    {
+        $this->gradeLevel = $data;
+        $this->resetValidation('gradeLevel');
     }
 
     public function rules()
@@ -56,9 +101,9 @@ class Student extends Component
                 'string',
                 'digits:' . $this->maxNis,
                 'unique:student_requests,nis',
-                Rule::unique('students', 'nis')->where(fn(Builder $query) => $query->where('school_id', $this->schoolId))->ignore(auth()->user()->student->id)
+                Rule::unique('students', 'nis')->where(fn(Builder $query) => $query->where('school_id', auth()->user()->getSchoolData->id))->ignore(auth()->user()->student->id)
             ],
-            'nisn' => 'required|string|digits:' . $this->maxNisn . '|unique:students,nisn|unique:student_requests,nisn',
+            'nisn' => 'required|string|digits:' . $this->maxNisn . '|unique:students,nisn,' . auth()->user()->student->id . '|unique:student_requests,nisn',
             'address' => 'required|string|max:255',
             'placeOfBirth' => 'required|string|max:40',
             'dateOfBirth' => 'required|date|beforeOrEqual:' . \Carbon\Carbon::now()->addYears(-5)->format('Y-m-d'),

@@ -36,6 +36,7 @@ class EditIndicator extends Component
         $this->value_min = $detail->value_min;
         $this->value_max = $detail->value_max;
         $this->score = $detail->score;
+        $this->default = $detail->default;
         $this->dispatch('set-indicator-textarea-value', $detail->indicator);
         $this->isLoading = false;
     }

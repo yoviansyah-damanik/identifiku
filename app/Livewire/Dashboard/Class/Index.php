@@ -54,7 +54,7 @@ class Index extends Component
                             'teacher',
                             fn($s) => $s->where('school_id', auth()->user()->getSchoolData->id)
                         ),
-                    fn($r) => $r->where('teacher_id', auth()->user()->getSchoolData->id)
+                    fn($r) => $r->whereIn('teacher_id', auth()->user()->school->teachers->pluck('id')->toArray())
                 ),
             )
             ->whereAny(['name'], 'like', "%$this->search%")

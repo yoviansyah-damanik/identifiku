@@ -20,6 +20,8 @@ return new class extends Migration
                 ->references('id')
                 ->on('student_classes');
             $table->timestamps();
+
+            $table->unique(['student_id', 'student_class_id']);
         });
     }
 

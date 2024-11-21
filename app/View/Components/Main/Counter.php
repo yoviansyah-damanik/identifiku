@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Main;
 
+use App\Models\Assessment;
 use App\Models\Quiz;
 use Closure;
 use App\Models\School;
@@ -37,6 +38,11 @@ class Counter extends Component
             [
                 'title' => __('Quizzes'),
                 'count' => Quiz::published()->count(),
+                'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, beatae?'
+            ],
+            [
+                'title' => __('Assessment Completed'),
+                'count' => Assessment::done()->count(),
                 'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, beatae?'
             ]
         ];

@@ -35,7 +35,7 @@ class Index extends Component
 
     public function render()
     {
-        $quizzes = Quiz::with('phase', 'category', 'phase.grades', 'picture', 'types', 'types.questions')
+        $quizzes = Quiz::with(['phase', 'category', 'phase.grades', 'picture', 'groups' => fn($q) => $q->withCount('questions')])
             ->where('name', 'like', '%' . $this->search . '%')
             ->when($this->quizCategory, fn($q) => $q->where('quiz_category_id', $this->quizCategory))
             ->when($this->quizPhase, fn($q) => $q->where('quiz_phase_id', $this->quizPhase))

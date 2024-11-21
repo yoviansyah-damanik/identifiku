@@ -2,8 +2,8 @@
     <div
         class="relative transition-transform duration-500 [transform-style:preserve-3d] p-24 group-hover:[transform:rotateY(.5turn)]">
         <div
-            class="[backface-visibility:hidden] absolute inset-0 px-4 py-12 bg-gradient-to-br from-secondary-50 to-secondary-100 rounded-xl">
-            <div class="mb-2 text-6xl font-extrabold text-center text-primary-500">
+            class="[backface-visibility:hidden] absolute inset-0 px-4 py-12 bg-gradient-to-br from-secondary-50 to-secondary-100 rounded-xl flex flex-col items-center justify-center">
+            <div class="mb-2 text-4xl font-extrabold text-center text-primary-500">
                 {{ GeneralHelper::numberFormat($count) }}
             </div>
             <div class="text-base font-semibold tracking-wide text-center uppercase text-secondary-500">

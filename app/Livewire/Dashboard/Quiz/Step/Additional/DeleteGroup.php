@@ -31,6 +31,7 @@ class DeleteGroup extends Component
     #[On('setDeleteGroup')]
     public function setDeleteGroup(QuestionGroup $group)
     {
+        $this->reset('group');
         $this->isLoading = true;
         $this->group = $group;
         $this->isLoading = false;
@@ -49,10 +50,11 @@ class DeleteGroup extends Component
                 });
 
             DB::commit();
-            $this->isLoading = true;
-            $this->dispatch('refreshQuizData', group: $this->group->id);
+            $this->dispatch('refreshQuizData', group: $this->group->id, isResetActiveGroup: true);
             $this->dispatch('toggle-delete-group-modal');
-            $this->alert('success', __(':attribute deleted successfully.', ['attribute' => __('Group :group', ['group' => __('Question')])]));
+            $this->reset('group');
+            $this->alert('success', __(':attribute deleted successfully.', ['attribute' => __('Question Group')]));
+            $this->isLoading = true;
         } catch (\Exception $e) {
             DB::rollBack();
             $this->alert('error', $e->getMessage());

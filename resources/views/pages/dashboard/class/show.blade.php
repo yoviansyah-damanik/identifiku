@@ -19,6 +19,22 @@
 
     @if ($tabActive == 'overview')
         <div wire:key="overview_view" class="space-y-3 sm:space-y-4">
+            <div class="p-6 bg-white rounded-lg shadow sm:p-8">
+                <div class="text-2xl font-bold text-primary-500">
+                    {{ $class->name }}
+                </div>
+                <div class="font-light">
+                    {{ $class->description }}
+                </div>
+            </div>
+            <div class="grid grid-cols-12 gap-3 sm:gap-4">
+                <x-box class="col-span-6 lg:col-span-4" color="primary" icon="i-ph-user" :title="__('Students')"
+                    :description="__('Number of :subject', ['subject' => __('Student')])" :count="$class->students_count" />
+                <x-box class="col-span-6 lg:col-span-4" color="secondary" icon="i-ph-user" :title="__('Quizzes')"
+                    :description="__('Number of :subject', ['subject' => __('Quiz')])" :count="$class->quizzes_count" />
+                <x-box class="col-span-6 lg:col-span-4" color="cyan" icon="i-ph-user" :title="__('Assessments')"
+                    :description="__('Number of :subject', ['subject' => __('Assessment')])" :count="$class->assessments_count" />
+            </div>
         </div>
     @endif
 
@@ -27,22 +43,26 @@
             @if ($data->total() > 0)
             @else
                 <x-no-data />
-                <div class="text-center">
-                    <x-button radius="rounded-full" color="primary" :withBorderIcon="false" icon="i-ph-magnifying-glass"
-                        href="{{ route('dashboard.quiz') }}">
-                        {{ __('Find :find', ['find' => __('Quiz')]) }}
-                    </x-button>
-                </div>
+                @if (auth()->user()->isTeacher)
+                    <div class="text-center">
+                        <x-button radius="rounded-full" color="primary" :withBorderIcon="false" icon="i-ph-magnifying-glass"
+                            href="{{ route('dashboard.quiz.available') }}">
+                            {{ __('Find :find', ['find' => __('Quiz')]) }}
+                        </x-button>
+                    </div>
+                @endif
             @endif
         </div>
     @endif
 
     @if ($tabActive == 'students')
         <div wire:key="students_view" class="space-y-3 sm:space-y-4">
-            <x-button color="primary" icon="i-ph-plus"
-                wire:click="$dispatch('toggle-add-student-modal', {class: '{{ $class->id }}'})">
-                {{ __('Add :add', ['add' => __('Student')]) }}
-            </x-button>
+            @if (auth()->user()->isTeacher)
+                <x-button color="primary" icon="i-ph-plus"
+                    wire:click="$dispatch('toggle-add-student-modal', {class: '{{ $class->id }}'})">
+                    {{ __('Add :add', ['add' => __('Student')]) }}
+                </x-button>
+            @endif
             <x-table :columns="['#', __(':name Name', ['name' => __('Student')]), __('Grade Level'), __('Time to Join'), '']">
                 <x-slot name="body">
                     @forelse ($data as $student)
@@ -57,14 +77,18 @@
                                 {{ $student->grade->name }}
                             </x-table.td>
                             <x-table.td centered>
-                                {{ $student->hasClasses->where('student_class_id', $class->id)->first()->created_at->translatedFormat('d M Y H:i:s') }}
+                                {{ $student->hasClasses->where('id', $class->id)->first()->created_at->translatedFormat('d M Y H:i:s') }}
                             </x-table.td>
                             <x-table.td centered>
-                                <x-button color="red" size="sm" icon="i-ph-arrow-square-out"
-                                    x-on:click="$dispatch('toggle-kick-class-modal')"
-                                    wire:click="$dispatch('setKickStudent',{class: '{{ $class->slug }}', student:'{{ $student->id }}'})">
-                                    {{ __('Get Student Out') }}
-                                </x-button>
+                                @if (auth()->user()->isTeacher)
+                                    <x-button color="red" size="sm" icon="i-ph-arrow-square-out"
+                                        x-on:click="$dispatch('toggle-kick-class-modal')"
+                                        wire:click="$dispatch('setKickStudent',{class: '{{ $class->slug }}', student:'{{ $student->id }}'})">
+                                        {{ __('Get Student Out') }}
+                                    </x-button>
+                                @else
+                                    -
+                                @endif
                             </x-table.td>
                         </x-table.tr>
                     @empty
@@ -84,11 +108,13 @@
     @endif
 
     <div wire:ignore>
-        <x-modal name="kick-class-modal" size="xl" :modalTitle="__('Get Student Out')">
-            <livewire:dashboard.class.kick />
-        </x-modal>
-        <x-modal name="add-student-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Student')])">
-            <livewire:dashboard.class.add-student />
-        </x-modal>
+        @if (auth()->user()->isTeacher)
+            <x-modal name="kick-class-modal" size="xl" :modalTitle="__('Get Student Out')">
+                <livewire:dashboard.class.kick />
+            </x-modal>
+            <x-modal name="add-student-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Student')])">
+                <livewire:dashboard.class.add-student />
+            </x-modal>
+        @endif
     </div>
 </x-content>

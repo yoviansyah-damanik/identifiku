@@ -15,7 +15,7 @@
             }
         }" x-sort.ghost="handle" x-sort:group="questions" class="space-y-3 sm:space-y-4">
             @foreach ($activeGroup->questions as $question)
-                <livewire:dashboard.quiz.step.additional.question :key="$question->id" :$question />
+                <x-quiz.question :key="$question->id" :$question />
             @endforeach
         </ul>
 

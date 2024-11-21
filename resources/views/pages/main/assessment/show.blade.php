@@ -47,7 +47,7 @@
                     </div>
                     <div class="space-y-3">
                         <x-button color="primary-transparent" :withBorderIcon="false" radius="rounded-full" block
-                            :href="route('assessment.preview', $quiz->id)" icon="i-ph-magnifying-glass-light">
+                            :href="route('assessment.preview', $quiz)" icon="i-ph-magnifying-glass-light">
                             {{ __('See Questions') }}
                         </x-button>
                         {{-- @if (auth()->check())
@@ -70,13 +70,19 @@
                 </div>
             </div>
             <div class="w-full my-5 border-b lg:hidden"></div>
-            <div class="block">
+            <div class="w-full">
                 <h1 class="mb-5 text-2xl font-bold text-primary-500">{{ $quiz->name }}</h1>
 
                 <div class="space-y-4 mb-7">
                     <div class="space-y-1">
                         <div class="text-lg font-semibold text-secondary-500">
-                            {{ __('Content Coverage') }}
+                            {{ __('Overview') }}
+                        </div>
+                        {!! $quiz->overview !!}
+                    </div>
+                    <div class="space-y-1">
+                        <div class="text-lg font-semibold text-secondary-500">
+                            {!! __('Content Coverage') !!}
                         </div>
                         {{ $quiz->content_coverage }}
                     </div>
@@ -84,45 +90,34 @@
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Assessment Objectives') }}
                         </div>
-                        {{ $quiz->assessment_objectives }}
+                        {!! $quiz->assessment_objectives !!}
                     </div>
                     <div class="space-y-1">
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Question Composition') }}
                         </div>
-                        {{ $quiz->question_composition }}
 
-                        <table class="w-full max-w-96 text-start">
+                        <table class="w-full max-w-[35rem] text-start">
                             <tbody>
-                                @foreach ($quiz->types as $idx => $type)
-                                    <tr class="font-semibold">
-                                        <td>
+                                @foreach ($quiz->groups as $idx => $group)
+                                    <tr>
+                                        <td class="w-12 px-3 py-1">
                                             {{ $idx + 1 }}
                                         </td>
-                                        <td colspan=2>
-                                            {{ $type->name }}
+                                        <td class="px-3 py-1">
+                                            {{ $group->name }}
+                                        </td>
+                                        <td class="px-3 py-1">
+                                            {{ GeneralHelper::numberFormat($group->questions_count) }}
+                                            {{ $group->questions_count > 1 ? __('Questions') : __('Question') }}
                                         </td>
                                     </tr>
-                                    @foreach ($type->questionsRecap as $idx_ => $recap)
-                                        <tr>
-                                            <td>
-                                                {{ $idx + 1 }}.{{ $idx_ + 1 }}
-                                            </td>
-                                            <td>
-                                                {{ $recap['type'] }}
-                                            </td>
-                                            <td>
-                                                {{ $recap['count'] }}
-                                                {{ $recap['count'] > 1 ? __('Questions') : __('Question') }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
                                 @endforeach
                                 <tr class="font-semibold">
-                                    <td colspan=2>
+                                    <td colspan=2 class="px-3 py-1">
                                         {{ __('Questions Total') }}
                                     </td>
-                                    <td>
+                                    <td class="px-3 py-1">
                                         {{ $quiz->questionsTotal }}
                                         {{ $quiz->questionsTotal > 1 ? __('Questions') : __('Question') }}
                                     </td>
@@ -139,7 +134,9 @@
                     @forelse ($randomquizzes as $quiz)
                         <x-quiz-box :$quiz />
                     @empty
-                        <x-no-data />
+                        <div class="col-span-full">
+                            <x-no-data />
+                        </div>
                     @endforelse
                 </div>
             </div>

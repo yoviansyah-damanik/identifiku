@@ -58,7 +58,7 @@ class Edit extends Component
     {
         $this->quiz = $quiz;
         $this->steps = GeneralHelper::getQuizStep();
-        $this->current = $this->steps[0]['step'];
+        $this->current = $this->steps[1]['step'];
     }
 
     public function render()
@@ -93,9 +93,10 @@ class Edit extends Component
 
     public function checkStepThree()
     {
+        $this->quiz->refresh();
         $hasAssessmentRule = $this->quiz->assessmentRule;
         if (!$hasAssessmentRule) {
-            $this->alert('warning', __('Please complete the assessment rules first.'));
+            $this->alert('warning', __('Please complete the assessment rules first'));
             $this->current = 2;
             return false;
         }
@@ -103,7 +104,7 @@ class Edit extends Component
         $detailsAreComplete = $hasAssessmentRule->max_item == $hasAssessmentRule->details->count();
 
         if (!$detailsAreComplete) {
-            $this->alert('warning', __('Please complete the detailed assessment rules first.'));
+            $this->alert('warning', __('Please complete the detailed assessment rules first'));
             $this->current = 2;
             return false;
         }
@@ -113,6 +114,21 @@ class Edit extends Component
 
     public function checkStepFour()
     {
+        $this->quiz->refresh();
+        $hasGroups = $this->quiz->groups;
+        if (!$hasGroups) {
+            $this->alert('warning', __('Please add a question group first'));
+            $this->current = 3;
+            return false;
+        }
+
+        $hasQuestions = $this->quiz->groups->every(fn($q) => $q->questions->count() > 0);
+        if (!$hasQuestions) {
+            $this->alert('warning', __('Please add at least one question to each question group first'));
+            $this->current = 3;
+            return false;
+        }
+
         return true;
     }
 

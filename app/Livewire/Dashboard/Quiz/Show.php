@@ -10,13 +10,16 @@ use Livewire\Attributes\Layout;
 class Show extends Component
 {
     public Quiz $quiz;
+
     public function mount(Quiz $quiz)
     {
-        $this->quiz = $quiz;
         if (!auth()->user()->isAdmin)
             if (!$quiz->is_active) {
                 return $this->redirectRoute('dashboard.quiz.available');
             }
+
+        $this->quiz = $quiz
+            ->load(['phase', 'category', 'phase.grades', 'picture', 'groups' => fn($q) => $q->withCount('questions')]);
     }
 
     public function render()

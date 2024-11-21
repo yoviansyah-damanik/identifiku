@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Student extends Model
@@ -48,7 +49,7 @@ class Student extends Model
 
     public function school(): BelongsTo
     {
-        return $this->belongsTo(School::class)
+        return $this->belongsTo(School::class, 'school_id', 'id')
             ->without(['province', 'regency', 'district', 'village']);
     }
 
@@ -68,8 +69,8 @@ class Student extends Model
         return $this->hasMany(ClassRequest::class);
     }
 
-    public function hasClasses(): HasMany
+    public function hasClasses(): HasManyThrough
     {
-        return $this->hasMany(StudentHasClass::class, 'student_id', 'id');
+        return $this->hasManyThrough(StudentClass::class, StudentHasClass::class, 'student_id', 'id', 'id', 'student_class_id');
     }
 }

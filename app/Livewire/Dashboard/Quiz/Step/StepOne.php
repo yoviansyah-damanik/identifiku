@@ -72,6 +72,16 @@ class StepOne extends Component
         return view('pages.dashboard.quiz.step.step-one');
     }
 
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div class="text-center">
+            <!-- Loading spinner... -->
+            <x-loading/>
+        </div>
+        HTML;
+    }
+
     public function setQuizCategories()
     {
         $this->quizCategories = QuizCategory::where('name', 'like', '%' . $this->quizCategorySearch . '%')
