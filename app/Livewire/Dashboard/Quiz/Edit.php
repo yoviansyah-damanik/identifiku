@@ -3,16 +3,10 @@
 namespace App\Livewire\Dashboard\Quiz;
 
 use App\Models\Quiz;
-use App\Enums\QuizType;
 use Livewire\Component;
-use App\Models\QuizPhase;
-use Illuminate\Support\Str;
 use Livewire\Attributes\On;
-use App\Enums\QuestionTypes;
 use App\Models\QuestionType;
-use App\Models\QuizCategory;
 use App\Helpers\GeneralHelper;
-use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;

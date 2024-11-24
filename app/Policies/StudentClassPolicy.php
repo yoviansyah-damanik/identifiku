@@ -12,7 +12,7 @@ class StudentClassPolicy
      */
     public function view(User $user, StudentClass $studentClass): bool
     {
-        return $user->isStudent && in_array($studentClass->id, $user->student->hasClasses->pluck('id')->toArray());
+        return $user->isStudent && in_array($studentClass->id, $user->student->hasClasses->pluck('student_class_id')->toArray());
     }
 
     /**

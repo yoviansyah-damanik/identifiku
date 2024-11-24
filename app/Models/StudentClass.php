@@ -84,8 +84,13 @@ class StudentClass extends Model
         return $this->hasMany(Assessment::class);
     }
 
-    public function quizzes(): HasMany
+    public function hasQuizzes(): HasMany
     {
         return $this->hasMany(ClassHasQuiz::class);
+    }
+
+    public function quizzes(): HasManyThrough
+    {
+        return $this->hasManyThrough(Quiz::class, ClassHasQuiz::class, 'student_class_id', 'id', 'id', 'quiz_id');
     }
 }

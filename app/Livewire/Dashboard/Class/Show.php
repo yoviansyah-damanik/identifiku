@@ -22,7 +22,7 @@ class Show extends Component
     {
         $this->class = $class;
         $this->setTabs();
-        $this->tabActive = $this->tabs[0]['value'];
+        $this->tabActive = $this->tabs[1]['value'];
     }
 
     public function setTabs()
@@ -60,7 +60,8 @@ class Show extends Component
 
         if ($this->tabActive == 'quizzes')
             $data = $this->class->quizzes()
-                ->with('grade')
+                ->withCount('assessments')
+                // ->with('')
                 ->paginate(10);
 
         if ($this->tabActive == 'students')

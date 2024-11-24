@@ -76,11 +76,6 @@ class Quiz extends Model
             ->where('type', 'picture');
     }
 
-    // public function types(): HasMany
-    // {
-    //     return $this->hasMany(QuestionType::class)
-    //         ->orderBy('order', 'asc');
-    // }
     public function groups(): HasMany
     {
         return $this->hasMany(QuestionGroup::class)
@@ -95,5 +90,10 @@ class Quiz extends Model
     public function assessmentRule(): HasOne
     {
         return $this->hasOne(AssessmentRule::class);
+    }
+
+    public function hasClasses(): HasMany
+    {
+        return $this->hasMany(ClassHasQuiz::class);
     }
 }

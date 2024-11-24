@@ -9,3 +9,6 @@ Alpine.plugin(anchor)
 
 import collapse from '@alpinejs/collapse';
 Alpine.plugin(collapse)
+
+import moment from 'moment'
+Alpine.plugin(moment)

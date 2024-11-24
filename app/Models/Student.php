@@ -69,7 +69,12 @@ class Student extends Model
         return $this->hasMany(ClassRequest::class);
     }
 
-    public function hasClasses(): HasManyThrough
+    public function hasClasses(): HasMany
+    {
+        return $this->hasMany(StudentHasClass::class);
+    }
+
+    public function classes(): HasManyThrough
     {
         return $this->hasManyThrough(StudentClass::class, StudentHasClass::class, 'student_id', 'id', 'id', 'student_class_id');
     }

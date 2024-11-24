@@ -13,9 +13,9 @@
         <div class="relative flex flex-col items-start gap-5 lg:flex-row">
             <div class="flex-none w-full gap-5 md:flex lg:block lg:sticky lg:top-24 lg:w-96">
                 <div
-                    class="relative md:w-[23rem] lg:w-full aspect-[16/9] bg-primary-50 rounded-lg grid place-items-center overflow-hidden">
+                    class="relative md:w-[23rem] lg:w-full flex items-center justify-center aspect-[16/9] bg-primary-50 rounded-lg overflow-hidden">
                     <img src="{{ $quiz?->picture ?? Vite::image('default-quiz.webp') }}"
-                        class="w-full transition-all group-hover:scale-125" alt="{{ $quiz->name }} Picture" />
+                        class="h-full transition-all max-w-fit group-hover:scale-125" alt="{{ $quiz->name }} Picture" />
                 </div>
                 <div>
                     <div class="my-5">
@@ -39,7 +39,7 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
-                            <span class="i-ph-clock-light"></span>
+                            <span class="i-ph-clock-user"></span>
                             <div class="flex-1 font-light truncate">
                                 {{ $quiz->created_at->diffForHumans() }}
                             </div>
@@ -73,26 +73,26 @@
             <div class="w-full">
                 <h1 class="mb-5 text-2xl font-bold text-primary-500">{{ $quiz->name }}</h1>
 
-                <div class="space-y-4 mb-7">
-                    <div class="space-y-1">
+                <div class="space-y-3 sm:space-y-4 mb-7">
+                    <div>
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Overview') }}
                         </div>
                         {!! $quiz->overview !!}
                     </div>
-                    <div class="space-y-1">
+                    <div>
                         <div class="text-lg font-semibold text-secondary-500">
                             {!! __('Content Coverage') !!}
                         </div>
                         {{ $quiz->content_coverage }}
                     </div>
-                    <div class="space-y-1">
+                    <div>
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Assessment Objectives') }}
                         </div>
                         {!! $quiz->assessment_objectives !!}
                     </div>
-                    <div class="space-y-1">
+                    <div>
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Question Composition') }}
                         </div>
@@ -130,7 +130,7 @@
                 <div class="mb-1 text-lg font-semibold text-secondary-500">
                     {{ __('Assessment Recommendation') }}
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-7">
+                <div class="grid grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-7">
                     @forelse ($randomquizzes as $quiz)
                         <x-quiz-box :$quiz />
                     @empty

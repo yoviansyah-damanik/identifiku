@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Dashboard\StudentClass;
 
+use App\Models\Quiz;
 use Livewire\Component;
 use App\Models\StudentClass;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Layout;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Url;
 
 #[Layout('layouts.dashboard')]
 class Show extends Component
@@ -13,17 +15,27 @@ class Show extends Component
     use LivewireAlert;
     public StudentClass $class;
 
+    #[Url]
+    public string $activeQuizUrl = '';
+
     public function mount(StudentClass $class)
     {
+        $this->class = $class->load([
+            'quizzes',
+            'quizzes.assessments'
+        ]);
         $this->authorize('view', $class);
-
-        if (auth()->user()->hasClasses)
-            $this->class = $class;
     }
 
     public function render()
     {
         return view('pages.dashboard.student-class.show')
             ->title($this->class->name);
+    }
+
+    public function setQuizActive(Quiz $quiz)
+    {
+        $this->dispatch('setActiveQuiz', $quiz->slug);
+        $this->activeQuizUrl = $quiz->slug;
     }
 }

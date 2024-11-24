@@ -4,13 +4,13 @@
         <div class="font-semibold">
             {{ $question->question }}
         </div>
-        <div>
+        <div class="[column-count:2] [column-gap:1.5rem]">
             @foreach ($question->answers as $answer)
                 <div class="flex">
                     <div class="w-14">
                         {{ $answer->answer }}
                     </div>
-                    <div class="flex-1">
+                    <div class="flex-1 text-start">
                         {{ $answer->text }}
                     </div>
                 </div>

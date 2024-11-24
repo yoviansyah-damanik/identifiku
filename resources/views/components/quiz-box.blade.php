@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="px-1 lg:px-3 md:px-2">
-        <div class="mt-3 text-lg font-semibold line-clamp-2 group-hover:text-secondary-500">
+        <div class="mt-3 text-lg font-semibold text-primary-500 line-clamp-2 group-hover:text-secondary-500">
             {{ $quiz->name }}
         </div>
         <div class="flex items-center gap-1 mt-1 text-sm">

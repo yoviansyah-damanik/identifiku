@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignUuid('student_class_id')
                 ->references('id')
                 ->on('student_classs');
+            $table->timestamp('started_on')->nullable();
             $table->enum('status', ['process', 'done']);
             $table->timestamps();
         });

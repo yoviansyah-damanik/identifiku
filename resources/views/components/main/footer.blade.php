@@ -1,7 +1,7 @@
-<footer class="shadow mt-12">
+<footer class="mt-12 shadow">
     <div class="bg-gradient-to-b from-primary-50 to-primary-100">
         <x-container>
-            <div class="flex flex-col lg:flex-row lg:py-9 py-7 items-start gap-5">
+            <div class="flex flex-col items-start gap-5 lg:flex-row lg:py-9 py-7">
                 <div class="flex-1">
                     <div class="w-72 lg:w-52 m-auto lg:m-0 !mb-5">
                         <img src="{{ Vite::image('logo.png') }}" class="w-full">
@@ -14,8 +14,8 @@
                         ratione dicta!
                     </div>
                 </div>
-                <div class="text-center lg:text-left w-full lg:w-auto min-w-80">
-                    <div class="text-secondary-500 mb-5 font-bold">
+                <div class="w-full text-center lg:text-left lg:w-auto min-w-80">
+                    <div class="mb-5 font-bold text-secondary-500">
                         {{ __('Quick Access') }}
                     </div>
                     <ul class="flex flex-col gap-1">
@@ -29,7 +29,7 @@
                     </ul>
                 </div>
                 <div class="flex-1 text-center lg:text-left">
-                    <div class="text-secondary-500 mb-5 font-bold">
+                    <div class="mb-5 font-bold text-secondary-500">
                         {{ __('Supported by') }}
                     </div>
                     <div class="flex items-center gap-1 group">
@@ -58,12 +58,12 @@
             </div>
         </x-container>
     </div>
-    <div class="bg-gradient-to-t from-primary-500 to-primary-700 shadow-md shadow-primary-700">
+    <div class="bg-gradient-to-t from-primary-500 to-primary-700 shadow-primary-700">
         <x-container>
-            <div class="flex flex-col lg:flex-row justify-between items-center text-white font-normal py-2">
+            <div class="flex flex-col items-center justify-between py-2 font-normal text-white lg:flex-row">
                 <div class="text-center lg:text-left">
                     ©{{ date('Y') }} {{ __('Copyright') }} <x-href href="{{ url('') }}"
-                        class="text-secondary-500 font-bold">IdentifiKu</x-href>.
+                        class="font-bold text-secondary-500">IdentifiKu</x-href>.
                     {{ __('All right reserved.') }}
                 </div>
                 <div class="text-center lg:text-right">

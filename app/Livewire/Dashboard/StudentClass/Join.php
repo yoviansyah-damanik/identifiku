@@ -38,7 +38,7 @@ class Join extends Component
     {
         $this->authorize('join', $this->class);
 
-        if (in_array($this->class->id, auth()->user()->student->hasClasses->pluck('id')->toArray())) {
+        if (in_array($this->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
             $this->alert('warning', __('You have been in this class'));
             return;
         }

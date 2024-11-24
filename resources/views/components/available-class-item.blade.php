@@ -29,7 +29,7 @@
         <x-available-class-sub-item>
             <div class="flex flex-col items-start gap-1">
                 @role('Student')
-                    @if (in_array($class->id, auth()->user()->student->hasClasses->pluck('id')->toArray()))
+                    @if (in_array($class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray()))
                         <x-badge type="success">
                             {{ __('You have been in this class') }}
                         </x-badge>

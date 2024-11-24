@@ -25,6 +25,7 @@ class AddStudent extends Component
     public string $studentSearch  = '';
 
     public $class;
+
     public function render()
     {
         return view('pages.dashboard.class.add-student');
@@ -50,12 +51,14 @@ class AddStudent extends Component
         ];
     }
 
-    #[On('toggle-add-student-modal')]
+    #[On('setAddStudent')]
     public function setInit(?StudentClass $class = null)
     {
         $this->reset('gradeLevel', 'student');
+
         if ($class)
             $this->class = $class;
+
         $this->setGradeLevels();
         $this->setStudents();
         $this->resetValueGradeLevel();

@@ -7,6 +7,7 @@
         </div>
         <div class="flex flex-col flex-1 px-5 py-3 space-y-3 sm:space-y-4">
             <div class="font-semibold">
+                {{ $question->order }}.
                 {{ $question->question }}
             </div>
             <div>

@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-1">
-                        <span class="i-ph-clock-light"></span>
+                        <span class="i-ph-clock-user"></span>
                         <div class="flex-1 font-light truncate">
                             {{ $quiz->created_at->diffForHumans() }}
                         </div>
@@ -39,6 +39,11 @@
                         :href="route('dashboard.quiz.preview', $quiz)" icon="i-ph-magnifying-glass-light">
                         {{ __('See Questions') }}
                     </x-button>
+                    @haspermission('quiz edit')
+                        <x-button color="yellow" radius="rounded-full" block :href="route('dashboard.quiz.edit', $quiz)">
+                            {{ __('Edit') }}
+                        </x-button>
+                    @endhaspermission
                 </div>
             </div>
         </div>
@@ -46,26 +51,26 @@
         <div class="block">
             <h1 class="mb-5 text-2xl font-bold text-primary-500">{{ $quiz->name }}</h1>
 
-            <div class="space-y-4 mb-7">
-                <div class="space-y-1">
+            <div class="space-y-3 sm:space-y-4 mb-7">
+                <div>
                     <div class="text-lg font-semibold text-secondary-500">
                         {{ __('Overview') }}
                     </div>
                     {!! $quiz->overview !!}
                 </div>
-                <div class="space-y-1">
+                <div>
                     <div class="text-lg font-semibold text-secondary-500">
                         {!! __('Content Coverage') !!}
                     </div>
                     {{ $quiz->content_coverage }}
                 </div>
-                <div class="space-y-1">
+                <div>
                     <div class="text-lg font-semibold text-secondary-500">
                         {{ __('Assessment Objectives') }}
                     </div>
                     {!! $quiz->assessment_objectives !!}
                 </div>
-                <div class="space-y-1">
+                <div>
                     <div class="text-lg font-semibold text-secondary-500">
                         {{ __('Question Composition') }}
                     </div>

@@ -12,7 +12,7 @@ class Question extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public $question
+        public $question,
     ) {
         //
     }

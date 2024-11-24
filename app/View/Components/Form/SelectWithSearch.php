@@ -40,7 +40,7 @@ class SelectWithSearch extends Component
         ]);
 
         $this->labelClass = join(' ', [
-            'block mb-3 text-base font-medium text-slate-700 dark:text-slate-100',
+            'block mb-3 text-base font-semibold text-slate-700 dark:text-slate-100',
             $required ? 'after:content-[\'*\'] after:ml-0.5 after:text-red-500' : '',
             $labelClass
         ]);

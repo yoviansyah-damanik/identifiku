@@ -1,4 +1,10 @@
 <div class="w-full lg:max-w-[380px] 2xl:max-w-[450px]">
+    <x-button base="mb-3" :href="request()->routeIs('dashboard.*')
+        ? route('dashboard.quiz.show', $quiz)
+        : route('assessment.show', $quiz)" color="primary" radius="rounded-full" :withBorderIcon="false" block
+        icon="i-ph-arrow-left">
+        {{ __('Back') }}
+    </x-button>
     <div class="p-6 mb-4 rounded-lg shadow-md bg-primary-500 sm:p-8 dark:bg-slate-800">
         <div class="pb-3 mb-3 border-b">
             <div class="text-xl font-bold text-secondary-500">

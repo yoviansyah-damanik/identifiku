@@ -46,7 +46,9 @@
                     <span class="{{ $iconClass }}"></span>
                 </div>
                 @if (!$slot->isEmpty())
-                    <div class="flex-1">
+                    <div @class([
+                        'flex-1' => !$block,
+                    ])>
                         {{ $slot }}
                     </div>
                 @endif

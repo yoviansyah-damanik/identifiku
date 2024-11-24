@@ -21,6 +21,11 @@
                 {{ $class->isStatusActive ? __('Active') : __('Inactive') }}
             </x-badge>
         </x-available-class-sub-item>
+        <x-available-class-sub-item :title="__('Number of :subject', ['subject' => __('Assessments')])">
+            {{ GeneralHelper::numberFormat($class->quizzes_count) .
+                ' ' .
+                ($class->quizzes_count > 1 ? __('Assessments') : __('Assessment')) }}
+        </x-available-class-sub-item>
         <x-available-class-sub-item :title="__('Number of :subject', ['subject' => __('Students')])">
             {{ GeneralHelper::numberFormat($class->students_count) .
                 ' ' .

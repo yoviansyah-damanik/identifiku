@@ -2,13 +2,16 @@
 
 namespace App\Livewire\Dashboard\Quiz;
 
+use App\Models\ClassHasQuiz;
 use App\Models\Quiz;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\StudentClass;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Add extends Component
 {
+    use LivewireAlert;
     public Quiz $quiz;
 
     public bool $isLoading = true;
@@ -21,9 +24,24 @@ class Add extends Component
     {
         $this->studentClasses();
     }
+
     public function render()
     {
         return view('pages.dashboard.quiz.add');
+    }
+
+    public function rules()
+    {
+        return [
+            'studentClass' => 'required|exists:student_classes,id',
+        ];
+    }
+
+    public function validationAttributes()
+    {
+        return [
+            'studentClass' => __('Student Class')
+        ];
     }
 
     public function studentClasses()
@@ -64,10 +82,33 @@ class Add extends Component
         $this->isLoading = false;
     }
 
+    public function refresh()
+    {
+        $this->resetValueStudentClass();
+        $this->dispatch('resetValueStudentClass');
+    }
+
     public function add()
     {
         // $this->authorize('add');
+        $this->validate();
+        $this->isLoading = true;
         try {
+            if (in_array($this->studentClass, $this->quiz->hasClasses->pluck('student_class_id')->toArray())) {
+                $this->alert('warning', __('This quiz has been added to the class'));
+                $this->isLoading = false;
+                return;
+            }
+
+            ClassHasQuiz::create([
+                'student_class_id' => $this->studentClass,
+                'quiz_id' => $this->quiz->id
+            ]);
+
+            $this->refresh();
+            $this->dispatch('toggle-add-quiz-modal');
+            $this->alert('success', __(':attribute added successfully.', ['attribute' => __('Quiz')]));
+            $this->isLoading = false;
         } catch (\Exception $e) {
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());

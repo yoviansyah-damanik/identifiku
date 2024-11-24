@@ -17,6 +17,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'assessment']);
         Permission::create(['name' => 'assessment history']);
         Permission::create(['name' => 'assessment students']);
+        Permission::create(['name' => 'assessment play']);
 
         Permission::create(['name' => 'school']);
         Permission::create(['name' => 'school request']);
@@ -47,6 +48,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'class edit']);
         Permission::create(['name' => 'class delete']);
         Permission::create(['name' => 'class show']);
+        Permission::create(['name' => 'class show quiz']);
         Permission::create(['name' => 'class show addStudent']);
         Permission::create(['name' => 'class request']);
         Permission::create(['name' => 'class student']);
@@ -74,6 +76,7 @@ class RoleAndPermissionSeeder extends Seeder
         $studentPermissions = [
             'assessment',
             'assessment history',
+            'assessment play',
             'class student',
             'class student show',
             'class available',
@@ -90,6 +93,7 @@ class RoleAndPermissionSeeder extends Seeder
             'teacher request',
             'class',
             'class show',
+            'class show quiz',
             'quiz available',
             'quiz show',
             'account'
@@ -103,7 +107,7 @@ class RoleAndPermissionSeeder extends Seeder
             'class edit',
             'class delete',
             'class show',
-            'class show',
+            'class show quiz',
             'quiz add',
             'quiz available',
             'quiz show',
@@ -117,6 +121,7 @@ class RoleAndPermissionSeeder extends Seeder
                     'class available',
                     'class student',
                     'class student show',
+                    'assessment play',
                     'quiz available'
                 ]
             )->get());
@@ -130,6 +135,7 @@ class RoleAndPermissionSeeder extends Seeder
                     'class available',
                     'class student',
                     'class student show',
+                    'assessment play',
                     'quiz available'
                 ]
             )->get());

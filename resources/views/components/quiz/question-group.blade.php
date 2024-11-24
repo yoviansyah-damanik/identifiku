@@ -9,6 +9,7 @@
         </div>
         <div class="flex flex-col flex-1 px-5 py-3">
             <div class="font-semibold">
+                {{ GeneralHelper::numberToRoman($group->order) }}.
                 {{ $group->name }}
             </div>
             <div class="text-sm font-light">

@@ -27,7 +27,8 @@ class Button extends Component
         public ?string $iconClass = null,
         public string $iconPosition = 'left',
         public bool $withNavigated = true,
-        public bool $withBorderIcon = true
+        public bool $withBorderIcon = true,
+        public bool $square = false,
     ) {
         $this->baseClass = join(' ', [
             'relative inline-block font-medium font-semibold transition duration-150 text-base text-nowrap',
@@ -36,7 +37,8 @@ class Button extends Component
             $this->bgClass = $this->colorVariant($color),
             $radius,
             $loading ? 'cursor-not-allowed' : 'cursor-pointer',
-            $base
+            $base,
+            $square ? 'aspect-square' : ''
         ]);
 
         $this->iconClass = join(' ', [
