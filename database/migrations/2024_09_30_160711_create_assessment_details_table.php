@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('assessment_details', function (Blueprint $table) {
+            $table->id();
             $table->foreignUuid('assessment_id')
                 ->references('id')
                 ->on('assessments')
@@ -23,8 +24,11 @@ return new class extends Migration
             $table->foreignId('answer_choice_id')
                 ->references('id')
                 ->on('answer_choices')
-                ->onDelete('cascade');
-            $table->boolean('is_correct');
+                ->onDelete('cascade')
+                ->nullable();
+            $table->integer('value')
+                ->nullable();
+            $table->unique(['assessment_id', 'question_id']);
         });
     }
 

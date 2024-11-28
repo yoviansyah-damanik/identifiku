@@ -29,10 +29,6 @@ class Menu extends Component
                 'url' => route('assessment'),
                 'isActive' => request()->routeIs('assessment*')
             ],
-            // [
-            //     'title' => __('Articles'),
-            //     'url' => route('article')
-            // ],
             [
                 'title' => __('About'),
                 'url' => route('about'),

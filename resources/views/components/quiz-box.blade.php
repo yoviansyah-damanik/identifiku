@@ -37,7 +37,7 @@
         <div class="flex items-center gap-1 text-sm">
             <span class="i-ph-folder"></span>
             <div class="flex-1 font-light truncate">
-                {{ __($quiz->type) }}
+                {{ __(Str::headline($quiz->type)) }}
             </div>
         </div>
         <div class="flex items-center justify-between">

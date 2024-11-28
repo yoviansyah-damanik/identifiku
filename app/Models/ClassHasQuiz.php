@@ -12,13 +12,13 @@ class ClassHasQuiz extends Model
 
     protected $guarded = ['id'];
 
-    public function studentClass(): BelongsTo
+    public function class(): BelongsTo
     {
-        return $this->belongsTo(StudentClass::class);
+        return $this->belongsTo(StudentClass::class, 'student_class_id', 'id');
     }
 
     public function quiz(): BelongsTo
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
     }
 }

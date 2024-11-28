@@ -10,8 +10,10 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\On;
 use App\Models\QuizCategory;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Isolate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
+#[Isolate]
 class StepOne extends Component
 {
     use LivewireAlert;

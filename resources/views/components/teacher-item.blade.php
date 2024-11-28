@@ -1,6 +1,7 @@
-<div class="relative flex flex-col gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 drop-shadow-md">
+<div class="relative flex flex-col gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 drop-shadow-md group">
     <div class="flex items-center justify-center w-full overflow-hidden rounded-lg lg:flex-none h-44 lg:w-72">
-        <img src="{{ Vite::image('default-avatar.jpg') }}" class="w-full" alt="Teacher Picture">
+        <img src="{{ Vite::image('default-avatar.jpg') }}" class="w-full transition-all group-hover:scale-125"
+            alt="Teacher Picture">
     </div>
     <div class="lg:[column-count:4] md:[column-count:3] [column-count:2] [column-gap:1.5rem] w-full lg:w-auto flex-1">
         <x-teacher-sub-item :title="__(':name Name', ['name' => __('Teacher')])">

@@ -101,12 +101,16 @@
     .overlay {
         @apply overflow-hidden before:inset-0 before:bg-black/30 before:backdrop-blur before:z-modal;
     }
-    .swal2-container {
-        @apply !inset-0 !w-full sm:!w-[360px] sm:!inset-[0_0_auto_auto];
-    }
+    /* .swal2-container {
+        @apply !inset-0 !w-full sm:!w-[360px] lg:!w-full sm:!inset-[0_0_auto_auto];
+    } */
 
     .bg-grid {
         @apply after:z-[-1] after:absolute after:inset-0 after:h-full after:w-full after:bg-transparent after:bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] after:bg-[size:24px_24px];
+    }
+
+    .swiper-slide.swiper-slide-active .swiper-circle-active-mark {
+        @apply w-[90%] bg-primary-200;
     }
 }
 

@@ -22,7 +22,9 @@ return new class extends Migration
                 ->nullable();
             $table->text('message')
                 ->nullable();
-            $table->enum('status', ['process', 'done']);
+            $table->enum('status', ['process', 'done', 'failed']);
+            $table->text('status_message')
+                ->nullable();
             $table->timestamps();
         });
     }

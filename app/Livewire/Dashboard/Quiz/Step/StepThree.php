@@ -8,9 +8,11 @@ use App\Models\QuizPhase;
 use Livewire\Attributes\On;
 use App\Models\QuizCategory;
 use App\Models\QuestionGroup;
+use Livewire\Attributes\Isolate;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
+#[Isolate]
 class StepThree extends Component
 {
     use LivewireAlert;

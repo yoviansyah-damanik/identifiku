@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ Vite::image('favicon.png') }}" type="image/x-icon">
+    @stack('headers')
 
     @vite(['resources/css/app.css'])
     <title>{{ $title ?? 'Page Title' }}</title>
@@ -23,7 +24,11 @@
     {{-- <livewire:loading-screen /> --}}
     <livewire:loading-state />
 
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" data-navigate-once></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js" data-navigate-once></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.net.min.js" data-navigate-once></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" data-navigate-once></script>
+
     <x-livewire-alert::scripts />
     @stack('scripts')
 

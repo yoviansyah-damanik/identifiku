@@ -1,6 +1,8 @@
 <div>
     <x-modal.body>
         <div class="mb-6 space-y-3 sm:space-y-4">
+            <x-form.input :loading="$isLoading" :label="__('Title')" block :placeholder="__('Title')" type='text' :error="$errors->first('title')"
+                wire:model.blur='title' required />
             <x-form.textarea-wysiwyg block :loading="$isLoading" :label="__('Indicator')" :placeholder="__('Entry :entry', ['entry' => __('Indicator')])" wire:model="indicator"
                 :error="$errors->first('indicator')" required />
             @if ($detail?->main?->type == 'summative')

@@ -5,9 +5,9 @@ namespace App\Livewire\Dashboard\StudentClass;
 use App\Models\Quiz;
 use Livewire\Component;
 use App\Models\StudentClass;
+use Livewire\Attributes\Url;
 use Livewire\Attributes\Layout;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Attributes\Url;
 
 #[Layout('layouts.dashboard')]
 class Show extends Component

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('question');
             $table->integer('order')
                 ->default(0);
+            $table->char('operator', 1)
+                ->default('+');
             $table->foreignUuid('question_group_id')
                 ->references('id')
                 ->on('question_groups')

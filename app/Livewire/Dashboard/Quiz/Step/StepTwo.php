@@ -8,10 +8,12 @@ use Livewire\Attributes\On;
 use App\Helpers\GeneralHelper;
 use App\Models\AssessmentRule;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Isolate;
 use Illuminate\Support\Facades\DB;
 use App\Models\AssessmentRuleDetail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
+#[Isolate]
 class StepTwo extends Component
 {
     use LivewireAlert;
@@ -29,16 +31,7 @@ class StepTwo extends Component
     public int $max = 2;
 
     public array $answers;
-    public array $indicators = [
-        [
-            'text' => '',
-            'value' => ''
-        ],
-        [
-            'text' => '',
-            'value' => ''
-        ]
-    ];
+    public array $indicators;
 
     public bool $isLoading = false;
 

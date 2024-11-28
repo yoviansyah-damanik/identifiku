@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
@@ -43,6 +44,11 @@ class School extends Model
     public function teachers(): HasMany
     {
         return $this->hasMany(Teacher::class);
+    }
+
+    public function classes(): HasManyThrough
+    {
+        return $this->hasManyThrough(StudentClass::class, Teacher::class, 'school_id', 'teacher_id', 'id', 'id');
     }
 
     public function status(): BelongsTo

@@ -18,6 +18,7 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'assessment history']);
         Permission::create(['name' => 'assessment students']);
         Permission::create(['name' => 'assessment play']);
+        Permission::create(['name' => 'assessment result']);
 
         Permission::create(['name' => 'school']);
         Permission::create(['name' => 'school request']);
@@ -77,6 +78,7 @@ class RoleAndPermissionSeeder extends Seeder
             'assessment',
             'assessment history',
             'assessment play',
+            'assessment result',
             'class student',
             'class student show',
             'class available',
@@ -87,6 +89,7 @@ class RoleAndPermissionSeeder extends Seeder
 
         $schoolPermissions = [
             'assessment students',
+            'assessment result',
             'student',
             'student request',
             'teacher',
@@ -101,6 +104,8 @@ class RoleAndPermissionSeeder extends Seeder
 
         $teacherPermissions = [
             'assessment students',
+            'assessment result',
+            'student',
             'class',
             'class request',
             'class create',
@@ -118,11 +123,14 @@ class RoleAndPermissionSeeder extends Seeder
             ->givePermissionTo(Permission::whereNotIn(
                 'name',
                 [
+                    'class create',
                     'class available',
                     'class student',
                     'class student show',
                     'assessment play',
-                    'quiz available'
+                    'quiz available',
+                    'assessment',
+                    'assessment history',
                 ]
             )->get());
 
@@ -132,11 +140,14 @@ class RoleAndPermissionSeeder extends Seeder
                 [
                     'users',
                     'region',
+                    'class create',
                     'class available',
                     'class student',
                     'class student show',
                     'assessment play',
-                    'quiz available'
+                    'quiz available',
+                    'assessment',
+                    'assessment history',
                 ]
             )->get());
 

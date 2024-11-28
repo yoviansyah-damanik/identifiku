@@ -14,6 +14,7 @@ class AddIndicator extends Component
     use LivewireAlert;
     public AssessmentRule $rule;
 
+    public string $title;
     public string $indicator;
     public int $value_min;
     public int $value_max;
@@ -48,6 +49,11 @@ class AddIndicator extends Component
     public function rules()
     {
         return [
+            'title' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(in_array($this->rule->type, ['summation', 'summative']))
+            ],
             'indicator' => 'required|string',
             'value_min' => [
                 'nullable',
@@ -77,6 +83,7 @@ class AddIndicator extends Component
     public function validationAttributes()
     {
         return [
+            'title' => __('Title'),
             'indicator' => __('Indicator'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
@@ -92,6 +99,7 @@ class AddIndicator extends Component
         try {
             AssessmentRuleDetail::create([
                 'assessment_rule_id' => $this->rule->id,
+                'title' => $this->title,
                 'indicator' => $this->indicator,
                 'answer' => $this->answer,
                 'value_min' => $this->value_min ?? null,

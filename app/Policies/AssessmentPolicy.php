@@ -8,12 +8,26 @@ use Illuminate\Auth\Access\Response;
 
 class AssessmentPolicy
 {
-    /**
-     * Determine whether the user can view any models.
-     */
-    public function viewAny(User $user): bool
+    public function result(User $user, Assessment $assessment): bool
     {
-        //
+        if ($user->isStudent) {
+            return $assessment->student_id == $user->student->id;
+        }
+
+        if ($user->isTeacher) {
+            return $assessment->class->teacher_id == $user->teacher->id;
+        }
+
+        if ($user->isSchool) {
+            return $assessment->class->teacher->school_id == $user->school->id;
+        }
+
+        return true;
+    }
+
+    public function play(User $user, Assessment $assessment): bool
+    {
+        return $user->isStudent && $user->student->id == $assessment->student_id;
     }
 
     /**

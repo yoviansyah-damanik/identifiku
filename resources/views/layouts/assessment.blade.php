@@ -10,14 +10,16 @@
     <title>{{ $title ?? 'Page Title' }}</title>
 </head>
 
-<body class="flex flex-col w-screen h-screen">
-    <x-assessment.header />
+<body>
+    <div class="flex flex-col w-dvw !h-dvh">
+        <x-assessment.header />
 
-    <main class="relative flex-1">
-        {{ $slot }}
-    </main>
+        <main class="relative flex-1">
+            {{ $slot }}
+        </main>
 
-    <x-assessment.footer />
+        <x-assessment.footer />
+    </div>
 
     {{-- <livewire:loading-screen /> --}}
     <livewire:loading-state />

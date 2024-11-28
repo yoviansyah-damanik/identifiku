@@ -12,3 +12,9 @@ Alpine.plugin(collapse)
 
 import moment from 'moment'
 Alpine.plugin(moment)
+
+import Chart from 'chart.js/auto';
+window.Chart = Chart;
+
+import { Colors } from 'chart.js';
+window.Colors = Colors;

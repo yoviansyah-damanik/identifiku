@@ -74,12 +74,20 @@
                                 @endphp
                                 @if ($detail)
                                     <div class="space-y-3 sm:space-y-4">
+                                        <div>
+                                            <div class="font-semibold">
+                                                {{ __('Title') }}
+                                            </div>
+                                            <div>
+                                                {{ $detail->title ?: __('No title set') }}
+                                            </div>
+                                        </div>
                                         @if ($quiz->assessmentRule->type == 'summative')
                                             <div>
                                                 <div class="font-semibold">
                                                     {{ __('Min') }}
                                                 </div>
-                                                <div class="">
+                                                <div>
                                                     {{ $detail->value_min }}
                                                 </div>
                                             </div>
@@ -87,7 +95,7 @@
                                                 <div class="font-semibold">
                                                     {{ __('Max') }}
                                                 </div>
-                                                <div class="">
+                                                <div>
                                                     {{ $detail->value_max }}
                                                 </div>
                                             </div>
@@ -96,8 +104,8 @@
                                                 <div class="font-semibold">
                                                     {{ __('Default') }}
                                                 </div>
-                                                <div class="">
-                                                    {{ $detail->default ?? __('No default value set') }}
+                                                <div>
+                                                    {{ $detail->default ?: __('No default value set') }}
                                                 </div>
                                             </div>
                                         @endif
@@ -106,7 +114,7 @@
                                                 <div class="font-semibold">
                                                     {{ __('Score') }}
                                                 </div>
-                                                <div class="">
+                                                <div>
                                                     {!! $detail->score !!}
                                                 </div>
                                             </div>
@@ -115,7 +123,7 @@
                                             <div class="font-semibold">
                                                 {{ __('Indicator') }}
                                             </div>
-                                            <div class="">
+                                            <div>
                                                 {!! $detail->indicator !!}
                                             </div>
                                         </div>

@@ -4,7 +4,6 @@ namespace App\Livewire\Dashboard\Quiz\Step\Additional;
 
 use Livewire\Component;
 use Livewire\Attributes\On;
-use App\Models\AssessmentRule;
 use Illuminate\Validation\Rule;
 use App\Models\AssessmentRuleDetail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -14,11 +13,12 @@ class EditIndicator extends Component
     use LivewireAlert;
     public AssessmentRuleDetail $detail;
 
+    public ?string $title;
     public string $indicator;
     public ?int $value_min;
     public ?int $value_max;
     public int | string | null $score;
-    public string $default;
+    public ?string $default;
 
     public bool $isLoading = true;
 
@@ -32,6 +32,7 @@ class EditIndicator extends Component
     {
         $this->refresh();
         $this->detail = $detail;
+        $this->title = $detail->title;
         $this->indicator = $detail->indicator;
         $this->value_min = $detail->value_min;
         $this->value_max = $detail->value_max;
@@ -50,6 +51,11 @@ class EditIndicator extends Component
     public function rules()
     {
         return [
+            'title' => [
+                'nullable',
+                'string',
+                Rule::requiredIf(in_array($this->detail->main->type, ['summation', 'summative']))
+            ],
             'indicator' => 'required|string',
             'value_min' => [
                 'nullable',
@@ -79,6 +85,7 @@ class EditIndicator extends Component
     public function validationAttributes()
     {
         return [
+            'title' => __('Title'),
             'indicator' => __('Indicator'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
@@ -92,6 +99,7 @@ class EditIndicator extends Component
         $this->isLoading = true;
         try {
             $this->detail->update([
+                'title' => $this->title,
                 'indicator' => $this->indicator,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,

@@ -16,6 +16,7 @@ class ShowQuiz extends Component
     public ?Quiz $activeQuiz = null;
 
     public string $activeQuizUrl = '';
+    public $assessment;
 
     public StudentClass $class;
     public bool $isLoading = false;
@@ -34,8 +35,20 @@ class ShowQuiz extends Component
             $quiz = Quiz::whereSlug($quiz)->first();
 
         $this->isLoading = true;
-        $this->activeQuiz = $quiz->load(['phase', 'category', 'phase.grades', 'picture', 'groups' => fn($q) => $q->withCount('questions')]);
+        $this->activeQuiz = $quiz->load(['assessments', 'phase', 'category', 'phase.grades', 'picture', 'groups' => fn($q) => $q->withCount('questions')]);
+        if ($this->activeQuiz)
+            $this->assessment = $this->activeQuiz->assessments
+                ->where('student_id', auth()->user()->student->id)
+                ->where('student_class_id', $this->class->id)
+                ->first();
+
         $this->isLoading = false;
+    }
+
+    #[On('setRefreshActiveQuiz')]
+    public function refresh()
+    {
+        $this->reset('activeQuiz');
     }
 
     public function render()

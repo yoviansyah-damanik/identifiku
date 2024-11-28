@@ -1,6 +1,8 @@
 <div>
     <x-modal.body>
         <div class="mb-6 space-y-3 sm:space-y-4">
+            <x-form.input :loading="$isLoading" :label="__('Title')" block :placeholder="__('Title')" type='text' :error="$errors->first('title')"
+                wire:model.blur='title' required />
             <x-form.textarea-wysiwyg block :loading="$isLoading" :label="__('Indicator')" :placeholder="__('Entry :entry', ['entry' => __('Indicator')])" wire:model="indicator"
                 :error="$errors->first('indicator')" required />
             @if ($rule?->type == 'summative')
@@ -11,8 +13,10 @@
                         type='number' :error="$errors->first('value_max')" wire:model.blur='value_max' required />
                 </div>
             @else
-                <x-form.input class="flex-1" :info="__('May be left blank')" :loading="$isLoading" :label="__('Default')" block
-                    :placeholder="__('Default')" type='text' :error="$errors->first('default')" wire:model.blur='default' required />
+                <div class="flex-1">
+                    <x-form.input :info="__('May be left blank')" :loading="$isLoading" :label="__('Default')" block :placeholder="__('Default')"
+                        type='text' :error="$errors->first('default')" wire:model.blur='default' required />
+                </div>
             @endif
 
             @if (in_array($rule?->type, ['calculation-2', 'summative']))

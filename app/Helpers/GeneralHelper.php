@@ -261,7 +261,7 @@ class GeneralHelper
             [
                 'value' => 'multipleChoice',
                 'title' => __('Multiple Choice'),
-                'rules' => ['summation', 'calculation']
+                'rules' => ['summation', 'calculation', 'summative']
             ],
             [
                 'value' => 'dichotomous',

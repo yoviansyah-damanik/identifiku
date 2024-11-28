@@ -74,12 +74,15 @@ Route::prefix('dashboard')
         Route::get('/assessment', \App\Livewire\Dashboard\Assessment\Index::class)
             ->middleware('permission:assessment')
             ->name('.assessment');
-        Route::get('/assessment-history', \App\Livewire\Dashboard\Assessment\History::class)
+        Route::get('/assessment/history', \App\Livewire\Dashboard\Assessment\History::class)
             ->middleware('permission:assessment history')
             ->name('.assessment-history');
-        Route::get('/student-assessments', \App\Livewire\Dashboard\Assessment\Students::class)
+        Route::get('/assessment/students', \App\Livewire\Dashboard\Assessment\Students::class)
             ->middleware('permission:assessment students')
             ->name('.assessment-students');
+        Route::get('/assessment/result/{assessment:id}', \App\Livewire\Dashboard\Assessment\Result::class)
+            // ->middleware('permission:assessment result')
+            ->name('.assessment.result');
 
         Route::get('/education-level', \App\Livewire\Dashboard\EducationLevel\Index::class)
             ->middleware('permission:educationLevel')

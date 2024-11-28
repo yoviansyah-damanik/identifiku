@@ -4,7 +4,9 @@ namespace App\Livewire\Dashboard\Quiz\Step;
 
 use App\Models\Quiz;
 use Livewire\Component;
+use Livewire\Attributes\Isolate;
 
+#[Isolate]
 class StepFour extends Component
 {
     public Quiz $quiz;

@@ -22,9 +22,10 @@ return new class extends Migration
                 ->on('quizzes');
             $table->foreignUuid('student_class_id')
                 ->references('id')
-                ->on('student_classs');
+                ->on('student_classes');
             $table->timestamp('started_on')->nullable();
-            $table->enum('status', ['process', 'done']);
+            $table->char('status', 1)
+                ->default(1);
             $table->timestamps();
         });
     }

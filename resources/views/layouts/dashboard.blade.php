@@ -7,7 +7,7 @@
     <link rel="shortcut icon" href="{{ Vite::image('favicon.png') }}" type="image/x-icon">
     @stack('headers')
 
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>{{ $title ?? 'Page Title' }}</title>
 </head>
 

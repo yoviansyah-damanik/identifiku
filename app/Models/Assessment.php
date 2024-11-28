@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Assessment extends Model
 {
@@ -39,17 +41,31 @@ class Assessment extends Model
         );
     }
 
+    public function isProcess(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->status == 1
+        );
+    }
+
+    public function isSubmitted(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->status == 2
+        );
+    }
+
     public function isDone(): Attribute
     {
         return new Attribute(
-            get: fn() => $this->status == 'done'
+            get: fn() => $this->status == 3
         );
     }
 
     public function remainingTime(): Attribute
     {
         return new Attribute(
-            get: fn() => is_null($this->started_on) ? $this->quiz->estimation_time : $this->started_on->addMinutes($this->quiz->estimation_time) - now()
+            get: fn() => $this->started_on ? (now() > $this->started_on->addMinutes($this->quiz->estimation_time) ? 0 : floor(now()->diffInMinutes($this->started_on->addMinutes($this->quiz->estimation_time)))) : null
         );
     }
 
@@ -66,5 +82,15 @@ class Assessment extends Model
     public function class(): BelongsTo
     {
         return $this->belongsTo(StudentClass::class, 'student_class_id', 'id');
+    }
+
+    public function details(): HasMany
+    {
+        return $this->hasMany(AssessmentDetail::class, 'assessment_id', 'id');
+    }
+
+    public function result(): HasOne
+    {
+        return $this->hasOne(Result::class);
     }
 }

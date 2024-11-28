@@ -21,23 +21,41 @@ class User extends Component
      */
     public function render(): View|Closure|string
     {
-        $navigations = [
-            [
-                'title' => __('Dashboard'),
-                'icon' => 'i-fluent-emoji-flat-antenna-bars',
-                'url' => route('dashboard'),
-            ],
-            [
-                'title' => __('Assessment History'),
-                'icon' => 'i-fluent-emoji-flat-bookmark-tabs',
-                'url' => route('dashboard.assessment-history'),
-            ],
-            [
-                'title' => __('Account Settings'),
-                'icon' => 'i-fluent-emoji-flat-identification-card',
-                'url' => route('dashboard.account'),
-            ],
-        ];
+        $navigations = [];
+        if (auth()->check()) {
+            if (auth()->user()->isStudent) {
+                $navigations = [
+                    [
+                        'title' => __('Dashboard'),
+                        'icon' => 'i-fluent-emoji-flat-antenna-bars',
+                        'url' => route('dashboard'),
+                    ],
+                    [
+                        'title' => __('Assessment History'),
+                        'icon' => 'i-fluent-emoji-flat-bookmark-tabs',
+                        'url' => route('dashboard.assessment-history'),
+                    ],
+                    [
+                        'title' => __('Account Settings'),
+                        'icon' => 'i-fluent-emoji-flat-identification-card',
+                        'url' => route('dashboard.account'),
+                    ],
+                ];
+            } else {
+                $navigations = [
+                    [
+                        'title' => __('Dashboard'),
+                        'icon' => 'i-fluent-emoji-flat-antenna-bars',
+                        'url' => route('dashboard'),
+                    ],
+                    [
+                        'title' => __('Account Settings'),
+                        'icon' => 'i-fluent-emoji-flat-identification-card',
+                        'url' => route('dashboard.account'),
+                    ],
+                ];
+            }
+        }
         return view('components.main.header.user', compact('navigations'));
     }
 }

@@ -42,29 +42,50 @@
                             :href="route('dashboard.quiz.preview', $activeQuiz)" icon="i-ph-magnifying-glass-light">
                             {{ __('See Questions') }}
                         </x-button>
-                        <x-button block color="primary" radius="rounded-full" wire:click="play" :withBorderIcon="false"
-                            icon="i-ph-activity">
-                            {{ __('Conduct Assessment') }}
-                        </x-button>
-                        <div class="text-sm italic text-center text-red-500 leading-0">
-                            {{ __('A device with a screen width of at least 1280px is recommended') }}
-                        </div>
-                        {{-- @if (auth()->check())
-                    @if (auth()->user()->roleName == 'Student')
-                        <x-button block color="primary" radius="rounded-full" icon="i-ph-activity">
-                            {{ __('Conduct Assessment') }}
-                        </x-button>
-                    @else
-                        <x-badge type="error">
-                            {{ __('Student Only') }}
-                        </x-badge>
-                    @endif
-                @else
-                    <div class="text-center">
-                        {{ __('You can take this assessment after you log in.') }}
-                        <x-href href="{{ route('login') }}">{{ __('Click here') }}</x-href>.
-                    </div>
-                @endif --}}
+                        @if ($assessment)
+                            @if ($assessment->isDone)
+                                <x-button block color="green" radius="rounded-full" :withBorderIcon="false"
+                                    :href="route('dashboard.assessment.result', $assessment)">
+                                    {{ __('Show :show', ['show' => __('Result')]) }}
+                                </x-button>
+                            @elseif ($assessment->isSubmitted)
+                                <div class="italic text-center">
+                                    {{ __('Assessment results are being processed') }}
+                                </div>
+                            @else
+                                @if (is_null($assessment->remainingTime))
+                                    <x-button block color="primary" radius="rounded-full" wire:click="play"
+                                        :withBorderIcon="false" icon="i-ph-activity">
+                                        {{ __('Conduct Assessment') }}
+                                    </x-button>
+                                    <div class="text-sm italic text-center text-red-500 leading-0">
+                                        {{ __('A device with a screen width of at least 1280px is recommended') }}
+                                    </div>
+                                @else
+                                    @if ($assessment->remainingTime > 0)
+                                        <x-button block color="primary" radius="rounded-full" wire:click="play"
+                                            :withBorderIcon="false" icon="i-ph-activity">
+                                            {{ __('Continue') }}
+                                        </x-button>
+                                        <div class="text-sm italic text-center text-red-500 leading-0">
+                                            {{ __('A device with a screen width of at least 1280px is recommended') }}
+                                        </div>
+                                    @elseif($assessment->remainingTime == 0)
+                                        <div class="italic text-center">
+                                            {{ __('Assessment results are being processed') }}
+                                        </div>
+                                    @endif
+                                @endif
+                            @endif
+                        @else
+                            <x-button block color="primary" radius="rounded-full" wire:click="play" :withBorderIcon="false"
+                                icon="i-ph-activity">
+                                {{ __('Conduct Assessment') }}
+                            </x-button>
+                            <div class="text-sm italic text-center text-red-500 leading-0">
+                                {{ __('A device with a screen width of at least 1280px is recommended') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -128,6 +149,8 @@
             </div>
         </div>
     @else
-        {{ __('Please select the assessment first') }}
+        <div class="text-center">
+            {{ __('Please select the assessment first') }}
+        </div>
     @endif
 </div>

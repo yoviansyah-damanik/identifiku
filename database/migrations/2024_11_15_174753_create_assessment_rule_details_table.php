@@ -17,6 +17,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('assessment_rules')
                 ->onDelete('cascade');
+            $table->string('title')->nullable();
             $table->text('indicator');
             $table->string('answer')->nullable();
             $table->integer('value_min')->nullable();
