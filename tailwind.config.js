@@ -13,7 +13,10 @@ export default {
         extend: {
             backgroundImage: {
                 'auth-background': "url('../images/default-auth.jpg')",
-                'breadcrumb-pattern': "url('../images/breadcrumb-pattern.png')"
+                'pattern': "url('../images/breadcrumb-pattern.png')",
+                'pattern-2': "url('../images/pattern-1.jpg')",
+                'pattern-3': "url('../images/pattern-2.png')",
+                'pattern-4': "url('../images/pattern-3.png')"
             },
             zIndex: {
                 'header': '990',

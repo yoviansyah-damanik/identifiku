@@ -15,6 +15,7 @@ class EditIndicator extends Component
 
     public ?string $title;
     public string $indicator;
+    public string $recommendation;
     public ?int $value_min;
     public ?int $value_max;
     public int | string | null $score;
@@ -34,11 +35,13 @@ class EditIndicator extends Component
         $this->detail = $detail;
         $this->title = $detail->title;
         $this->indicator = $detail->indicator;
+        $this->recommendation = $detail->recommendation;
         $this->value_min = $detail->value_min;
         $this->value_max = $detail->value_max;
         $this->score = $detail->score;
         $this->default = $detail->default;
         $this->dispatch('set-indicator-textarea-value', $detail->indicator);
+        $this->dispatch('set-recommendation-textarea-value', $detail->recommendation);
         $this->isLoading = false;
     }
 
@@ -57,6 +60,7 @@ class EditIndicator extends Component
                 Rule::requiredIf(in_array($this->detail->main->type, ['summation', 'summative']))
             ],
             'indicator' => 'required|string',
+            'recommendation' => 'required|string',
             'value_min' => [
                 'nullable',
                 'numeric',
@@ -87,6 +91,7 @@ class EditIndicator extends Component
         return [
             'title' => __('Title'),
             'indicator' => __('Indicator'),
+            'recommendation' => __('Recommendation'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
             'score' => __('Score')
@@ -101,6 +106,7 @@ class EditIndicator extends Component
             $this->detail->update([
                 'title' => $this->title,
                 'indicator' => $this->indicator,
+                'recommendation' => $this->recommendation,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,
                 'default' => $this->default ?? null,

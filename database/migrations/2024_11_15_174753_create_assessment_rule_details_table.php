@@ -19,6 +19,7 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('title')->nullable();
             $table->text('indicator');
+            $table->text('recommendation');
             $table->string('answer')->nullable();
             $table->integer('value_min')->nullable();
             $table->integer('value_max')->nullable();

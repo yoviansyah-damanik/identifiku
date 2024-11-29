@@ -26,7 +26,7 @@ class Assessment extends Model
 
     public function scopeDone($query)
     {
-        $query->where('status', 'done');
+        $query->where('status', 3);
     }
 
     public function isStillPlay(): Attribute

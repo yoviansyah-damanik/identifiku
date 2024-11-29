@@ -16,6 +16,7 @@ class AddIndicator extends Component
 
     public string $title;
     public string $indicator;
+    public string $recommendation;
     public int $value_min;
     public int $value_max;
     public int | string $score;
@@ -55,6 +56,7 @@ class AddIndicator extends Component
                 Rule::requiredIf(in_array($this->rule->type, ['summation', 'summative']))
             ],
             'indicator' => 'required|string',
+            'recommendation' => 'required|string',
             'value_min' => [
                 'nullable',
                 'numeric',
@@ -85,6 +87,7 @@ class AddIndicator extends Component
         return [
             'title' => __('Title'),
             'indicator' => __('Indicator'),
+            'recommendation' => __('Recommendation'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
             'default' => __('Default'),
@@ -101,6 +104,7 @@ class AddIndicator extends Component
                 'assessment_rule_id' => $this->rule->id,
                 'title' => $this->title,
                 'indicator' => $this->indicator,
+                'recommendation' => $this->recommendation,
                 'answer' => $this->answer,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,

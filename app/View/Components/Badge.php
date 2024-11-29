@@ -18,7 +18,7 @@ class Badge extends Component
         public bool $bordered = false
     ) {
         $this->badgeClass = join(' ', [
-            'inline-block shadow dark:bg-slate-900',
+            'inline-block shadow-sm dark:bg-slate-900',
             $this->colorVariant($type),
             $this->sizeVariant($size),
             $bordered ? 'border' : 'border-0'

@@ -22,10 +22,10 @@ return new class extends Migration
                 ->on('questions')
                 ->onDelete('cascade');
             $table->foreignId('answer_choice_id')
+                ->nullable()
                 ->references('id')
                 ->on('answer_choices')
-                ->onDelete('cascade')
-                ->nullable();
+                ->onDelete('cascade');
             $table->integer('value')
                 ->nullable();
             $table->unique(['assessment_id', 'question_id']);

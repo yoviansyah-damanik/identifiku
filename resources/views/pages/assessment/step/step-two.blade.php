@@ -111,7 +111,7 @@
                         <div class="flex gap-1 lg:flex-wrap snap-x lg:snap-none">
                             @foreach ($group['questions'] as $question)
                                 <x-button wire:click="setQuestion('{{ $group['id'] }}','{{ $question['id'] }}')"
-                                    square radius="rounded-full" base="snap-start lg:snap-none w-8" size="sm"
+                                    square radius="rounded-full" base="!p-0 snap-start lg:snap-none w-8" size="sm"
                                     :color="$questionActive['id'] == $question['id']
                                         ? 'secondary'
                                         : (in_array($question['id'], $result->pluck('question_id')->toArray())

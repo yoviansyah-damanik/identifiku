@@ -1,4 +1,4 @@
-<div class="py-12 bg-primary-50">
+<div class="py-12 bg-pattern-4">
     <x-container>
         <div class="mb-3 text-3xl font-extrabold tracking-widest text-center uppercase">
             {{ __('Features') }}

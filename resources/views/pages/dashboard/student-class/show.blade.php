@@ -4,7 +4,7 @@
     <div class="flex flex-col gap-3 lg:flex-row sm:gap-4">
         <div class="w-full min-w-[250px] lg:max-w-[25%]">
             <div class="space-y-3 sm:space-y-4 max-h-[30dvh] lg:max-h-[55dvh] h-full overflow-auto">
-                @foreach ($class->quizzes as $quiz)
+                @forelse ($class->quizzes as $quiz)
                     @php
                         $assessment = $quiz->assessments
                             ->where('student_id', auth()->user()->student->id)
@@ -69,7 +69,9 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <x-no-data />
+                @endforelse
             </div>
         </div>
         <div class="flex-1">

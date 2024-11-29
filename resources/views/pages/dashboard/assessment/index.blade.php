@@ -11,7 +11,7 @@
         <div class="w-full min-w-[250px] lg:max-w-[25%]">
             <div @class([
                 'space-y-3 sm:space-y-4 max-h-[30dvh] lg:max-h-[60dvh] h-full overflow-auto',
-                'lg:!max-h-[55dvh]' => $hasQuizzes->hasMorePages(),
+                'lg:!max-h-[55dvh]' => $hasQuizzes->hasPages(),
             ])>
                 @forelse ($hasQuizzes as $hasQuiz)
                     @php

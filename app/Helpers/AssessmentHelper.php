@@ -115,4 +115,12 @@ class AssessmentHelper
     private function calculation2() {}
 
     private function summative() {}
+
+    public static function getChartData(Assessment $assessment)
+    {
+        return [
+            'label' => $assessment->result->details->pluck('title'),
+            'data' => $assessment->result->details->pluck('value')
+        ];
+    }
 }

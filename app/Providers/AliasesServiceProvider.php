@@ -22,5 +22,6 @@ class AliasesServiceProvider extends ServiceProvider
     {
         $loader = AliasLoader::getInstance();
         $loader->alias('GeneralHelper', \App\Helpers\GeneralHelper::class);
+        $loader->alias('AssessmentHelper', \App\Helpers\AssessmentHelper::class);
     }
 }

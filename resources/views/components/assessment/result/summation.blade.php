@@ -1,17 +1,11 @@
 <div class="flex flex-col gap-3 lg:gap-4" x-data="{
-    isShow: true,
-    title: '{{ $assessment->result->details->where('is_highlight', true)->first()->title }}',
-    message: '{{ $assessment->result->details->where('is_highlight', true)->first()->message ?: '-' }}',
-    indicator: '{{ $assessment->result->details->where('is_highlight', true)->first()->indicator }}',
-    setDataModal(title, message, indicator) {
-        this.isShow = true;
-        this.title = title;
-        this.message = message;
-        this.indicator = indicator;
-    }
+    indicatorExpanded: false,
+    recommendationExpanded: false,
+    conclusionExpanded: false,
+    adviceExpanded: false,
 }">
     <div class="flex flex-col gap-3 lg:gap-4 lg:flex-row">
-        <div class="flex-1 w-full p-6 overflow-hidden bg-white rounded-lg lg:p-8">
+        <div class="flex-1 w-full p-6 overflow-hidden bg-white rounded-lg shadow-md lg:p-8">
             <div class="flex gap-3 lg:gap-4">
                 <div class="w-32 font-bold lg:w-52 text-primary-500">
                     {{ __(':name Name', ['name' => __('Student')]) }}
@@ -107,101 +101,125 @@
                 </div>
             </div>
         </div>
-        <div class="flex-1 w-full p-6 overflow-hidden rounded-lg bg-primary-500 lg:p-8">
+        <div class="flex-1 w-full p-6 overflow-hidden rounded-lg shadow-md bg-primary-500 lg:p-8">
             <div class="mb-5 text-lg font-bold text-center text-secondary-500">
                 {{ __('Dominance') }}
             </div>
 
-            <div class="px-5 py-6 bg-white rounded-lg mb-7">
+            <div class="px-5 py-6 mb-5 bg-white rounded-lg">
                 <div
                     class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-br from-primary-500 to-secondary-500">
                     {{ $assessment->result->details->where('is_highlight', true)->first()->title }}
                 </div>
             </div>
+            <div class="text-sm italic font-light text-center text-white">
+                {{ __('You can see the details of the assessment results at the bottom of this page') }}
+            </div>
+            @if (auth()->user()->isTeacher)
+                <div class="mt-1 text-center">
+                    <x-button size="sm" radius="rounded-full" color="secondary"
+                        x-on:click="$dispatch('toggle-show-detail-modal')">
+                        {{ __('Edit :edit', ['edit' => __('Message')]) }}
+                    </x-button>
+                </div>
+            @endif
         </div>
     </div>
-    <div class="w-full">
-        <div class="flex flex-col items-start gap-3 lg:gap-4">
-            <div class="flex flex-col items-start w-full gap-3 lg:gap-4 lg:flex-row">
-                <div
-                    class="w-full p-6 overflow-hidden bg-white rounded-lg lg:max-w-screen-sm 2xl:max-w-screen-lg lg:p-8">
-                    <div class="mb-5 text-lg font-bold text-center text-primary-500">
-                        {{ __('Assessment Result') }}
-                    </div>
-
-                    <div class="flex flex-col gap-3 lg:flex-row lg:gap-4">
-                        <div class="w-full lg:w-80 2xl:w-96">
-                            <div class="w-full mx-auto max-w-96 mb-7" wire:ignore>
-                                <canvas id="summationChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="flex-1 space-y-3 lg:space-y-4">
-                            @foreach ($assessment->result->details as $detail)
-                                <div>
-                                    <div class="flex items-center justify-between gap-3 mb-1 lg:gap-4">
-                                        <div class="font-semibold">
-                                            {{ $detail->title }}
-                                        </div>
-                                        <div class="text-sm">
-                                            {{ GeneralHelper::numberFormat(($detail->value / $assessment->result->details->sum('value')) * 100) }}%
-                                        </div>
-                                    </div>
-                                    <div class="relative w-full h-4 overflow-hidden rounded-full shadow bg-red-50">
-                                        <div style="width: {{ ($detail->value / $assessment->result->details->sum('value')) * 100 > 0 ? ($detail->value / $assessment->result->details->sum('value')) * 100 . '%' : '0px' }}"
-                                            class="h-full bg-red-500 rounded-full">
-                                        </div>
-                                    </div>
-                                    <div class="mt-3" x-data="{ expanded: false }">
-                                        <x-button size="sm" radius="rounded-full" block color="primary-transparent"
-                                            x-on:click="setDataModal('{{ $detail->title }}','{{ $detail->message ?: '-' }}','{{ $detail->indicator }}')">
-                                            {{ __('Show :show', ['show' => __('Indicator')]) }}
-                                        </x-button>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+    <div class="flex flex-col items-start w-full gap-3 lg:gap-4 lg:flex-row">
+        {{-- Classmate Result --}}
+        <div class="flex flex-col flex-1 w-full gap-3 sm:flex-row lg:flex-col lg:gap-4">
+            <div class="w-full p-6 overflow-hidden bg-white rounded-lg shadow-md sm:flex-1 lg:p-8">
+                <div class="mb-5 text-lg font-bold text-center text-primary-500">
+                    {{ __('Result Chart') }}
                 </div>
-                <div class="flex-1 w-full p-6 overflow-hidden bg-white rounded-lg lg:p-8">
-                    <div class="mb-5 text-lg font-bold text-center text-primary-500">
-                        {{ __('Indicator Explanation') }}
-                    </div>
-
-                    <div x-show="!isShow" class="text-center">
-                        {{ __('Please select the indicator you want to show') }}
-                    </div>
-                    <div x-show="isShow">
-                        <div class="space-y-3 lg:space-y-4">
-                            <div>
-                                <div class="font-semibold">
-                                    {{ __('Title') }}
+                <div wire:ignore>
+                    <canvas class="!w-full !h-auto" id="chart"></canvas>
+                </div>
+            </div>
+            <div class="w-full p-6 overflow-hidden bg-white rounded-lg shadow-md sm:flex-1 lg:p-8">
+                <div class="mb-5 text-lg font-bold text-center text-primary-500">
+                    {{ __('Classmate Result') }}
+                </div>
+                <div class="max-h-[40dvh] overflow-auto">
+                    @foreach (range(0, 5) as $x)
+                        @forelse ($assessment->class->assessments()->where('student_id','!=', $assessment->student_id)->get() as $item)
+                            <div class="px-3 py-5 border-b last:border-b-0">
+                                <div class="font-semibold text-secondary-500">
+                                    {{ $item->student->name }}
                                 </div>
-                                <div x-text="title"></div>
+                                {{ $item->result->details->where('is_highlight', true)->first()->title }}
                             </div>
-                            <div>
-                                <div class="font-semibold">
-                                    {{ __('Indicator') }}
-                                </div>
-                                <div x-html="indicator"></div>
-                            </div>
-                            <div>
-                                <div class="font-semibold">
-                                    {{ __('Message') }}
-                                </div>
-                                <div x-text="message"></div>
-                            </div>
+                        @empty
+                            <x-no-data />
+                        @endforelse
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        {{-- Result Detail --}}
+        <div class="flex flex-col w-full gap-3 lg:gap-4 xl:max-w-screen-md 2xl:max-w-screen-xl">
+            <div class="p-6 overflow-hidden bg-white rounded-lg shadow-md lg:p-8">
+                <div class="mb-5 text-lg font-bold text-center text-primary-500">
+                    {{ __('Assessment Result') }}
+                </div>
+                <div class="flex flex-col gap-3 lg:flex-row lg:gap-4">
+                    {{-- <div class="w-full lg:w-80 2xl:w-96">
+                        <div class="w-full mx-auto max-w-96 mb-7" wire:ignore>
+                            <canvas id="chart"></canvas>
                         </div>
+                    </div> --}}
+                    <div class="flex-1 space-y-3 lg:space-y-4">
+                        @foreach ($assessment->result->details as $detail)
+                            <div>
+                                <div class="flex items-center justify-between gap-3 mb-1 lg:gap-4">
+                                    <div class="font-semibold">
+                                        {{ $detail->title }}
+                                    </div>
+                                    <div class="text-sm">
+                                        {{ GeneralHelper::numberFormat(($detail->value / $assessment->result->details->sum('value')) * 100) }}%
+                                    </div>
+                                </div>
+                                <div class="relative w-full h-4 overflow-hidden rounded-full shadow bg-red-50">
+                                    <div style="width: {{ ($detail->value / $assessment->result->details->sum('value')) * 100 > 0 ? ($detail->value / $assessment->result->details->sum('value')) * 100 . '%' : '0px' }}"
+                                        class="h-full bg-red-500 rounded-full">
+                                    </div>
+                                </div>
+                                {{-- <div class="mt-3" x-data="{ expanded: false }">
+                                            <x-button size="sm" radius="rounded-full" block color="primary-transparent"
+                                                x-on:click="setDataModal('{{ $detail->title }}','{{ $detail->message ?: '-' }}','{{ $detail->indicator }}')">
+                                                {{ __('Show :show', ['show' => __('Indicator')]) }}
+                                            </x-button>
+                                        </div> --}}
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
-
+            <x-accordion isOpen :title="__('Indicator')">
+                {!! $assessment->result->details->where('is_highlight', true)->first()->indicator !!}
+            </x-accordion>
+            <x-accordion isOpen :title="__('Recommendation')">
+                {!! $assessment->result->details->where('is_highlight', true)->first()->recommendation !!}
+            </x-accordion>
+            <x-accordion isOpen :title="__('Conclusion')">
+                {!! $assessment->result->conclusion !!}
+            </x-accordion>
+            <x-accordion isOpen :title="__('Advice')">
+                {!! $assessment->result->advice !!}
+            </x-accordion>
         </div>
     </div>
 </div>
 
+@if (auth()->user()->isTeacher)
+    <x-modal name="show-detail-modal" size="3xl" :modalTitle="__('Show :show', ['show' => __('Dominance')])">
+        <livewire:dashboard.assessment.update-result :result="$assessment->result" />
+    </x-modal>
+@endif
+
 @push('scripts')
     <script type="module">
-        const ctx = document.getElementById('summationChart');
+        const ctx = document.getElementById('chart');
         const image = new Image();
         image.src = `{{ Vite::image('favicon.png') }}`;
 
@@ -220,6 +238,9 @@
                     // ],
                     hoverOffset: 4
                 }]
+            },
+            options: {
+                responsive: true,
             },
             plugins: [{
                     id: 'customCanvasBackgroundImage',

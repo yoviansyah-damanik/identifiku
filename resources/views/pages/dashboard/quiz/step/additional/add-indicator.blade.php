@@ -5,6 +5,8 @@
                 wire:model.blur='title' required />
             <x-form.textarea-wysiwyg block :loading="$isLoading" :label="__('Indicator')" :placeholder="__('Entry :entry', ['entry' => __('Indicator')])" wire:model="indicator"
                 :error="$errors->first('indicator')" required />
+            <x-form.textarea-wysiwyg block :loading="$isLoading" :label="__('Recommendation')" :placeholder="__('Entry :entry', ['entry' => __('Recommendation')])"
+                wire:model="recommendation" :error="$errors->first('recommendation')" required />
             @if ($rule?->type == 'summative')
                 <div class="flex gap-3 sm:gap-4">
                     <x-form.input class="flex-1" :loading="$isLoading" :label="__('Min')" block :placeholder="__('Min')"

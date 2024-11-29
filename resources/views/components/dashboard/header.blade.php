@@ -1,4 +1,4 @@
-<header class="sticky h-16 px-4 transition-all duration-300 shadow-sm z-header top-3">
+<header class="sticky h-16 px-4 transition-all duration-300 z-header top-3">
     <div
         class="flex items-center justify-between gap-1 rounded-full shadow bg-white/70 dark:bg-slate-900/30 backdrop-blur-md">
         <div class="flex items-center flex-1 gap-3 ms-1">

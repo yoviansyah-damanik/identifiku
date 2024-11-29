@@ -21,12 +21,11 @@ class Result extends Component
                 'student.school',
                 'quiz',
                 'class',
+                'class.assessments',
+                'class.assessments.result',
+                'class.assessments.result.details',
+                'class.assessments.student',
                 'quiz.assessments',
-                'quiz.phase',
-                'quiz.category',
-                'quiz.phase.grades',
-                'quiz.picture',
-                'quiz.groups' => fn($q) => $q->withCount('questions'),
                 'result',
                 'result.details'
             ]);

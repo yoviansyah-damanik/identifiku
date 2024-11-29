@@ -16,7 +16,7 @@ return new class extends Migration
             $table->double('value');
             $table->string('title')->nullable();
             $table->text('indicator');
-            $table->text('message')->nullable();
+            $table->text('recommendation');
             $table->boolean('is_highlight')->default(false);
             $table->foreignUuid('result_id')
                 ->references('id')
