@@ -25,7 +25,7 @@
     <x-form.input block :loading="$isLoading" :label="__('Address')" :placeholder="__('Entry :entry', ['entry' => __('Address')])" type='text'
         wire:model.blur='address' error="{{ $errors->first('address') }}" />
 
-    <div class="text-end">
+    <div class="text-end !mt-7">
         <x-button :loading="$isLoading" type="submit" color="primary" radius="rounded-full" base="!mt-8 lg:!mt-10">
             {{ __('Save') }}
         </x-button>

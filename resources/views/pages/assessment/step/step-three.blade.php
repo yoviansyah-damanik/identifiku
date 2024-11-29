@@ -10,7 +10,7 @@
         </div>
         {{ __('You can view the assessment results on the assessment menu.') }}
         <div class="mt-5">
-            <x-button :href="route('dashboard.assessment-history')" color="primary" radius="rounded-full">
+            <x-button :href="route('dashboard.assessment.result', $assessment)" color="primary" radius="rounded-full">
                 {{ __('Show :show', ['show' => __('Assessment')]) }}
             </x-button>
         </div>

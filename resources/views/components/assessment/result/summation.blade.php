@@ -1,4 +1,15 @@
-<div class="flex flex-col gap-3 lg:gap-4">
+<div class="flex flex-col gap-3 lg:gap-4" x-data="{
+    isShow: true,
+    title: '{{ $assessment->result->details->where('is_highlight', true)->first()->title }}',
+    message: '{{ $assessment->result->details->where('is_highlight', true)->first()->message ?: '-' }}',
+    indicator: '{{ $assessment->result->details->where('is_highlight', true)->first()->indicator }}',
+    setDataModal(title, message, indicator) {
+        this.isShow = true;
+        this.title = title;
+        this.message = message;
+        this.indicator = indicator;
+    }
+}">
     <div class="flex flex-col gap-3 lg:gap-4 lg:flex-row">
         <div class="flex-1 w-full p-6 overflow-hidden bg-white rounded-lg lg:p-8">
             <div class="flex gap-3 lg:gap-4">
@@ -31,6 +42,14 @@
                 </div>
                 <div class="flex-1 font-semibold text-secondary-500">
                     {{ $assessment->quiz->name }}
+                </div>
+            </div>
+            <div class="flex gap-3 lg:gap-4">
+                <div class="w-32 font-bold lg:w-52 text-primary-500">
+                    {{ __(':type Type', ['type' => __('Assessment')]) }}
+                </div>
+                <div class="flex-1 font-semibold">
+                    {{ __(Str::headline($assessment->quiz->type)) }}
                 </div>
             </div>
             <div class="flex gap-3 lg:gap-4">
@@ -102,18 +121,7 @@
         </div>
     </div>
     <div class="w-full">
-        <div class="flex flex-col items-start gap-3 lg:gap-4" x-data="{
-            isShow: false,
-            title: '',
-            message: '',
-            indicator: '',
-            setDataModal(title, message, indicator) {
-                this.isShow = true;
-                this.title = title;
-                this.message = message;
-                this.indicator = indicator;
-            }
-        }">
+        <div class="flex flex-col items-start gap-3 lg:gap-4">
             <div class="flex flex-col items-start w-full gap-3 lg:gap-4 lg:flex-row">
                 <div
                     class="w-full p-6 overflow-hidden bg-white rounded-lg lg:max-w-screen-sm 2xl:max-w-screen-lg lg:p-8">
@@ -135,7 +143,7 @@
                                             {{ $detail->title }}
                                         </div>
                                         <div class="text-sm">
-                                            {{ ($detail->value / $assessment->result->details->sum('value')) * 100 }}%
+                                            {{ GeneralHelper::numberFormat(($detail->value / $assessment->result->details->sum('value')) * 100) }}%
                                         </div>
                                     </div>
                                     <div class="relative w-full h-4 overflow-hidden rounded-full shadow bg-red-50">
@@ -190,6 +198,7 @@
         </div>
     </div>
 </div>
+
 @push('scripts')
     <script type="module">
         const ctx = document.getElementById('summationChart');
@@ -211,13 +220,6 @@
                     // ],
                     hoverOffset: 4
                 }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
             },
             plugins: [{
                     id: 'customCanvasBackgroundImage',

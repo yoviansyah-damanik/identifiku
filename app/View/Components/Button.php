@@ -80,7 +80,7 @@ class Button extends Component
     public function sizeVariant($size)
     {
         $sizeVariants = [
-            'sm' => 'text-sm py-1.5 px-2',
+            'sm' => 'text-sm py-1.5 px-5',
             'md' => 'py-2.5 px-9'
         ];
         return $sizeVariants[$size];

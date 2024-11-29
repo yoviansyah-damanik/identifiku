@@ -2,16 +2,19 @@
 
 namespace App\Livewire\Dashboard\StudentClass;
 
+use App\Models\Assessment;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use App\Models\StudentClass;
 use App\Models\StudentHasClass;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class StudentExit extends Component
 {
     use LivewireAlert;
 
-    public StudentHasClass $class;
+    public StudentClass $class;
     public bool $isLoading = true;
 
     public function render()
@@ -20,7 +23,7 @@ class StudentExit extends Component
     }
 
     #[On('setExitClass')]
-    public function setExitClass(StudentHasClass $class)
+    public function setExitClass(StudentClass $class)
     {
         $this->isLoading = true;
         $this->class = $class;
@@ -35,24 +38,33 @@ class StudentExit extends Component
 
     public function exit()
     {
-        if (!in_array($this->class->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
+        if (!in_array($this->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
             $this->alert('warning', __('You never made a class request for this class'));
             return;
         }
 
+        DB::beginTransaction();
         try {
             StudentHasClass::where('student_id', auth()->user()->student->id)
-                ->where('student_class_id', $this->class->class->id)
+                ->where('student_class_id', $this->class->id)
                 ->delete();
 
-            $this->dispatch('toggle-exit-class-modal');
+            Assessment::where('student_id', auth()->user()->student->id)
+                ->where('student_class_id', $this->class->id)
+                ->delete();
+
+            auth()->user()->$this->dispatch('toggle-exit-class-modal');
+
+            DB::commit();
             $this->dispatch('refreshClassData');
             $this->alert('success', __(':attribute exited successfully.', ['attribute' => __('You')]));
             $this->isLoading = true;
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
         } catch (\Throwable $e) {
+            DB::rollBack();
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
         }

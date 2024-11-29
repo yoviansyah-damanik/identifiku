@@ -44,8 +44,7 @@
             <div class="flex items-center gap-1 text-sm">
                 <span class="i-ph-clock-countdown-light"></span>
                 <div class="flex-1 font-light truncate">
-                    {{ GeneralHelper::numberFormat($quiz->estimation_time) }}
-                    {{ Str::lower(__('Minutes')) }}
+                    {{ GeneralHelper::getTime($quiz->estimation_time) }}
                 </div>
             </div>
             <div class="flex items-center gap-1 text-sm">

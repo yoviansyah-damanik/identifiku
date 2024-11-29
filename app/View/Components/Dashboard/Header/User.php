@@ -21,6 +21,19 @@ class User extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.dashboard.header.user');
+        $navigations = [
+            [
+                'title' => __('Home'),
+                'icon' => 'i-fluent-emoji-flat-house',
+                'url' => route('home'),
+            ],
+            [
+                'title' => __('Account Settings'),
+                'icon' => 'i-fluent-emoji-flat-identification-card',
+                'url' => route('dashboard.account'),
+            ],
+        ];
+
+        return view('components.dashboard.header.user', compact('navigations'));
     }
 }

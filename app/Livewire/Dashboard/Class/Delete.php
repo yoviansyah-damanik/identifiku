@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Class;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use App\Models\StudentClass;
+use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Delete extends Component
@@ -30,19 +31,24 @@ class Delete extends Component
     public function disband()
     {
         $this->isLoading = true;
+        DB::beginTransaction();
         try {
             $this->class->quizzes()->delete();
             $this->class->studentHasClasses()->delete();
+            $this->class->assessments()->delete();
             $this->class->delete();
 
             $this->dispatch('toggle-delete-class-modal');
             $this->dispatch('refreshClassData');
 
+            DB::commit();
             $this->alert('success', __(':attribute deleted successfully.', ['attribute' => __('Class')]));
         } catch (\Exception $e) {
+            DB::rollBack();
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
         } catch (\Throwable $e) {
+            DB::rollBack();
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());
         }

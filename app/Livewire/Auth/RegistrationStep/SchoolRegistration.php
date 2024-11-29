@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Auth\RegistrationStep;
 
+use App\Helpers\GeneralHelper;
 use App\Jobs\Mailer;
 use App\Models\User;
 use App\Models\Region;
@@ -19,35 +20,39 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class SchoolRegistration extends Component
 {
     use LivewireAlert;
-    public string $searchProvince = '';
-    public string $searchRegency = '';
-    public string $searchDistrict = '';
-    public string $searchVillage = '';
-    public string $searchEducationLevel = '';
-    public string $searchSchoolStatus = '';
 
-    public string $npsn = '12345678';
-    public string $nis = '123456';
-    public string $nss = '123456789012';
-    public string $name = 'SMP Negeri 1 Batang Angkola';
-    public string $address = 'Tapanuli Selatan';
-    // public string $province = '';
-    // public string $regency = '';
-    // public string $district = '';
-    // public string $village = '';
-    public string $province = '12';
-    public string $regency = '12.77';
-    public string $district = '12.77.01';
-    public string $village = '12.77.01.1001';
-    public string $postalCode = '22222';
-    public string $phoneNumber = '081222778197';
+    public array $provinces;
+    public array $regencies;
+    public array $districts;
+    public array $villages;
+    public array $educationLevels;
+    public array $schoolStatuses;
+
+    public string $provinceSearch = '';
+    public string $regencySearch = '';
+    public string $districtSearch = '';
+    public string $villageSearch = '';
+    public string $educationLevelSearch = '';
+    public string $schoolStatusSearch = '';
+
+    public string $npsn;
+    public string $nis;
+    public string $nss;
+    public string $name;
+    public string $address;
+    public string $province = '';
+    public string $regency = '';
+    public string $district = '';
+    public string $village = '';
+    public string $postalCode;
+    public string $phoneNumber;
     public string|int $educationLevel = 1;
     public string|int $schoolStatus = 1;
 
-    public string $username = 'smp1batangangkola';
-    public string $email = 'smp1batangangkola@gmail.com';
-    public string $password = '@Password123';
-    public string $rePassword = '@Password123';
+    public string $username;
+    public string $email;
+    public string $password;
+    public string $rePassword;
 
     public int $step = 1;
     public int $stepMin = 1;
@@ -64,70 +69,43 @@ class SchoolRegistration extends Component
     public function mount()
     {
         $this->successfulMessage = __('School enrollment was successful. Our team will conduct verification first. The verification results will be sent to the email you have registered.');
+
+        $this->setProvinces();
+        $this->setRegencies();
+        $this->setDistricts();
+        $this->setVillages();
+        $this->setEducationLevels();
+        $this->setSchoolStatuses();
+
+        if (!GeneralHelper::isProduction()) {
+            $this->dev();
+        }
+    }
+
+    public function dev()
+    {
+        $this->npsn = '12345678';
+        $this->nis = '123456';
+        $this->nss = '123456789012';
+        $this->name = 'SMP Negeri 1 Batang Angkola';
+        $this->address = 'Tapanuli Selatan';
+        $this->province = '12';
+        $this->regency = '12.77';
+        $this->district = '12.77.01';
+        $this->village = '12.77.01.1001';
+        $this->postalCode = '22222';
+        $this->phoneNumber = '081222778197';
+        $this->educationLevel = 1;
+        $this->schoolStatus = 1;
+        $this->username = 'smp1batangangkola';
+        $this->email = 'smp1batangangkola@gmail.com';
+        $this->password = '@Password123';
+        $this->rePassword = '@Password123';
     }
 
     public function render()
     {
-        $provinces = Region::province()
-            ->where('name', 'like', '%' . $this->searchProvince . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($item) => [
-                'value' => $item->code,
-                'title' => $item->name
-            ])->toArray();
-
-        $regencies = Region::when($this->province, fn($q) => $q->regency($this->province), fn($q) => $q->whereNull('code'))
-            ->where('name', 'like', '%' . $this->searchRegency . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($item) => [
-                'value' => $item->code,
-                'title' => $item->name
-            ])->toArray();
-
-        $districts = Region::when($this->regency, fn($q) => $q->district($this->regency), fn($q) => $q->whereNull('code'))
-            ->where('name', 'like', '%' . $this->searchDistrict . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($item) => [
-                'value' => $item->code,
-                'title' => $item->name
-            ])->toArray();
-
-        $villages = Region::when($this->district, fn($q) => $q->village($this->district), fn($q) => $q->whereNull('code'))
-            ->where('name', 'like', '%' . $this->searchVillage . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($item) => [
-                'value' => $item->code,
-                'title' => $item->name
-            ])->toArray();
-
-        $educationLevels = EducationLevel::where('name', 'like', '%' . $this->searchEducationLevel . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($item) => [
-                'value' => $item->id,
-                'title' => $item->name
-            ])->toArray();
-
-        $schoolStatuses = SchoolStatus::where('name', 'like', '%' . $this->searchSchoolStatus . '%')
-            ->limit(10)
-            ->get()
-            ->map(fn($item) => [
-                'value' => $item->id,
-                'title' => $item->name
-            ])->toArray();
-
-        return view('pages.auth.registration-step.school-registration', compact(
-            'provinces',
-            'regencies',
-            'districts',
-            'villages',
-            'educationLevels',
-            'schoolStatuses'
-        ))
+        return view('pages.auth.registration-step.school-registration')
             ->title(__("Registration"));
     }
 
@@ -236,11 +214,11 @@ class SchoolRegistration extends Component
                 'school_status_id' => $this->schoolStatus
             ]);
 
-            $adminEmails = User::role('Administrator')
-                ->get('email')->pluck('email')->toArray();
+            // $adminEmails = User::role('Administrator')
+            //     ->get('email')->pluck('email')->toArray();
 
             DB::commit();
-            dispatch(new Mailer('school_registration', $adminEmails, $schoolRequest->toArray()));
+            // dispatch(new Mailer('school_registration', $adminEmails, $schoolRequest->toArray()));
             $this->step++;
             $this->isLoading = false;
         } catch (\Exception $e) {
@@ -254,77 +232,163 @@ class SchoolRegistration extends Component
         }
     }
 
-    public function setValueProvince($province)
+    public function setProvinces()
+    {
+        $this->provinces = Region::province()
+            ->where('name', 'like', '%' . $this->provinceSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($item) => [
+                'value' => $item->code,
+                'title' => $item->name
+            ])->toArray();
+    }
+
+    public function setRegencies()
+    {
+        $this->regencies = Region::when($this->province, fn($q) => $q->regency($this->province), fn($q) => $q->whereNull('code'))
+            ->where('name', 'like', '%' . $this->regencySearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($item) => [
+                'value' => $item->code,
+                'title' => $item->name
+            ])->toArray();
+    }
+
+    public function setDistricts()
+    {
+        $this->districts = Region::when($this->regency, fn($q) => $q->district($this->regency), fn($q) => $q->whereNull('code'))
+            ->where('name', 'like', '%' . $this->districtSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($item) => [
+                'value' => $item->code,
+                'title' => $item->name
+            ])->toArray();
+    }
+
+    public function setVillages()
+    {
+        $this->villages = Region::when($this->district, fn($q) => $q->village($this->district), fn($q) => $q->whereNull('code'))
+            ->where('name', 'like', '%' . $this->villageSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($item) => [
+                'value' => $item->code,
+                'title' => $item->name
+            ])->toArray();
+    }
+
+    public function setEducationLevels()
+    {
+        $this->educationLevels = EducationLevel::where('name', 'like', '%' . $this->educationLevelSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($item) => [
+                'value' => $item->id,
+                'title' => $item->name
+            ])->toArray();
+    }
+
+    public function setSchoolStatuses()
+    {
+        $this->schoolStatuses = SchoolStatus::where('name', 'like', '%' . $this->schoolStatusSearch . '%')
+            ->limit(10)
+            ->get()
+            ->map(fn($item) => [
+                'value' => $item->id,
+                'title' => $item->name
+            ])->toArray();
+    }
+
+    public function setValueProvinceSearch($province)
     {
         $this->province = $province;
         $this->reset('regency', 'district', 'village');
-        $this->dispatch('resetValueRegency');
-        $this->dispatch('resetValueDistrict');
-        $this->dispatch('resetValueVillage');
+        $this->dispatch('resetValueRegencySearch');
+        $this->dispatch('resetValueDistrictSearch');
+        $this->dispatch('resetValueVillageSearch');
         $this->validateOnly('province');
+
+        $this->setRegencies();
+        $this->setDistricts();
+        $this->setVillages();
     }
 
-    public function setValueRegency($regency)
+    public function setValueRegencySearch($regency)
     {
         $this->regency = $regency;
         $this->reset('district',  'village');
-        $this->dispatch('resetValueDistrict');
-        $this->dispatch('resetValueVillage');
+        $this->dispatch('resetValueDistrictSearch');
+        $this->dispatch('resetValueVillageSearch');
         $this->validateOnly('regency');
+
+        $this->setDistricts();
+        $this->setVillages();
     }
 
-    public function setValueDistrict($district)
+    public function setValueDistrictSearch($district)
     {
         $this->district = $district;
         $this->reset('village');
-        $this->dispatch('resetValueVillage');
+        $this->dispatch('resetValueVillageSearch');
         $this->validateOnly('district');
+        $this->setVillages();
     }
 
-    public function setValueVillage($village)
+    public function setValueVillageSearch($village)
     {
         $this->village = $village;
         $this->validateOnly('village');
     }
 
-    public function setValueEducationLevel($educationLevel)
+    public function setValueEducationLevelSearch($educationLevel)
     {
         $this->educationLevel = $educationLevel;
+        $this->validateOnly('educationLevel');
     }
 
-    public function setValueSchoolStatus($schoolStatus)
+    public function setValueSchoolStatusSearch($schoolStatus)
     {
         $this->schoolStatus = $schoolStatus;
+        $this->validateOnly('schoolStatus');
     }
 
-    public function setSearchSearchProvince($data)
+    public function setSearchProvinceSearch($data)
     {
-        $this->searchProvince = $data;
+        $this->provinceSearch = $data;
+        $this->setProvinces();
     }
 
-    public function setSearchSearchRegency($data)
+    public function setSearchRegencySearch($data)
     {
-        $this->searchRegency = $data;
+        $this->regencySearch = $data;
+        $this->setRegencies();
     }
 
-    public function setSearchSearchDistrict($data)
+    public function setSearchDistrictSearch($data)
     {
-        $this->searchDistrict = $data;
+        $this->districtSearch = $data;
+        $this->setDistricts();
     }
 
-    public function setSearchSearchVillage($data)
+    public function setSearchVillageSearch($data)
     {
-        $this->searchVillage = $data;
+        $this->villageSearch = $data;
+        $this->setVillages();
     }
 
-    public function setSearchSearchEducationLevel($data)
+    public function setSearchEducationLevelSearch($data)
     {
-        $this->searchEducationLevel = $data;
+        $this->educationLevelSearch = $data;
+        $this->setEducationLevels();
     }
 
-    public function setSearchSearchSchoolStatus($data)
+    public function setSearchSchoolStatusSearch($data)
     {
-        $this->searchSchoolStatus = $data;
+        $this->schoolStatusSearch = $data;
+        $this->setSchoolStatuses();
     }
 
     public function next()

@@ -210,8 +210,8 @@ class TeacherRegistrationFinal extends Component
             ]);
 
             DB::commit();
-            $school = School::findOrFail($this->schoolId);
-            dispatch(new Mailer('teacher_registration', $school->user->email, $teacherRequest->toArray()));
+            // $school = School::findOrFail($this->schoolId);
+            // dispatch(new Mailer('teacher_registration', $school->user->email, $teacherRequest->toArray()));
             $this->step++;
             $this->isLoading = false;
         } catch (\Exception $e) {

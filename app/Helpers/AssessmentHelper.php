@@ -48,7 +48,7 @@ class AssessmentHelper
 
         return $rules->map(
             fn($detail) => collect([
-                ...$detail->only(['indicator', 'answer', 'value_min', 'value_max', 'score']),
+                ...$detail->only(['title', 'indicator', 'answer', 'value_min', 'value_max', 'score']),
                 'total' => static::$assessment->details()
                     ->whereHas('answer', fn($_answer) => $_answer->where('answer', $detail->answer))
                     ->count(),
@@ -62,7 +62,7 @@ class AssessmentHelper
 
         return $rules->map(
             fn($detail) => collect([
-                ...$detail->only(['indicator', 'answer', 'value_min', 'value_max', 'score']),
+                ...$detail->only(['title', 'indicator', 'answer', 'value_min', 'value_max', 'score']),
                 'total' => static::$assessment->details()
                     ->whereHas('answer', fn($_answer) => $_answer->where('answer', $detail->answer))
                     ->count(),
@@ -87,6 +87,7 @@ class AssessmentHelper
             foreach ($answerMapping as $result) {
                 static::$assessment->result->details()
                     ->create([
+                        'title' => $result['title'],
                         'value' => $result['total'],
                         'indicator' => $result['indicator'],
                         'is_highlight' => $result['total'] == $answerMapping->max('total'),

@@ -7,7 +7,9 @@ use Livewire\Component;
 use App\Rules\PhoneNumber;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Isolate;
 
+#[Isolate]
 class Teacher extends Component
 {
     use LivewireAlert;

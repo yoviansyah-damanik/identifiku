@@ -20,6 +20,7 @@ class Show extends Component
 
     public function mount(StudentClass $class)
     {
+        $this->authorize('view', $class);
         $this->class = $class;
         $this->setTabs();
         $this->tabActive = $this->tabs[1]['value'];

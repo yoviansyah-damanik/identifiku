@@ -65,19 +65,19 @@ class Index extends Component
             ->toArray();
     }
 
-    public function setSearchSearchEducationLevel($data)
+    public function setSearchEducationLevelSearch($data)
     {
         $this->educationLevelSearch = $data;
         $this->setEducationLevels();
     }
 
-    public function setValueEducationLevel($data)
+    public function setValueEducationLevelSearch($data)
     {
         $this->educationLevel = $data;
         $this->resetPage();
     }
 
-    public function resetValueEducationLevel()
+    public function resetValueEducationLevelSearch()
     {
         $this->resetPage();
         $this->reset('educationLevel', 'educationLevelSearch');

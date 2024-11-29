@@ -15,7 +15,7 @@
             $assessment->quiz->phase->grades->pluck('name')->join(', ') .
             ')'" />
         <x-assessment-history-sub-item :title="__('Type')" :value="__(Str::headline($assessment->quiz->type))" />
-        <x-assessment-history-sub-item :title="__('Estimation Time')" :value="GeneralHelper::numberFormat($assessment->quiz->estimation_time) . ' ' . __('Minutes')" />
+        <x-assessment-history-sub-item :title="__('Estimation Time')" :value="GeneralHelper::getTime($assessment->quiz->estimation_time)" />
         <x-assessment-history-sub-item :title="__(':name Name', ['name' => __('Class')])" :value="$assessment->class->name" />
         <x-assessment-history-sub-item :title="__('Status')">
             @if ($assessment->isDone)
@@ -112,8 +112,7 @@
             <div class="flex items-center gap-1 text-sm">
                 <span class="i-ph-clock-countdown-light"></span>
                 <div class="flex-1 font-light truncate">
-                    {{ GeneralHelper::numberFormat($assessment->quiz->estimation_time) }}
-                    {{ Str::lower(__('Minutes')) }}
+                    {{ GeneralHelper::getTime($assessment->quiz->estimation_time) }}
                 </div>
             </div>
             <div class="flex items-center gap-1 text-sm">

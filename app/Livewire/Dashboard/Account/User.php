@@ -6,7 +6,9 @@ use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Isolate;
 
+#[Isolate]
 class User extends Component
 {
     use LivewireAlert;

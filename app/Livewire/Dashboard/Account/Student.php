@@ -10,7 +10,9 @@ use App\Rules\PhoneNumber;
 use Illuminate\Validation\Rule;
 use Illuminate\Database\Query\Builder;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Isolate;
 
+#[Isolate]
 class Student extends Component
 {
     use LivewireAlert;

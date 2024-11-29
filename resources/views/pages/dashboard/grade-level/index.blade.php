@@ -7,7 +7,7 @@
         </x-button>
         <x-form.select class="snap-start" :items="$perPageList" wire:model.live='perPage' />
         <x-form.select-with-search class="w-72" block searchVar="educationLevelSearch" :items="$educationLevels"
-            wire:model="educationLevel" error="{{ $errors->first('educationLevel') }}" :withReset="true"
+            wire:model="educationLevelSearch" error="{{ $errors->first('educationLevelSearch') }}" :withReset="true"
             :buttonText="__('Choose a :item', ['item' => __('Education Level')])" />
         <x-form.input class="flex-1 min-w-48 snap-start" type="search" :placeholder="__('Search by :1', ['1' => __(':name Name', ['name' => __('Grade Level')])])" block
             wire:model.live.debounce.750ms='search' />

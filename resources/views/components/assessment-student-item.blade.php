@@ -11,7 +11,7 @@
         </x-assessment-student-sub-item>
         <x-assessment-student-sub-item :title="__(':name Name', ['name' => __('School')])">
             @if (auth()->user()->isAdmin)
-                <x-href class="font-bold text-secondary-500" :href="route('dashboard.school', ['search' => $assessment->school->name])">
+                <x-href class="font-bold text-secondary-500" :href="route('dashboard.school', ['search' => $assessment->student->school->name])">
                     {{ $assessment->student->school->name }}
                 </x-href>
             @else
@@ -29,11 +29,11 @@
             $assessment->quiz->phase->grades->pluck('name')->join(', ') .
             ')'" />
         <x-assessment-student-sub-item :title="__('Type')" :value="__(Str::headline($assessment->quiz->type))" />
-        <x-assessment-student-sub-item :title="__('Estimation Time')" :value="GeneralHelper::numberFormat($assessment->quiz->estimation_time) . ' ' . __('Minutes')" />
+        <x-assessment-student-sub-item :title="__('Estimation Time')" :value="GeneralHelper::getTime($assessment->quiz->estimation_time)" />
         <x-assessment-student-sub-item :title="__(':name Name', ['name' => __('Class')])" :value="$assessment->class->name" />
         <x-assessment-student-sub-item :title="__('Status')">
             @if ($assessment->isDone)
-                <x-button block color="green" radius="rounded-full" :withBorderIcon="false" :href="route('dashboard.assessment.result', $assessment)">
+                <x-button size="sm" color="green" radius="rounded-full" :withBorderIcon="false" :href="route('dashboard.assessment.result', $assessment)">
                     {{ __('Show :show', ['show' => __('Result')]) }}
                 </x-button>
             @else

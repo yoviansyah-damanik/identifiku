@@ -8,7 +8,9 @@ use App\Rules\PhoneNumber;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Isolate;
 
+#[Isolate]
 class Administrator extends Component
 {
     use LivewireAlert;

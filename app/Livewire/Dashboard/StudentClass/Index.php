@@ -33,7 +33,12 @@ class Index extends Component
             'students',
             fn($q) => $q->where('students.id', auth()->user()->student->id)
         )
-            ->withCount(['students', 'quizzes'])
+            ->withCount(
+                [
+                    'students',
+                    'quizzes'
+                ]
+            )
             ->whereAny(['name'], 'like', "%$this->search%")
             ->paginate($this->perPage);
 

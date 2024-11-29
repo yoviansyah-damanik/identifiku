@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 
 class GeneralHelper
 {
-
     public static function getAppName()
     {
         return env('APP_NAME');
@@ -34,6 +33,25 @@ class GeneralHelper
             $format .= ' %m Hari';
 
         return Carbon::parse($date)->diff(\Carbon\Carbon::now())->format($format);
+    }
+
+    public static function getTime(int $time, string $locale = 'id')
+    {
+        $hours = floor($time / 60);
+        $minutes = $time - ($hours * 60);
+
+        $hourText = 'h';
+        $minuteText = 'm';
+
+        if ($locale == 'id') {
+            $hourText = 'j';
+            $minuteText = 'm';
+        }
+
+        if ($hours > 0) {
+            return $hours . $hourText . ' ' . $minutes . $minuteText;
+        }
+        return $minutes . $minuteText;
     }
 
     public static function getPerPageList()

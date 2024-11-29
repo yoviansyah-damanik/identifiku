@@ -7,12 +7,16 @@
             <div class="space-y-1">
                 <div class="flex gap-3">
                     <div class="w-48">{{ __(':name Name', ['name' => __('Class')]) }}</div>
-                    <div class="flex-1 font-semibold">{{ $class->class->name }}</div>
+                    <div class="flex-1 font-semibold">{{ $class->name }}</div>
                 </div>
                 <div class="flex gap-3">
                     <div class="w-48">{{ __('Teacher') }}</div>
-                    <div class="flex-1 font-semibold">{{ $class->class->teacher->name }}</div>
+                    <div class="flex-1 font-semibold">{{ $class->teacher->name }}</div>
                 </div>
+
+            </div>
+            <div class="mt-3">
+                {{ __('All your assessments for this class will be deleted') }}
             </div>
         @else
             <x-loading />

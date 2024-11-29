@@ -64,7 +64,7 @@
                         {{ __('Estimation Time') }}
                     </div>
                     <div class="flex-1">
-                        {{ GeneralHelper::numberFormat($assessment->quiz->estimation_time) . ' ' . __('Minutes') }}
+                        {{ GeneralHelper::getTime($assessment->quiz->estimation_time) }}
                     </div>
                 </div>
 

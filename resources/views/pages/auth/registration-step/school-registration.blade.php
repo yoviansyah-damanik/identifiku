@@ -13,11 +13,11 @@
         <x-form.input :loading="$isLoading" :label="__(':name Name', ['name' => __('School')])" block :placeholder="__('Entry :entry', ['entry' => __(':name Name', ['name' => __('School')])])" type='text' wire:model.blur='name'
             error="{{ $errors->first('name') }}" />
         <div class="flex items-center gap-3 sm:gap-4">
-            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="searchEducationLevel"
-                :items="$educationLevels" wire:model.blur="educationLevel" error="{{ $errors->first('educationLevel') }}"
+            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="educationLevelSearch"
+                :items="$educationLevels" wire:model="educationLevelSearch" error="{{ $errors->first('educationLevel') }}"
                 :label="__('Choose a :item', ['item' => __('Education Level')])" />
-            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="searchSchoolStatus"
-                :items="$schoolStatuses" wire:model.blur="schoolStatus" error="{{ $errors->first('schoolStatus') }}"
+            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="schoolStatusSearch"
+                :items="$schoolStatuses" wire:model="schoolStatusSearch" error="{{ $errors->first('schoolStatus') }}"
                 :label="__('Choose a :item', ['item' => __('School Status')])" />
         </div>
         <div class="flex items-center gap-3 sm:gap-4">
@@ -27,19 +27,19 @@
                 wire:model.blur='postalCode' error="{{ $errors->first('postalCode') }}" />
         </div>
         <div class="flex items-center gap-3 sm:gap-4">
-            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="searchProvince"
-                :items="$provinces" wire:model.blur="province" error="{{ $errors->first('province') }}"
+            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="provinceSearch"
+                :items="$provinces" wire:model="provinceSearch" error="{{ $errors->first('province') }}"
                 :label="__('Choose a :item', ['item' => __('Province')])" />
-            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="searchRegency"
-                :items="$regencies" wire:model.blur="regency" error="{{ $errors->first('regency') }}"
+            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="regencySearch"
+                :items="$regencies" wire:model="regencySearch" error="{{ $errors->first('regency') }}"
                 :label="__('Choose a :item', ['item' => __('Regency')])" />
         </div>
         <div class="flex items-center gap-3 sm:gap-4">
-            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="searchDistrict"
-                :items="$districts" wire:model.blur="district" error="{{ $errors->first('district') }}"
+            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="districtSearch"
+                :items="$districts" wire:model="districtSearch" error="{{ $errors->first('district') }}"
                 :label="__('Choose a :item', ['item' => __('District')])" />
-            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="searchVillage"
-                :items="$villages" wire:model.blur="village" error="{{ $errors->first('village') }}"
+            <x-form.select-with-search :loading="$isLoading" block class="flex-1" block searchVar="villageSearch"
+                :items="$villages" wire:model="villageSearch" error="{{ $errors->first('village') }}"
                 :label="__('Choose a :item', ['item' => __('Village')])" />
         </div>
         <div class="flex items-center gap-3 sm:gap-4">
@@ -64,11 +64,13 @@
     </div>
     @if ($step <= $stepMax)
         <div class="flex justify-between items-center !mt-7">
-            <x-button type="button" color="red" icon='i-ph-arrow-left' :loading="$step == 1" wire:click="prev">
+            <x-button type="button" :withBorderIcon="false" radius="rounded-full" color="red" icon='i-ph-arrow-left'
+                :loading="$step == 1" wire:click="prev">
                 {{ __('Previous') }}
             </x-button>
             @if ($step != $stepMax)
-                <x-button type="button" color="green" icon='i-ph-arrow-right' iconPosition='right' wire:click="next">
+                <x-button type="button" :withBorderIcon="false" radius="rounded-full" color="green" icon='i-ph-arrow-right'
+                    iconPosition='right' wire:click="next">
                     {{ __('Next') }}
                 </x-button>
             @else

@@ -41,9 +41,11 @@
     @if ($tabActive == 'quizzes')
         <div wire:key="quizzes_view" class="space-y-3 sm:space-y-4">
             @if ($data->total() > 0)
-                <x-button color="primary" :href="route('dashboard.quiz.available')">
-                    {{ __('Show :show', ['show' => __('Available Quiz')]) }}
-                </x-button>
+                @haspermission('quiz available')
+                    <x-button color="primary" :href="route('dashboard.quiz.available')">
+                        {{ __('Show :show', ['show' => __('Available Quiz')]) }}
+                    </x-button>
+                @endhaspermission
 
                 <x-table :columns="[
                     '#',
@@ -66,7 +68,7 @@
                                 </x-table.td>
                                 <x-table.td centered>
                                     <x-button color="cyan" size="sm" icon="i-ph-eye" :href="route('dashboard.class.show.quiz', [$class, $quiz])">
-                                        {{ __('Show :show', ['show' => __('Quiz')]) }}
+                                        {{ __('Show :show', ['show' => __('Assessment')]) }}
                                     </x-button>
                                 </x-table.td>
                             </x-table.tr>

@@ -5,7 +5,9 @@ namespace App\Livewire\Dashboard\Account;
 use Livewire\Component;
 use Illuminate\Validation\Rules\Password as PasswordRule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\Isolate;
 
+#[Isolate]
 class Password extends Component
 {
     use LivewireAlert;

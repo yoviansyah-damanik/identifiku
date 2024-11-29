@@ -21,7 +21,7 @@
         </x-class-sub-item>
         <x-school-sub-item :title="__('Activation')">
             <x-form.toggle :label="__('Active')" :label2="__('Inactive')" :isChecked="$class->isStatusActive" :isLoading="$class->isLimit"
-                wire:change="setActivationStatus('{{ $class->id }}')" />
+                wire:change="setActivationStatus('{{ $class->slug }}')" />
         </x-school-sub-item>
         <x-class-sub-item :title="__('Number of :subject', ['subject' => __('Students')])">
             {{ GeneralHelper::numberFormat($class->students_count) .

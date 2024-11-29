@@ -34,13 +34,15 @@
         <x-available-class-sub-item>
             <div class="flex flex-col items-start gap-1">
                 @role('Student')
-                    <x-button color="cyan" size="sm" icon="i-ph-eye"
-                        href="{{ route('dashboard.student-class.show', $class) }}">
-                        {{ __('Show') }}
-                    </x-button>
+                    @if ($class->is_active)
+                        <x-button color="cyan" size="sm" icon="i-ph-eye"
+                            href="{{ route('dashboard.student-class.show', $class) }}">
+                            {{ __('Show') }}
+                        </x-button>
+                    @endif
                     <x-button color="red" size="sm" icon="i-ph-arrow-square-out"
                         x-on:click="$dispatch('toggle-exit-class-modal')"
-                        wire:click="$dispatch('setExitClass',{class: '{{ $class->id }}'})">
+                        wire:click="$dispatch('setExitClass',{class: '{{ $class->slug }}'})">
                         {{ __('Exit') }}
                     </x-button>
                 @else

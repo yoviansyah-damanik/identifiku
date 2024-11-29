@@ -15,7 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('assessment_id')
                 ->references('id')
-                ->on('assessments');
+                ->on('assessments')
+                ->onDelete('cascade');
             $table->text('conclusion')
                 ->nullable();
             $table->text('advice')

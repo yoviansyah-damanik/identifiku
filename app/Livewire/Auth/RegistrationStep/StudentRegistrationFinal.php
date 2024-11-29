@@ -288,8 +288,8 @@ class StudentRegistrationFinal extends Component
             ]);
 
             DB::commit();
-            $school = School::findOrFail($this->schoolId);
-            dispatch(new Mailer('student_registration', $school->user->email, $studentRequest->toArray()));
+            // $school = School::findOrFail($this->schoolId);
+            // dispatch(new Mailer('student_registration', $school->user->email, $studentRequest->toArray()));
             $this->step++;
             $this->isLoading = false;
         } catch (\Exception $e) {

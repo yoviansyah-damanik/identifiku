@@ -10,9 +10,21 @@ class StudentClassPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, StudentClass $studentClass): bool
+    public function view(User $user, StudentClass $class): bool
     {
-        return $user->isStudent && in_array($studentClass->id, $user->student->hasClasses->pluck('student_class_id')->toArray());
+        if ($user->isStudent) {
+            return $class->is_active && in_array($class->id, $user->student->hasClasses->pluck('student_class_id')->toArray());
+        }
+
+        if ($user->isTeacher) {
+            return $class->is_active;
+        }
+
+        if ($user->isSchool) {
+            return $class->is_active;
+        }
+
+        return true;
     }
 
     /**

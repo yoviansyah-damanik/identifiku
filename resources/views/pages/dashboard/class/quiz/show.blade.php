@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="flex-1">
-            <livewire:dashboard.class.quiz.result />
+            <livewire:dashboard.class.quiz.result :$assessment />
         </div>
     </div>
 </x-content>
