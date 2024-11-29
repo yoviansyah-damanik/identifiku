@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-C1WM7XBc.css",
+    "file": "assets/app-p4MChwDp.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -28,6 +28,10 @@
     "file": "assets/Quicksand-SemiBold-DOhxUxE6.ttf",
     "src": "resources/fonts/Quicksand-SemiBold.ttf"
   },
+  "resources/images/bg-1.jpg": {
+    "file": "assets/bg-1-BxwjucUh.jpg",
+    "src": "resources/images/bg-1.jpg"
+  },
   "resources/images/breadcrumb-pattern.png": {
     "file": "assets/breadcrumb-pattern-B7fEbjQ4.png",
     "src": "resources/images/breadcrumb-pattern.png"
@@ -53,7 +57,7 @@
     "src": "resources/images/drtpm-bima.png"
   },
   "resources/images/favicon.png": {
-    "file": "assets/favicon-CAQ93hSd.png",
+    "file": "assets/favicon-BlD4l6-9.png",
     "src": "resources/images/favicon.png"
   },
   "resources/images/kampus-merdeka.png": {
@@ -68,16 +72,36 @@
     "file": "assets/logo-B6du7AM3.png",
     "src": "resources/images/logo.png"
   },
+  "resources/images/pattern-1.jpg": {
+    "file": "assets/pattern-1-B1XXL0Ta.jpg",
+    "src": "resources/images/pattern-1.jpg"
+  },
+  "resources/images/pattern-2.png": {
+    "file": "assets/pattern-2-BdqJVNN6.png",
+    "src": "resources/images/pattern-2.png"
+  },
+  "resources/images/pattern-3.png": {
+    "file": "assets/pattern-3-Buwv_Y9q.png",
+    "src": "resources/images/pattern-3.png"
+  },
   "resources/images/sidebar-header.jpeg": {
     "file": "assets/sidebar-header-CfZH7pTV.jpeg",
     "src": "resources/images/sidebar-header.jpeg"
+  },
+  "resources/images/silhouette-man.png": {
+    "file": "assets/silhouette-man-CTa6iwB7.png",
+    "src": "resources/images/silhouette-man.png"
+  },
+  "resources/images/silhouette-women.png": {
+    "file": "assets/silhouette-women-1jBOISXp.png",
+    "src": "resources/images/silhouette-women.png"
   },
   "resources/images/ugn.png": {
     "file": "assets/ugn-CLoz000H.png",
     "src": "resources/images/ugn.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-whcKTbVz.js",
+    "file": "assets/app-DMCpH_sf.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
