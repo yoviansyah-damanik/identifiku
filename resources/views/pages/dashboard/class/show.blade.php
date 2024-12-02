@@ -151,14 +151,16 @@
         </div>
     @endif
 
-    <div wire:ignore>
-        @if (auth()->user()->isTeacher)
-            <x-modal name="kick-class-modal" size="xl" :modalTitle="__('Get Student Out')">
-                <livewire:dashboard.class.kick />
-            </x-modal>
-            <x-modal name="add-student-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Student')])">
-                <livewire:dashboard.class.add-student />
-            </x-modal>
-        @endif
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            @if (auth()->user()->isTeacher)
+                <x-modal name="kick-class-modal" size="xl" :modalTitle="__('Get Student Out')">
+                    <livewire:dashboard.class.kick />
+                </x-modal>
+                <x-modal name="add-student-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Student')])">
+                    <livewire:dashboard.class.add-student />
+                </x-modal>
+            @endif
+        </div>
+    </template>
 </x-content>

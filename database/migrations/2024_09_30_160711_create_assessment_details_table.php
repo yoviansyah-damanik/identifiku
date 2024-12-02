@@ -28,7 +28,6 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->integer('value')
                 ->nullable();
-            $table->unique(['assessment_id', 'question_id']);
         });
     }
 

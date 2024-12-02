@@ -12,8 +12,8 @@
                     @foreach (range(0, 1) as $x)
                         @foreach ($teams as $team)
                             <div
-                                class="swiper-slide  shadow-lg max-w-[420px] flex flex-col items-center justify-center rounded-xl  w-full p-6 bg-white shadow-primary-50 sm:p-8">
-                                <div class="relative overflow-hidden">
+                                class="swiper-slide shadow-lg max-w-[90dvw] sm:max-w-[65dvw] lg:max-w-[420px] flex flex-row items-center justify-center rounded-xl  w-full lg:flex-col p-6 transition-all bg-white sm:p-8">
+                                <div class="relative w-1/3 overflow-hidden lg:w-auto">
                                     <img class="w-full relative z-[1]" src="{{ $team['avatar'] }}"
                                         alt="{{ $team['name'] }} Avatar" loading="lazy">
                                     <div class="swiper-lazy-preloader"></div>
@@ -21,15 +21,15 @@
                                         class="swiper-circle-active-mark duration-1000 transition-all absolute w-[70%] inset-x-0 mx-auto bottom-0 z-0 rounded-full aspect-square bg-primary-50">
                                     </div>
                                 </div>
-                                <div class="text-center">
+                                <div class="flex flex-col flex-1 gap-1 mt-3 text-center lg:gap-0">
                                     <div
-                                        class="mt-3 text-lg font-bold text-transparent bg-clip-text bg-gradient-to-br from-primary-500 to-secondary-500">
+                                        class="text-base font-bold text-transparent lg:text-lg bg-clip-text bg-gradient-to-br from-primary-500 to-secondary-500">
                                         {{ $team['name'] }}
                                     </div>
-                                    <div class="font-light tracking-widest">
+                                    <div class="text-sm font-light tracking-widest lg:text-base">
                                         {{ $team['as'] }}
                                     </div>
-                                    <div class="font-light tracking-wide">
+                                    <div class="text-sm font-light tracking-wide lg:text-base">
                                         {{ '@' . $team['ig'] }}
                                     </div>
                                 </div>

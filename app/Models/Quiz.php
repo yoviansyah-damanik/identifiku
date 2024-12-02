@@ -40,10 +40,72 @@ class Quiz extends Model
         return 'slug';
     }
 
+    public function statusLong(): Attribute
+    {
+        return new Attribute(
+            get: function () {
+                if ($this->deleted_at) {
+                    return [
+                        'type' => 'error',
+                        'value' => 'deleted',
+                        'text' => __('Deleted')
+                    ];
+                } else {
+                    switch ($this->status) {
+                        case 0:
+                            return [
+                                'type' => 'warning',
+                                'text' => __('Draft')
+                            ];
+                            break;
+                        case 1:
+                            return [
+                                'type' => 'success',
+                                'text' => __('Published')
+                            ];
+                            break;
+                        default:
+                            return '-';
+                            break;
+                    }
+                }
+            }
+        );
+    }
+    public function isDraft(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->status == 0
+        );
+    }
+
+    public function isPublished(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->status == 1
+        );
+    }
+
+    public function isDeleted(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->deleted_at != null
+        );
+    }
+
+    public function scopeDraft(Builder $query)
+    {
+        $query->where('status', 0);
+    }
+
     public function scopePublished(Builder $query)
     {
-        $query->where('status', 'published')
-            ->where('is_active', true);
+        $query->where('status', 1);
+    }
+
+    public function scopeDeleted(Builder $query)
+    {
+        $query->where('status', 2);
     }
 
     public function questionsTotal(): Attribute
@@ -94,6 +156,6 @@ class Quiz extends Model
 
     public function hasClasses(): HasMany
     {
-        return $this->hasMany(ClassHasQuiz::class);
+        return $this->hasMany(ClassHasQuiz::class, 'quiz_id', 'id');
     }
 }

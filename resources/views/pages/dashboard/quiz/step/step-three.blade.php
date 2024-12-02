@@ -77,24 +77,26 @@
         {{-- END CONTENT --}}
     </div>
 
-    <div wire:ignore>
-        <x-modal name="add-group-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Group')])">
-            <livewire:dashboard.quiz.step.additional.add-group :$quiz />
-        </x-modal>
-        <x-modal name="add-question-modal" size="4xl" :modalTitle="__('Add :add', ['add' => __('Question')])">
-            <livewire:dashboard.quiz.step.additional.add-question :$quiz />
-        </x-modal>
-        <x-modal name="edit-group-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Group')])">
-            <livewire:dashboard.quiz.step.additional.edit-group :$quiz />
-        </x-modal>
-        <x-modal name="edit-question-modal" size="4xl" :modalTitle="__('Edit :edit', ['edit' => __('Question')])">
-            <livewire:dashboard.quiz.step.additional.edit-question :$quiz />
-        </x-modal>
-        <x-modal name="delete-group-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Group')])">
-            <livewire:dashboard.quiz.step.additional.delete-group :$quiz />
-        </x-modal>
-        <x-modal name="delete-question-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Question')])">
-            <livewire:dashboard.quiz.step.additional.delete-question :$quiz />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="add-group-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Group')])">
+                <livewire:dashboard.quiz.step.additional.add-group :$quiz />
+            </x-modal>
+            <x-modal name="add-question-modal" size="4xl" :modalTitle="__('Add :add', ['add' => __('Question')])">
+                <livewire:dashboard.quiz.step.additional.add-question :$quiz />
+            </x-modal>
+            <x-modal name="edit-group-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Group')])">
+                <livewire:dashboard.quiz.step.additional.edit-group :$quiz />
+            </x-modal>
+            <x-modal name="edit-question-modal" size="4xl" :modalTitle="__('Edit :edit', ['edit' => __('Question')])">
+                <livewire:dashboard.quiz.step.additional.edit-question :$quiz />
+            </x-modal>
+            <x-modal name="delete-group-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Group')])">
+                <livewire:dashboard.quiz.step.additional.delete-group :$quiz />
+            </x-modal>
+            <x-modal name="delete-question-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Question')])">
+                <livewire:dashboard.quiz.step.additional.delete-question :$quiz />
+            </x-modal>
+        </div>
+    </template>
 </div>

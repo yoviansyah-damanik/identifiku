@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="w-full my-5 border-b lg:hidden"></div>
-        <div class="block">
+        <div class="flex-1">
             <h1 class="mb-5 text-2xl font-bold text-primary-500">{{ $quiz->name }}</h1>
 
             <div class="space-y-3 sm:space-y-4 mb-7">
@@ -55,19 +55,25 @@
                     <div class="text-lg font-semibold text-secondary-500">
                         {{ __('Overview') }}
                     </div>
-                    {!! $quiz->overview !!}
+                    <div class="trix-zone">
+                        {!! $quiz->overview !!}
+                    </div>
                 </div>
                 <div>
                     <div class="text-lg font-semibold text-secondary-500">
                         {!! __('Content Coverage') !!}
                     </div>
-                    {{ $quiz->content_coverage }}
+                    <div class="trix-zone">
+                        {!! $quiz->content_coverage !!}
+                    </div>
                 </div>
                 <div>
                     <div class="text-lg font-semibold text-secondary-500">
                         {{ __('Assessment Objectives') }}
                     </div>
-                    {!! $quiz->assessment_objectives !!}
+                    <div class="trix-zone">
+                        {!! $quiz->assessment_objectives !!}
+                    </div>
                 </div>
                 <div>
                     <div class="text-lg font-semibold text-secondary-500">

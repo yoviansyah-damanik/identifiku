@@ -53,7 +53,7 @@
                                         @else
                                             @if ($assessment->remainingTime > 0)
                                                 <div class="text-yellow-600">
-                                                    {{ __('You can take this assessment with :minute minutes left', ['minute' => $assessment->remainingTime]) }}
+                                                    {{ __('You can take this assessment with :time left', ['time' => GeneralHelper::getTime($assessment->remainingTime)]) }}
                                                 </div>
                                             @elseif($assessment->remainingTime == 0)
                                                 <span class="text-red-500">

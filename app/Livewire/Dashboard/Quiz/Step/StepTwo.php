@@ -40,8 +40,7 @@ class StepTwo extends Component
         $this->questionTypes = GeneralHelper::getQuestionType();
         $this->questionType = $this->questionTypes[0]['value'];
 
-        $this->assessmentRules = GeneralHelper::getAssessmentRuleType();
-        $this->assessmentRule = $this->assessmentRules[0]['value'];
+        $this->checkRules();
 
         if ($quiz->assessmentRule) {
             $this->questionType = $quiz->assessmentRule->question_type;
@@ -59,7 +58,6 @@ class StepTwo extends Component
     {
         return <<<'HTML'
         <div class="text-center">
-            <!-- Loading spinner... -->
             <x-loading/>
         </div>
         HTML;
@@ -100,6 +98,14 @@ class StepTwo extends Component
         ];
     }
 
+    public function checkRules()
+    {
+        $this->isLoading = true;
+        $this->assessmentRules = GeneralHelper::getAssessmentRuleType($this->questionType);
+        $this->assessmentRule = $this->assessmentRules[0]['value'];
+        $this->isLoading = false;
+    }
+
     public function save()
     {
         $this->validate();
@@ -119,9 +125,8 @@ class StepTwo extends Component
                 $exist->details()->delete();
                 $this->quiz->groups()->delete();
             } else {
-                AssessmentRule::create(
+                $this->quiz->assessmentRule()->create(
                     [
-                        'quiz_id' => $this->quiz->id,
                         'question_type' => $this->questionType,
                         'type' => $this->assessmentRule,
                         'max_item' => $this->questionType != 'dichotomous' || ($this->questionType == 'dichotomous' && $this->assessmentRule == 'summative') ? $this->max : 2

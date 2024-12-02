@@ -129,7 +129,7 @@ class StepTwo extends Component
         }
     }
 
-    public function setAnswer($question, $answer)
+    public function setAnswer(string $question, string $answer, ?int $value = null)
     {
         $isExist = $this->result->where('question_id', $question)->first();
 
@@ -140,6 +140,7 @@ class StepTwo extends Component
                 ],
                 [
                     'answer_choice_id' => $answer,
+                    'value' => $value
                 ]
             );
 
@@ -162,18 +163,23 @@ class StepTwo extends Component
 
     public function setDetailsData()
     {
-        if ($this->assessment->quiz->assessmentRule->type == 'summation') {
+        if (in_array($this->assessment->quiz->assessmentRule->type, ['summation', 'calculation-2', 'summative'])) {
             foreach ($this->assessment->quiz->groups as $group)
                 foreach ($group->questions as $question)
                     $this->assessment->details()->create([
                         'question_id' => $question->id
                     ]);
         }
+
         if ($this->assessment->quiz->assessmentRule->type == 'calculation') {
-        }
-        if ($this->assessment->quiz->assessmentRule->type == 'calculation-2') {
-        }
-        if ($this->assessment->quiz->assessmentRule->type == 'summative') {
+            foreach ($this->assessment->quiz->groups as $group)
+                foreach ($group->questions as $question)
+                    foreach ($question->answers as $answer)
+                        $this->assessment->details()->create([
+                            'question_id' => $question->id,
+                            'answer_choice_id' => $answer->id,
+                            'value' => 0
+                        ]);
         }
     }
 
@@ -332,9 +338,28 @@ class StepTwo extends Component
         );
     }
 
+    /**
+     * Memeriksa jawaban apakah sudah dilengkapi atau tidak
+     *
+     * @return bool
+     */
+    public function checkAnswers()
+    {
+        if (in_array($this->assessment->quiz->assessmentRule->type, ['summation', 'calculation-2', 'summative'])) {
+            return false;
+        }
+        if ($this->assessment->quiz->assessmentRule->type == 'calculation') {
+            return false;
+        }
+    }
+
     #[On('setDone')]
     public function done()
     {
+        if (!$this->checkAnswers()) {
+            $this->alert('warning', __('Please complete your answer choices first'));
+            return;
+        }
         try {
             AssessmentHelper::getResult($this->assessment, $this->result);
             $this->assessment->update([

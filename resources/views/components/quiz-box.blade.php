@@ -1,12 +1,6 @@
 <div class="relative self-start pb-3 group">
-    @if ($quiz->status == 'draft')
-        <div class="absolute inset-0 z-10 text-3xl font-semibold">
-            {{ __('Draft') }}
-        </div>
-    @endif
     <div @class([
         'relative aspect-[16/9] bg-primary-50 rounded-lg grid place-items-center overflow-hidden after:absolute after:bottom-0 after:inset-x-0 after:h-16 after:bg-gradient-to-t after:from-primary-500 after:to-transparent',
-        'grayscale' => !$quiz->is_active,
     ])>
         <img src="{{ $quiz?->picture ?? Vite::image('default-quiz.webp') }}"
             class="w-full transition-all group-hover:scale-125" alt="{{ $quiz->name }} Picture" />

@@ -28,7 +28,6 @@ class StepFour extends Component
     {
         return <<<'HTML'
         <div class="text-center">
-            <!-- Loading spinner... -->
             <x-loading/>
         </div>
         HTML;
@@ -39,11 +38,10 @@ class StepFour extends Component
         $this->isLoading = true;
         try {
             $this->quiz->update([
-                'status' => 'published',
-                'is_active' => true
+                'status' => 1,
             ]);
 
-            return $this->redirectRoute('dashboard.quiz.show', $this->quiz);
+            return $this->redirectRoute('dashboard.quiz.show', $this->quiz, navigate: true);
         } catch (\Exception $e) {
             $this->isLoading = false;
             $this->alert('error', $e->getMessage());

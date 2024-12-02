@@ -21,11 +21,12 @@
     }
 }" class="fixed inset-x-0 top-0 lg:mt-3 z-header" x-init="setHeaderOpacity()"
     x-on:scroll.window="setHeaderOpacity">
-    <div id="headerBackground" @class([
-        'absolute inset-0 mx-auto shadow-lg bg-white lg:bg-white/70 lg:backdrop-blur-sm lg:rounded-full text-inherit lg:max-w-[1325px] 2xl:max-w-[1550px]',
-        'opacity-0' => $isHomePage,
-    ])></div>
     <x-container>
+        <div id="headerBackground" @class([
+            'absolute inset-0 mx-auto shadow-lg bg-white lg:bg-white/70 lg:backdrop-blur-sm lg:rounded-full text-inherit w-full',
+            'opacity-0' => $isHomePage,
+        ])>
+        </div>
         <div class="relative z-[1] flex h-20 lg:h-[4.75rem] items-center justify-between gap-5 w-full">
             <x-main.header.logo />
 

@@ -31,7 +31,7 @@ return new class extends Migration
                 ->on('quiz_phases');
             $table->boolean('is_active')->default(false);
             $table->string('type');
-            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->char('status', 1)->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

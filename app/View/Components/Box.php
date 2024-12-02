@@ -13,13 +13,22 @@ class Box extends Component
      */
     public function __construct(
         public string $title,
-        public string $description,
+        public ?string $description = null,
         public int $count,
         public string $color = 'default',
         public string $borderColor = 'default',
         public ?string $icon = null,
+        public ?string $href = null,
     ) {
-        //
+        if ($color == 'random') {
+            $this->color = [
+                'primary',
+                'secondary',
+                'green',
+                'red',
+                'cyan',
+            ][rand(0, 4)];
+        }
     }
 
     /**

@@ -247,35 +247,44 @@ class GeneralHelper
         ];
     }
 
-    public static function getAssessmentRuleType()
+    public static function getAssessmentRuleType(?string $questionType = null)
     {
-        return [
+        $assessmentRuleTypes = [
             [
                 'value' => 'summation',
                 'title' => __('Summation'),
-                'description' => __('')
+                'description' => __('Results based on the highest number of choices from the available answer options')
             ],
             [
                 'value' => 'calculation',
                 'title' => __('Calculation') . ' (' . __('Answer') . ')',
-                'description' => __('')
+                'description' => __('Results based on the highest value of the number of scores given to each answer choice')
             ],
             [
                 'value' => 'calculation-2',
                 'title' => __('Calculation') . ' (' . __('Question') . ')',
-                'description' => __('')
+                'description' => __('Results based on predefined number of scores for each question added (available in the next step)')
             ],
             [
                 'value' => 'summative',
                 'title' => __('Summative'),
-                'description' => __('')
+                'description' => __('Results are based on the correct answers (correct answers are applied to the next step) which are then summed and adjusted based on the indicators added')
             ],
         ];
+
+        if ($questionType) {
+            $rules = static::getQuestionType($questionType)['rules'];
+
+            return collect($assessmentRuleTypes)->whereIn('value', $rules)
+                ->all();
+        }
+
+        return $assessmentRuleTypes;
     }
 
-    public static function getQuestionType()
+    public static function getQuestionType(?string $questionType = null)
     {
-        return [
+        $questionTypes = [
             [
                 'value' => 'multipleChoice',
                 'title' => __('Multiple Choice'),
@@ -284,8 +293,15 @@ class GeneralHelper
             [
                 'value' => 'dichotomous',
                 'title' => __('Dichotomous'),
-                'rules' => ['summation', 'calculation', 'summative']
+                'rules' => ['summation', 'calculation', 'calculation-2', 'summative']
             ],
         ];
+
+        if ($questionType) {
+            return collect($questionTypes)->where('value', $questionType)
+                ->first();
+        }
+
+        return $questionTypes;
     }
 }

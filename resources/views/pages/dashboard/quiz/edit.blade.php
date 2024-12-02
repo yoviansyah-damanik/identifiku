@@ -44,14 +44,17 @@
             {{ __('Help') }}
         </x-button>
     </div>
-    <div wire:ignore>
-        <x-modal name="help-modal" size="4xl" :modalTitle="__('Help')">
-            <x-modal.body>
-                <x-question-type-explanation />
-                <x-assessment-rule />
-            </x-modal.body>
-        </x-modal>
-    </div>
+
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="help-modal" size="4xl" :modalTitle="__('Help')">
+                <x-modal.body>
+                    <x-question-type-explanation />
+                    <x-assessment-rule />
+                </x-modal.body>
+            </x-modal>
+        </div>
+    </template>
 </x-content>
 
 @push('headers')

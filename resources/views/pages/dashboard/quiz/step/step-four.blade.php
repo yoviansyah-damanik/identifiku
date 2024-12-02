@@ -27,10 +27,10 @@
     </div>
     <div @class([
         'flex items-center gap-3 !mt-7',
-        'justify-end' => $this->quiz->status == 'published',
-        'justify-between' => $this->quiz->status == 'draft',
+        'justify-end' => $this->quiz->isPublished,
+        'justify-between' => $this->quiz->isDraft,
     ])>
-        @if ($this->quiz->status == 'draft')
+        @if ($this->quiz->isDraft)
             <div class="text-sm italic">
                 {{ __('The quiz will be displayed publicly and can be modified by you after the quiz is published') }}
             </div>

@@ -43,7 +43,7 @@
         @endif
     </x-modal.body>
     <x-modal.footer>
-        <x-button color="primary" wire:click='tes' :loading="$isLoading">
+        <x-button color="primary" wire:click='delete' :loading="$isLoading">
             {{ __('Delete') }}
         </x-button>
     </x-modal.footer>

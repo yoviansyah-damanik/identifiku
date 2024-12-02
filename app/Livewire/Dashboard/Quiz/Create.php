@@ -199,8 +199,6 @@ class Create extends Component
                 'overview' => $this->overview,
                 'assessment_objectives' => $this->assessmentObjectives,
                 'user_id' => auth()->user()->id,
-                'status' => 'draft',
-                // 'question_type' => $this->questionType
             ]);
 
             $this->redirectRoute('dashboard.quiz.edit', $newQuiz->id, navigate: true);

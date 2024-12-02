@@ -109,8 +109,44 @@
         @apply after:z-[-1] after:absolute after:inset-0 after:h-full after:w-full after:bg-transparent after:bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] after:bg-[size:24px_24px];
     }
 
+    .swiper-slide.swiper-slide-active {
+        @apply shadow-primary-50;
+    }
+
     .swiper-slide.swiper-slide-active .swiper-circle-active-mark {
         @apply w-[90%] bg-primary-200;
+    }
+
+    .trix-zone :where(ol, ul) {
+        @apply list-outside ps-6;
+    }
+
+    .trix-zone ol {
+        @apply list-decimal;
+    }
+
+    .trix-zone ul {
+        @apply list-disc;
+    }
+
+    .trix-zone blockquote {
+        border: 0 solid #ccc;
+        border-left-width: 0px;
+        border-left-width: 0.3em;
+        margin-left: 0.3em;
+        padding-left: 0.6em;
+    }
+
+    .trix-zone pre {
+        display: inline-block;
+        width: 100%;
+        vertical-align: top;
+        font-family: monospace;
+        font-size: 1.5em;
+        padding: 0.5em;
+        white-space: pre;
+        background-color: #eee;
+        overflow-x: auto;
     }
 }
 

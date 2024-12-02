@@ -27,11 +27,13 @@
         @endif
     </div>
 
-    <div wire:ignore>
-        @haspermission('quiz add')
-            <x-modal name="add-quiz-modal" size="2xl" :modalTitle="__('Add :add', ['add' => __('Quiz')])">
-                <livewire:dashboard.quiz.add />
-            </x-modal>
-        @endhaspermission
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            @haspermission('quiz add')
+                <x-modal name="add-quiz-modal" size="2xl" :modalTitle="__('Add :add', ['add' => __('Quiz')])">
+                    <livewire:dashboard.quiz.add />
+                </x-modal>
+            @endhaspermission
+        </div>
+    </template>
 </x-content>

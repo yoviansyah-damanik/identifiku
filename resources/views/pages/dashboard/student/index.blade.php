@@ -28,15 +28,17 @@
         </div>
     @endif
 
-    <div wire:ignore>
-        <x-modal name="delete-student-modal" size="2xl" :modalTitle="__('Delete :delete', ['delete' => __('Student')])">
-            <livewire:dashboard.student.delete />
-        </x-modal>
-        <x-modal name="user-activation-modal" size="xl" :modalTitle="__('User Activation')">
-            <livewire:dashboard.users.user-activation />
-        </x-modal>
-        <x-modal name="forgot-password-modal" size="xl" :modalTitle="__('Forgot Password')">
-            <livewire:dashboard.users.forgot-password />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="delete-student-modal" size="2xl" :modalTitle="__('Delete :delete', ['delete' => __('Student')])">
+                <livewire:dashboard.student.delete />
+            </x-modal>
+            <x-modal name="user-activation-modal" size="xl" :modalTitle="__('User Activation')">
+                <livewire:dashboard.users.user-activation />
+            </x-modal>
+            <x-modal name="forgot-password-modal" size="xl" :modalTitle="__('Forgot Password')">
+                <livewire:dashboard.users.forgot-password />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

@@ -16,14 +16,14 @@ class Show extends Component
     use WithPagination, WithoutUrlPagination;
 
     public StudentClass $class;
-    public Quiz $quiz;
+    public  $quiz;
 
     public string $activeAssessment;
 
-    public function mount(StudentClass $class, Quiz $quiz)
+    public function mount(StudentClass $class, $quiz)
     {
         $this->class = $class;
-        $this->quiz = $quiz;
+        $this->quiz = Quiz::withTrashed()->whereSlug($quiz)->first();
     }
 
     public function render()

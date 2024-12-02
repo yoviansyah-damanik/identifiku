@@ -2,10 +2,8 @@
 
 namespace App\Livewire\Dashboard\Assessment;
 
-use App\Models\Quiz;
 use Livewire\Component;
 use App\Models\Assessment;
-use App\Models\StudentClass;
 use Livewire\Attributes\Url;
 use App\Helpers\GeneralHelper;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -23,10 +21,37 @@ class Students extends Component
 
     public bool $isLoading = false;
 
+    public array $statuses;
+
+    #[Url]
+    public string $status;
+
     public function mount()
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
+
+        $this->statuses = [
+            [
+                'value' => 'all',
+                'title' => __('All')
+            ],
+            [
+                'value' => 1,
+                'title' => __('Process')
+            ],
+            [
+                'value' => 2,
+                'title' => __('Submitted')
+            ],
+            [
+                'value' => 3,
+                'title' => __('Done')
+            ],
+        ];
+
+        if (empty($this->status))
+            $this->status = $this->statuses[0]['value'];
     }
 
     public function render()
@@ -44,6 +69,7 @@ class Students extends Component
             'class'
         ])
             ->whereHas('quiz', fn($q) => $q->whereAny(['name'], 'like', "%$this->search%"))
+            ->when($this->status != 'all', fn($q) => $q->where('status', $this->status))
             ->when(
                 auth()->user()->roleName == 'Teacher',
                 fn($q) => $q

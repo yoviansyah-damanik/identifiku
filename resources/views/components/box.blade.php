@@ -1,6 +1,6 @@
 <div
     {{ $attributes->class([
-        'relative w-full p-6 sm:p-8 shadow border-l-8 bg-white',
+        'group relative w-full p-6 sm:p-8 shadow-md rounded-lg border-l-8 bg-white',
         'border-primary-500' => $color == 'primary',
         'border-secondary-500' => $color == 'secondary',
         'border-green-500' => $color == 'green',
@@ -38,7 +38,7 @@
         {{ GeneralHelper::numberFormat($count) }}
     </div>
     @if ($icon)
-        <div class="absolute -translate-y-1/2 right-3 top-1/2">
+        <div class="absolute transition-all -translate-y-1/2 right-3 top-1/2 group-hover:scale-125 group-hover:rotate-6">
             <span @class([
                 'text-[4.5rem]',
                 'text-gray-100' => $color == 'default',
@@ -50,5 +50,8 @@
                 $icon,
             ])></span>
         </div>
+    @endif
+    @if ($href)
+        <a href="{{ $href }}" class="absolute inset-0" wire:navigate></a>
     @endif
 </div>

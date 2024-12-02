@@ -24,12 +24,14 @@
     @endforelse
 
     {{ $requests->links() }}
-    <div wire:ignore>
-        <x-modal name="approve-class-modal" size="xl" :modalTitle="__('Join Class')">
-            <livewire:dashboard.class.approve />
-        </x-modal>
-        <x-modal name="reject-class-modal" size="xl" :modalTitle="__('Cancel Class')">
-            <livewire:dashboard.class.reject />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="approve-class-modal" size="xl" :modalTitle="__('Join Class')">
+                <livewire:dashboard.class.approve />
+            </x-modal>
+            <x-modal name="reject-class-modal" size="xl" :modalTitle="__('Cancel Class')">
+                <livewire:dashboard.class.reject />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

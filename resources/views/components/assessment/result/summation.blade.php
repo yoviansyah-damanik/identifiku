@@ -85,7 +85,7 @@
                             @else
                                 @if ($assessment->remainingTime > 0)
                                     <div class="text-yellow-600">
-                                        {{ __('You can take this assessment with :minute minutes left', ['minute' => $assessment->remainingTime]) }}
+                                        {{ __('You can take this assessment with :time left', ['time' => GeneralHelper::getTime($assessment->remainingTime)]) }}
                                     </div>
                                 @elseif($assessment->remainingTime == 0)
                                     <span class="text-red-500">
@@ -109,7 +109,7 @@
             <div class="px-5 py-6 mb-5 bg-white rounded-lg">
                 <div
                     class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-br from-primary-500 to-secondary-500">
-                    {{ $assessment->result->details->where('is_highlight', true)->first()->title }}
+                    {{ $assessment->result->dominance->title }}
                 </div>
             </div>
             <div class="text-sm italic font-light text-center text-white">
@@ -126,8 +126,8 @@
         </div>
     </div>
     <div class="flex flex-col items-start w-full gap-3 lg:gap-4 lg:flex-row">
-        {{-- Classmate Result --}}
         <div class="flex flex-col flex-1 w-full gap-3 sm:flex-row lg:flex-col lg:gap-4">
+            {{-- Result Chart --}}
             <div class="w-full p-6 overflow-hidden bg-white rounded-lg shadow-md sm:flex-1 lg:p-8">
                 <div class="mb-5 text-lg font-bold text-center text-primary-500">
                     {{ __('Result Chart') }}
@@ -136,23 +136,22 @@
                     <canvas class="!w-full !h-auto" id="chart"></canvas>
                 </div>
             </div>
+            {{-- Classmate Result --}}
             <div class="w-full p-6 overflow-hidden bg-white rounded-lg shadow-md sm:flex-1 lg:p-8">
                 <div class="mb-5 text-lg font-bold text-center text-primary-500">
                     {{ __('Classmate Result') }}
                 </div>
                 <div class="max-h-[40dvh] overflow-auto">
-                    @foreach (range(0, 5) as $x)
-                        @forelse ($assessment->class->assessments()->where('student_id','!=', $assessment->student_id)->get() as $item)
-                            <div class="px-3 py-5 border-b last:border-b-0">
-                                <div class="font-semibold text-secondary-500">
-                                    {{ $item->student->name }}
-                                </div>
-                                {{ $item->result->details->where('is_highlight', true)->first()->title }}
+                    @forelse ($assessment->class->assessments()->where('student_id','!=', $assessment->student_id)->get() as $item)
+                        <div class="px-3 py-5 border-b last:border-b-0">
+                            <div class="font-semibold text-secondary-500">
+                                {{ $item->student->name }}
                             </div>
-                        @empty
-                            <x-no-data />
-                        @endforelse
-                    @endforeach
+                            {{ $item->result->details->where('is_highlight', true)->first()->title }}
+                        </div>
+                    @empty
+                        <x-no-data />
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -196,16 +195,24 @@
                 </div>
             </div>
             <x-accordion isOpen :title="__('Indicator')">
-                {!! $assessment->result->details->where('is_highlight', true)->first()->indicator !!}
+                <div class="trix-zone">
+                    {!! $assessment->result->dominance->indicator !!}
+                </div>
             </x-accordion>
             <x-accordion isOpen :title="__('Recommendation')">
-                {!! $assessment->result->details->where('is_highlight', true)->first()->recommendation !!}
+                <div class="trix-zone">
+                    {!! $assessment->result->dominance->recommendation !!}
+                </div>
             </x-accordion>
             <x-accordion isOpen :title="__('Conclusion')">
-                {!! $assessment->result->conclusion !!}
+                <div class="trix-zone">
+                    {!! $assessment->result->conclusion !!}
+                </div>
             </x-accordion>
             <x-accordion isOpen :title="__('Advice')">
-                {!! $assessment->result->advice !!}
+                <div class="trix-zone">
+                    {!! $assessment->result->advice !!}
+                </div>
             </x-accordion>
         </div>
     </div>

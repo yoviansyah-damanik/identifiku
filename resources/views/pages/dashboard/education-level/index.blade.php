@@ -75,15 +75,17 @@
         </x-slot>
     </x-table>
 
-    <div wire:ignore>
-        <x-modal name="create-education-level-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Education Level')])">
-            <livewire:dashboard.education-level.create />
-        </x-modal>
-        <x-modal name="edit-education-level-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Education Level')])">
-            <livewire:dashboard.education-level.edit />
-        </x-modal>
-        <x-modal name="delete-education-level-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Education Level')])">
-            <livewire:dashboard.education-level.delete />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="create-education-level-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Education Level')])">
+                <livewire:dashboard.education-level.create />
+            </x-modal>
+            <x-modal name="edit-education-level-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Education Level')])">
+                <livewire:dashboard.education-level.edit />
+            </x-modal>
+            <x-modal name="delete-education-level-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Education Level')])">
+                <livewire:dashboard.education-level.delete />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

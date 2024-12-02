@@ -21,9 +21,12 @@
     @endforelse
 
     {{ $classes->links() }}
-    <div wire:ignore>
-        <x-modal name="exit-class-modal" size="xl" :modalTitle="__('Exit Class')">
-            <livewire:dashboard.student-class.student-exit />
-        </x-modal>
-    </div>
+
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="exit-class-modal" size="xl" :modalTitle="__('Exit Class')">
+                <livewire:dashboard.student-class.student-exit />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

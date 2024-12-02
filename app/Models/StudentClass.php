@@ -91,6 +91,7 @@ class StudentClass extends Model
 
     public function quizzes(): HasManyThrough
     {
-        return $this->hasManyThrough(Quiz::class, ClassHasQuiz::class, 'student_class_id', 'id', 'id', 'quiz_id');
+        return $this->hasManyThrough(Quiz::class, ClassHasQuiz::class, 'student_class_id', 'id', 'id', 'quiz_id')
+            ->withTrashed();
     }
 }

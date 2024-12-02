@@ -24,6 +24,16 @@ class Assessment extends Model
         ];
     }
 
+    public function scopeProcess($query)
+    {
+        $query->where('status', 1);
+    }
+
+    public function scopeSubmitted($query)
+    {
+        $query->where('status', 2);
+    }
+
     public function scopeDone($query)
     {
         $query->where('status', 3);
@@ -76,7 +86,8 @@ class Assessment extends Model
 
     public function quiz(): BelongsTo
     {
-        return $this->belongsTo(Quiz::class, 'quiz_id', 'id');
+        return $this->belongsTo(Quiz::class, 'quiz_id', 'id')
+            ->withTrashed();
     }
 
     public function class(): BelongsTo

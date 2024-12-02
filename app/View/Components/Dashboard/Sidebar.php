@@ -48,8 +48,8 @@ class Sidebar extends Component
                     [
                         'title' => __('Student Assessments'),
                         'icon' => 'i-fluent-emoji-flat-bookmark-tabs',
-                        'to' => route('dashboard.assessment-students'),
-                        'isActive' => request()->routeIs('dashboard.assessment-students'),
+                        'to' => route('dashboard.assessment.students'),
+                        'isActive' => request()->routeIs('dashboard.assessment.students'),
                         'permission' => 'assessment students'
                     ],
                 ]
@@ -140,22 +140,22 @@ class Sidebar extends Component
                     [
                         'title' => __('School Request'),
                         'icon' => 'i-fluent-emoji-flat-school',
-                        'to' => route('dashboard.school-request'),
-                        'isActive' => request()->routeIs('dashboard.school-request'),
+                        'to' => route('dashboard.school.request'),
+                        'isActive' => request()->routeIs('dashboard.school.request'),
                         'permission' => 'school request'
                     ],
                     [
                         'title' => __('Student Request'),
                         'icon' => 'i-fluent-emoji-flat-man-student',
-                        'to' => route('dashboard.student-request'),
-                        'isActive' => request()->routeIs('dashboard.student-request'),
+                        'to' => route('dashboard.student.request'),
+                        'isActive' => request()->routeIs('dashboard.student.request'),
                         'permission' => 'student request'
                     ],
                     [
                         'title' => __('Teacher Request'),
                         'icon' => 'i-fluent-emoji-flat-man-teacher',
-                        'to' => route('dashboard.teacher-request'),
-                        'isActive' => request()->routeIs('dashboard.teacher-request'),
+                        'to' => route('dashboard.teacher.request'),
+                        'isActive' => request()->routeIs('dashboard.teacher.request'),
                         'permission' => 'teacher request'
                     ],
                 ]

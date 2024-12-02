@@ -15,7 +15,7 @@
             wire:model.live.debounce.750ms='search' />
     </div>
 
-    <div class="grid flex-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-7">
+    <div class="grid flex-1 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-5 gap-y-7">
         @forelse ($quizzes as $quiz)
             <x-quiz-box2 :$quiz />
         @empty
@@ -30,4 +30,15 @@
             </div>
         @endif
     </div>
+
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="delete-quiz-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Quiz')])">
+                <livewire:dashboard.quiz.delete />
+            </x-modal>
+            <x-modal name="restore-quiz-modal" size="xl" :modalTitle="__('Restore :restore', ['restore' => __('Quiz')])">
+                <livewire:dashboard.quiz.restore />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

@@ -17,13 +17,13 @@
         <div class="flex items-center gap-1 text-sm text-white">
             <span class="i-ph-line-segments-light"></span>
             <div class="flex-1 font-light truncate">
-                {{ __($selectedQuizPhase) }}
+                {{ __($selectedQuizPhase->name) }} ({{ $selectedQuizPhase->grades->pluck('name')->join(', ') }})
             </div>
         </div>
         <div class="flex items-center gap-1 text-sm text-white">
             <span class="i-ph-stack-simple-light"></span>
             <div class="flex-1 font-light truncate">
-                {{ __($selectedQuizCategory) }}
+                {{ __($selectedQuizCategory->name) }}
             </div>
         </div>
         <div class="flex items-center gap-1 text-sm text-white">

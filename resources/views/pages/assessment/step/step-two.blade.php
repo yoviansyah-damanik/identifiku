@@ -62,16 +62,6 @@
 }">
     <div class="relative flex flex-col shadow lg:w-80 xl:w-96">
         <div class="flex lg:block">
-            {{-- <x-button base="flex justify-center items-center gap-1 lg:w-full w-14" size="sm" :href="route('dashboard.student-class.show', [
-                'class' => $assessment->class,
-                'activeQuizUrl' => $assessment->quiz->slug,
-            ])"
-                color="secondary" radius="rounded-none">
-                <span class="i-ph-arrow-left"></span>
-                <span class="hidden lg:block">
-                    {{ __('Back') }}
-                </span>
-            </x-button> --}}
             <div class="flex-1 px-6 py-4 text-sm sm:px-8 lg:py-8 bg-gradient-to-br from-primary-500 to-primary-700">
                 <div class="flex">
                     <div class="font-semibold w-28 text-secondary-500">
@@ -99,41 +89,19 @@
                 </div>
             </div>
         </div>
-        <div
-            class="flex flex-col flex-1 w-full px-6 py-4 space-y-3 bg-white shadow lg:shadow-none lg:relative lg:left-auto sm:px-8 lg:py-8 sm:space-y-4">
-            <div class="flex gap-8 overflow-auto lg:space-y-4 lg:overflow-clip lg:gap-0 lg:block snap-x lg:snap-none">
-                @foreach ($questions as $group)
-                    <div class="space-y-3 snap-start lg:snap-none">
-                        <div class="font-semibold text-primary-500 text-nowrap">
-                            {{ GeneralHelper::numberToRoman($group['order']) }}.
-                            {{ $group['name'] }}
-                        </div>
-                        <div class="flex gap-1 lg:flex-wrap snap-x lg:snap-none">
-                            @foreach ($group['questions'] as $question)
-                                <x-button wire:click="setQuestion('{{ $group['id'] }}','{{ $question['id'] }}')"
-                                    square radius="rounded-full" base="!p-0 snap-start lg:snap-none w-8" size="sm"
-                                    :color="$questionActive['id'] == $question['id']
-                                        ? 'secondary'
-                                        : (in_array($question['id'], $result->pluck('question_id')->toArray())
-                                            ? 'primary'
-                                            : 'primary-transparent')">
-                                    {{ $question['order'] }}
-                                </x-button>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
+        {{-- GROUPS --}}
+        <x-dynamic-component :component="'assessment.step.' . Str::lower($assessment->quiz->assessmentRule->type) . '.group'" :groups="$questions" :$questionActive :$result />
+        {{-- END GROUPS --}}
+
     </div>
 
     <div class="relative flex flex-col justify-between gap-3 overflow-auto lg:flex-1 sm:gap-4">
         <div
             class="absolute top-0 flex items-center flex-1 gap-1 px-3 py-1 text-xs font-semibold bg-white shadow right-5 lg:text-base rounded-b-md">
             {{ __('Remaining Time') }}
-            <div class="flex items-center justify-end w-12 lg:w-16">
-                {{-- <div x-text="time().days"></div> --}}
-                <div x-text="time().hours">00</div>
+            <div class="flex items-center justify-end" :class="time().days != '00' ? 'w-16 lg:w-24' : 'lg:w-16 w-12'">
+                <div x-show="time().days != '00'" x-text="time().days">00</div>
+                <div :class="time().days != '00' ? `before:content-[':']` : ``" x-text="time().hours">00</div>
                 <div class="before:content-[':']" x-text="time().minutes">00</div>
                 <div class="before:content-[':']" x-text="time().seconds">00</div>
             </div>
@@ -147,38 +115,9 @@
                 {{ $groupActive['description'] }}
             </div>
         </div>
-        <div class="flex items-start flex-1 min-h-[min-content] px-6 py-4 pb-20 overflow-auto lg:py-8">
-            <div class="w-full">
-                <div class="flex">
-                    <div class="w-6 text-base font-semibold g:text-lg xl:text-xl lg:w-12">
-                        {{ $questionActive['order'] }}.
-                    </div>
-                    <div class="flex-1 text-base lg:text-lg xl:text-xl">
-                        <div class="mb-3 font-semibold">
-                            {{ $questionActive['question'] }}
-                        </div>
-                        <div class="md:[column-count:2] [column-gap:1.5rem]">
-                            @foreach ($questionActive['answers'] as $answer)
-                                <div @class([
-                                    'flex cursor-pointer hover:text-secondary-500',
-                                    'font-bold text-secondary-500' => in_array(
-                                        $answer['id'],
-                                        $result->pluck('answer_choice_id')->toArray()),
-                                ])
-                                    wire:click="setAnswer('{{ $questionActive['id'] }}','{{ $answer['id'] }}')">
-                                    <div class="w-14">
-                                        {{ $answer['answer'] }}
-                                    </div>
-                                    <div class="flex-1 text-start">
-                                        {{ $answer['text'] }}
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{-- ACTIVE QUESTION --}}
+        <x-dynamic-component :component="'assessment.step.' . Str::lower($assessment->quiz->assessmentRule->type) . '.question'" :$questionActive :$result />
+        {{-- END ACTIVE QUESTION --}}
 
         <div class="fixed inset-x-0 bottom-0 flex items-stretch justify-end lg:p-8 lg:gap-3 lg:relative">
             <div class="flex items-stretch justify-center flex-1 lg:flex-none lg:gap-1">

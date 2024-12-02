@@ -10,7 +10,7 @@
             wire:model.live.debounce.750ms='search' />
     </div>
 
-    <x-table :columns="[
+    <x-table :hasPages="$regions->hasPages()" :columns="[
         '#',
         __('Code'),
         __(':name Name', ['name' => __('Region')]),
@@ -30,9 +30,9 @@
                         {{ $region->name }}
                     </x-table.td>
                     <x-table.td centered>
-                        {{-- {{ GeneralHelper::numberFormat($region->schools_count) .
+                        {{ GeneralHelper::numberFormat($region->schoolCount) .
                             ' ' .
-                            ($region->schools_count > 1 ? __('Schools') : __('School')) }} --}}
+                            ($region->schoolCount > 1 ? __('Schools') : __('School')) }}
                     </x-table.td>
                     <x-table.td centered>
                         <x-tooltip :title="__('Edit')">
@@ -63,15 +63,17 @@
         </x-slot>
     </x-table>
 
-    <div wire:ignore>
-        <x-modal name="create-region-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Region')])">
-            <livewire:dashboard.region.create />
-        </x-modal>
-        <x-modal name="edit-region-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Region')])">
-            <livewire:dashboard.region.edit />
-        </x-modal>
-        <x-modal name="delete-region-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Region')])">
-            <livewire:dashboard.region.delete />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="create-region-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Region')])">
+                <livewire:dashboard.region.create />
+            </x-modal>
+            <x-modal name="edit-region-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Region')])">
+                <livewire:dashboard.region.edit />
+            </x-modal>
+            <x-modal name="delete-region-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Region')])">
+                <livewire:dashboard.region.delete />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

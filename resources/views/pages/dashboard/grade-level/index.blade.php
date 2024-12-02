@@ -76,15 +76,17 @@
         </x-slot>
     </x-table>
 
-    <div wire:ignore>
-        <x-modal name="create-grade-level-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Grade Level')])">
-            <livewire:dashboard.grade-level.create />
-        </x-modal>
-        <x-modal name="edit-grade-level-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Grade Level')])">
-            <livewire:dashboard.grade-level.edit />
-        </x-modal>
-        <x-modal name="delete-grade-level-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Grade Level')])">
-            <livewire:dashboard.grade-level.delete />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="create-grade-level-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Grade Level')])">
+                <livewire:dashboard.grade-level.create />
+            </x-modal>
+            <x-modal name="edit-grade-level-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Grade Level')])">
+                <livewire:dashboard.grade-level.edit />
+            </x-modal>
+            <x-modal name="delete-grade-level-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Grade Level')])">
+                <livewire:dashboard.grade-level.delete />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

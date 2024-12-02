@@ -35,7 +35,7 @@ class Delete extends Component
         $this->isLoading = true;
     }
 
-    public function tes()
+    public function delete()
     {
         $this->isLoading = true;
         DB::beginTransaction();

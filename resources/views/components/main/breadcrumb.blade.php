@@ -6,7 +6,7 @@
                 @if (!empty($breadcrumb['url']))
                     <li class="after:content-['/'] last:after:content-none after:mx-1 inline-block">
                         <a class="font-semibold transition-all text-secondary-500 hover:text-secondary-700"
-                            href="{{ $breadcrumb['url'] }}">
+                            href="{{ $breadcrumb['url'] }}" wire:navigate>
                             {{ $breadcrumb['title'] }}
                         </a>
                     </li>

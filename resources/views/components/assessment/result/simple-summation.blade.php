@@ -7,7 +7,7 @@
         <div class="px-5 py-6 bg-white rounded-lg mb-7">
             <div
                 class="text-3xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-br from-primary-500 to-secondary-500">
-                {{ $assessment->result->details->where('is_highlight', true)->first()->title }}
+                {{ $assessment->result->dominance->title }}
             </div>
         </div>
     </div>

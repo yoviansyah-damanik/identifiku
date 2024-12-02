@@ -57,19 +57,19 @@ Route::prefix('dashboard')
             ->name('.school');
         Route::get('/school-request', \App\Livewire\Dashboard\SchoolRequest\Index::class)
             ->middleware('permission:school request')
-            ->name('.school-request');
+            ->name('.school.request');
         Route::get('/student', \App\Livewire\Dashboard\Student\Index::class)
             ->middleware('permission:student')
             ->name('.student');
         Route::get('/student-request', \App\Livewire\Dashboard\StudentRequest\Index::class)
             ->middleware('permission:student request')
-            ->name('.student-request');
+            ->name('.student.request');
         Route::get('/teacher', \App\Livewire\Dashboard\Teacher\Index::class)
             ->middleware('permission:teacher')
             ->name('.teacher');
         Route::get('/teacher-request', \App\Livewire\Dashboard\TeacherRequest\Index::class)
             ->middleware('permission:teacher request')
-            ->name('.teacher-request');
+            ->name('.teacher.request');
 
         Route::get('/assessment', \App\Livewire\Dashboard\Assessment\Index::class)
             ->middleware('permission:assessment')
@@ -79,7 +79,7 @@ Route::prefix('dashboard')
             ->name('.assessment-history');
         Route::get('/assessment/students', \App\Livewire\Dashboard\Assessment\Students::class)
             ->middleware('permission:assessment students')
-            ->name('.assessment-students');
+            ->name('.assessment.students');
         Route::get('/assessment/result/{assessment:id}', \App\Livewire\Dashboard\Assessment\Result::class)
             // ->middleware('permission:assessment result')
             ->name('.assessment.result');

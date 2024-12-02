@@ -21,12 +21,15 @@
     @endforelse
 
     {{ $classes->links() }}
-    <div wire:ignore>
-        <x-modal name="join-class-modal" size="xl" :modalTitle="__('Join Class')">
-            <livewire:dashboard.student-class.join />
-        </x-modal>
-        <x-modal name="cancel-class-modal" size="xl" :modalTitle="__('Cancel Class')">
-            <livewire:dashboard.student-class.cancel />
-        </x-modal>
-    </div>
+
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="join-class-modal" size="xl" :modalTitle="__('Join Class')">
+                <livewire:dashboard.student-class.join />
+            </x-modal>
+            <x-modal name="cancel-class-modal" size="xl" :modalTitle="__('Cancel Class')">
+                <livewire:dashboard.student-class.cancel />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

@@ -78,7 +78,6 @@ class StepOne extends Component
     {
         return <<<'HTML'
         <div class="text-center">
-            <!-- Loading spinner... -->
             <x-loading/>
         </div>
         HTML;

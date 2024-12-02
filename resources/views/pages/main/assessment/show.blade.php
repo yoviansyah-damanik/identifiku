@@ -77,19 +77,25 @@
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Overview') }}
                         </div>
-                        {!! $quiz->overview !!}
+                        <div class="trix-zone">
+                            {!! $quiz->overview !!}
+                        </div>
                     </div>
                     <div>
                         <div class="text-lg font-semibold text-secondary-500">
                             {!! __('Content Coverage') !!}
                         </div>
-                        {{ $quiz->content_coverage }}
+                        <div class="trix-zone">
+                            {!! $quiz->content_coverage !!}
+                        </div>
                     </div>
                     <div>
                         <div class="text-lg font-semibold text-secondary-500">
                             {{ __('Assessment Objectives') }}
                         </div>
-                        {!! $quiz->assessment_objectives !!}
+                        <div class="trix-zone">
+                            {!! $quiz->assessment_objectives !!}
+                        </div>
                     </div>
                     <div>
                         <div class="text-lg font-semibold text-secondary-500">

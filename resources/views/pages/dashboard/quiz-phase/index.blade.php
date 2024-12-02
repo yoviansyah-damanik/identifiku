@@ -67,15 +67,17 @@
         </x-slot>
     </x-table>
 
-    <div wire:ignore>
-        <x-modal name="create-quiz-phase-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Quiz Phase')])">
-            <livewire:dashboard.quiz-phase.create :$gradeLevels />
-        </x-modal>
-        <x-modal name="edit-quiz-phase-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Quiz Phase')])">
-            <livewire:dashboard.quiz-phase.edit :$gradeLevels />
-        </x-modal>
-        <x-modal name="delete-quiz-phase-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Quiz Phase')])">
-            <livewire:dashboard.quiz-phase.delete />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="create-quiz-phase-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Quiz Phase')])">
+                <livewire:dashboard.quiz-phase.create :$gradeLevels />
+            </x-modal>
+            <x-modal name="edit-quiz-phase-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Quiz Phase')])">
+                <livewire:dashboard.quiz-phase.edit :$gradeLevels />
+            </x-modal>
+            <x-modal name="delete-quiz-phase-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Quiz Phase')])">
+                <livewire:dashboard.quiz-phase.delete />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

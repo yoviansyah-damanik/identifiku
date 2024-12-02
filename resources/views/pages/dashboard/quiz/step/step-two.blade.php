@@ -1,9 +1,10 @@
 <div>
     <div class="flex flex-col-reverse items-stretch gap-3 mx-auto mb-4 lg:items-start lg:flex-row sm:gap-4">
+        {{-- FORM --}}
         <div
             class="w-full lg:max-w-[520px] 2xl:max-w-[720px] space-y-3 sm:space-y-4 bg-white rounded-lg shadow p-6 sm:p-8">
-            <x-form.select :loading="$isLoading" :label="__(':type Type', ['type' => __('Question')])" block :items="$questionTypes" wire:model.live="questionType"
-                :error="$errors->first('questionType')" required />
+            <x-form.select :loading="$isLoading" wire:change="checkRules" :label="__(':type Type', ['type' => __('Question')])" block :items="$questionTypes"
+                wire:model.live="questionType" :error="$errors->first('questionType')" required />
             <x-form.select :loading="$isLoading" :label="__(':type Type', ['type' => __('Assessment Rule')])" block :items="$assessmentRules" wire:model.live="assessmentRule"
                 :error="$errors->first('assessmentRule')" required />
             @if ($questionType != 'dichotomous' || ($questionType == 'dichotomous' && $assessmentRule == 'summative'))
@@ -19,6 +20,9 @@
                 <x-button color="primary" wire:click="save">{{ __('Save') }}</x-button>
             </div>
         </div>
+        {{-- END FORM --}}
+
+        {{-- RULES --}}
         <div class="flex-1 p-6 space-y-3 bg-white rounded-lg shadow sm:space-y-4 sm:p-8">
             @if ($quiz->assessmentRule)
                 <div>
@@ -45,6 +49,24 @@
                             </div>
                             <div class="flex-1">
                                 {{ __(Str::headline($quiz->assessmentRule->max_item)) }}
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-[12rem] font-semibold">
+                                {{ __('Description') }}
+                            </div>
+                            <div class="flex-1">
+                                @if ($quiz->assessmentRule->type == 'summation')
+                                    {{ __('Results based on the highest number of choices from the available answer options') }}
+                                @elseif ($quiz->assessmentRule->type == 'calculation')
+                                    {{ __('Results based on the highest value of the number of scores given to each answer choice') }}
+                                @elseif ($quiz->assessmentRule->type == 'calculation-2')
+                                    {{ __('Results based on predefined number of scores for each question added (available in the next step)') }}
+                                @elseif ($quiz->assessmentRule->type == 'summative')
+                                    {{ __('Results are based on the correct answers (correct answers are applied to the next step) which are then summed and adjusted based on the indicators added') }}
+                                @else
+                                    {{ __('Assessment type error') }}
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -115,7 +137,7 @@
                                                     {{ __('Score') }}
                                                 </div>
                                                 <div>
-                                                    {!! $detail->score !!}
+                                                    {{ $detail->score }}
                                                 </div>
                                             </div>
                                         @endif
@@ -123,8 +145,16 @@
                                             <div class="font-semibold">
                                                 {{ __('Indicator') }}
                                             </div>
-                                            <div>
+                                            <div class="trix-zone">
                                                 {!! $detail->indicator !!}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="font-semibold">
+                                                {{ __('Recommendation') }}
+                                            </div>
+                                            <div class="trix-zone">
+                                                {!! $detail->recommendation !!}
                                             </div>
                                         </div>
                                     </div>
@@ -157,14 +187,17 @@
                 </div>
             @endif
         </div>
+        {{-- END RULES --}}
     </div>
 
-    <div wire:ignore>
-        <x-modal name="add-indicator-modal" size="3xl" :modalTitle="__('Add :add', ['add' => __('Indicator')])">
-            <livewire:dashboard.quiz.step.additional.add-indicator />
-        </x-modal>
-        <x-modal name="edit-indicator-modal" size="3xl" :modalTitle="__('Edit :edit', ['edit' => __('Indicator')])">
-            <livewire:dashboard.quiz.step.additional.edit-indicator />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="add-indicator-modal" size="3xl" :modalTitle="__('Add :add', ['add' => __('Indicator')])">
+                <livewire:dashboard.quiz.step.additional.add-indicator />
+            </x-modal>
+            <x-modal name="edit-indicator-modal" size="3xl" :modalTitle="__('Edit :edit', ['edit' => __('Indicator')])">
+                <livewire:dashboard.quiz.step.additional.edit-indicator />
+            </x-modal>
+        </div>
+    </template>
 </div>

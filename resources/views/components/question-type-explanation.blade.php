@@ -5,7 +5,7 @@
                 {{ __('Multiple Choice') }}
             </div>
             <div class="font-light">
-                {{ __('') }}
+                {{ __('The learner is asked to choose one of the several answer options provided.') }}
             </div>
         </div>
         <div>
@@ -13,7 +13,7 @@
                 {{ __('Dichotomous') }}
             </div>
             <div class="font-light">
-                {{ __('') }}
+                {{ __('The learner chooses one of the two answer options provided.') }}
             </div>
         </div>
     </div>

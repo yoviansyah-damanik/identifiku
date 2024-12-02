@@ -1,4 +1,4 @@
-<div>
+<x-content>
     <div class="relative p-6 rounded-lg shadow-md sm:p-8 bg-pattern-4">
         <div
             class="relative z-10 flex flex-col gap-1 sm:items-start sm:justify-center min-h-52 sm:min-h-24 sm:w-96 lg:w-full">
@@ -18,4 +18,4 @@
 
     <livewire:is :component="'dashboard.home.' .
         Str::lower(auth()->user()->roleName == 'Superadmin' ? 'Administrator' : auth()->user()->roleName)" />
-</div>
+</x-content>

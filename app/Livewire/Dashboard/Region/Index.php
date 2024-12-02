@@ -30,7 +30,13 @@ class Index extends Component
 
     public function render()
     {
-        $regions = Region::whereAny(['code', 'name'], 'like', '%' . $this->search . '%')
+        $regions = Region::with([
+            'schoolProvince',
+            'schoolRegency',
+            'schoolDistrict',
+            'schoolVillage',
+        ])
+            ->whereAny(['code', 'name'], 'like', '%' . $this->search . '%')
             ->orderBy('code', 'asc')
             ->paginate($this->perPage);
 

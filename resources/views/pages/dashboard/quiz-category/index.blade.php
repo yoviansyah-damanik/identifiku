@@ -63,15 +63,17 @@
         </x-slot>
     </x-table>
 
-    <div wire:ignore>
-        <x-modal name="create-quiz-category-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Quiz Category')])">
-            <livewire:dashboard.quiz-category.create />
-        </x-modal>
-        <x-modal name="edit-quiz-category-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Quiz Category')])">
-            <livewire:dashboard.quiz-category.edit />
-        </x-modal>
-        <x-modal name="delete-quiz-category-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Quiz Category')])">
-            <livewire:dashboard.quiz-category.delete />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="create-quiz-category-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Quiz Category')])">
+                <livewire:dashboard.quiz-category.create />
+            </x-modal>
+            <x-modal name="edit-quiz-category-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('Quiz Category')])">
+                <livewire:dashboard.quiz-category.edit />
+            </x-modal>
+            <x-modal name="delete-quiz-category-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('Quiz Category')])">
+                <livewire:dashboard.quiz-category.delete />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

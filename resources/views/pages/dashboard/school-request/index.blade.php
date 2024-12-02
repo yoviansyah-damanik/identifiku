@@ -22,12 +22,14 @@
 
     {{ $schools->links() }}
 
-    <div wire:ignore>
-        <x-modal name="approved-school-request-modal" size="xl" :modalTitle="__('Approved Registration')">
-            <livewire:dashboard.school-request.approved />
-        </x-modal>
-        <x-modal name="rejected-school-request-modal" size="xl" :modalTitle="__('Rejected Registration')">
-            <livewire:dashboard.school-request.rejected />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="approved-school-request-modal" size="xl" :modalTitle="__('Approved Registration')">
+                <livewire:dashboard.school-request.approved />
+            </x-modal>
+            <x-modal name="rejected-school-request-modal" size="xl" :modalTitle="__('Rejected Registration')">
+                <livewire:dashboard.school-request.rejected />
+            </x-modal>
+        </div>
+    </template>
 </x-content>

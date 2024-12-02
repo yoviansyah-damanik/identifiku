@@ -70,15 +70,17 @@
         </x-slot>
     </x-table>
 
-    <div wire:ignore>
-        <x-modal name="create-school-status-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('School Status')])">
-            <livewire:dashboard.school-status.create />
-        </x-modal>
-        <x-modal name="edit-school-status-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('School Status')])">
-            <livewire:dashboard.school-status.edit />
-        </x-modal>
-        <x-modal name="delete-school-status-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('School Status')])">
-            <livewire:dashboard.school-status.delete />
-        </x-modal>
-    </div>
+    <template x-teleport="body">
+        <div wire:ignore>
+            <x-modal name="create-school-status-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('School Status')])">
+                <livewire:dashboard.school-status.create />
+            </x-modal>
+            <x-modal name="edit-school-status-modal" size="xl" :modalTitle="__('Edit :edit', ['edit' => __('School Status')])">
+                <livewire:dashboard.school-status.edit />
+            </x-modal>
+            <x-modal name="delete-school-status-modal" size="xl" :modalTitle="__('Delete :delete', ['delete' => __('School Status')])">
+                <livewire:dashboard.school-status.delete />
+            </x-modal>
+        </div>
+    </template>
 </x-content>
