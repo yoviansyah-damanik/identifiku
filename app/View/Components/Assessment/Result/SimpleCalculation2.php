@@ -21,6 +21,6 @@ class SimpleCalculation2 extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.assessment.result.simple-calculation2');
+        return view('components.assessment.result.simple-calculation-2');
     }
 }

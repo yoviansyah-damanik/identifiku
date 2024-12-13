@@ -16,7 +16,7 @@ class Tr extends Component
 
     ) {
         $this->trClass = join(' ', [
-            'even:bg-primary-50 bg-white hover:bg-primary-100 dark:bg-slate-800 dark:even:bg-slate-700 dark:text-white dark:hover:bg-slate-600',
+            'hover:bg-primary-100 bg-white dark:bg-slate-800 dark:even:bg-slate-700 dark:text-white dark:hover:bg-slate-600',
             $trClass
         ]);
     }

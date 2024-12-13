@@ -29,7 +29,7 @@ class Show extends Component
     public function render()
     {
         $assessments = Assessment::where('quiz_id', $this->quiz->id)
-            ->with(['student'])
+            ->with(['student', 'student.grade'])
             ->where('student_class_id', $this->class->id)
             ->orderBy('status', 'asc')
             ->simplePaginate(5);

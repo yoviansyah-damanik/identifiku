@@ -59,6 +59,7 @@ class History extends Component
         $assessments = Assessment::with([
             'quiz',
             'quiz.phase',
+            'quiz.assessmentRule',
             'quiz.category',
             'quiz.phase.grades',
             'quiz.picture',

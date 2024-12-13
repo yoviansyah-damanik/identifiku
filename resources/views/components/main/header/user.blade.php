@@ -39,7 +39,7 @@
                         <li>
                             <a class="flex items-center justify-between px-5 py-2 transition-all rounded-full hover:bg-primary-50 hover:text-primary-500"
                                 href="{{ $nav['url'] }}" wire:navigate>
-                                <div class="flex-none {{ $nav['icon'] }}"></div>
+                                <div class="flex-none {{ $nav['icon'] }} size-6"></div>
                                 <div class="flex-1 text-end">
                                     {{ $nav['title'] }}
                                 </div>

@@ -21,12 +21,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('questions')
                 ->onDelete('cascade');
-            $table->foreignId('answer_choice_id')
+            $table->foreignUuid('answer_choice_id')
                 ->nullable()
                 ->references('id')
                 ->on('answer_choices')
                 ->onDelete('cascade');
-            $table->integer('value')
+            $table->double('score')
                 ->nullable();
         });
     }

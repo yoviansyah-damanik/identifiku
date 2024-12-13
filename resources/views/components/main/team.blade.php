@@ -1,9 +1,9 @@
 <div class="py-12">
     <div>
         <x-container>
-            <div class="mb-3 text-3xl font-extrabold tracking-widest text-center uppercase">
+            <x-main.title>
                 {{ __('Our Team') }}
-            </div>
+            </x-main.title>
             <div class="mb-5 font-light text-center">
                 {{ __('No team is great without trust, hard work, and mutual support. Greatness is not just about talent, but how all the elements come together for a greater cause.') }}
             </div>

@@ -11,7 +11,7 @@
             wire:model.live.debounce.750ms='search' />
     </div>
 
-    <div class="grid flex-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-5 gap-y-7">
+    <div class="grid flex-1 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-5 gap-y-7">
         @forelse ($quizzes as $quiz)
             <x-available-quiz-box :$quiz withBox />
         @empty

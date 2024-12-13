@@ -25,7 +25,7 @@ class Team extends Component
         $teams = [
             [
                 'name' => 'M. Noor Hasan Siregar, S.T, M.Kom',
-                'avatar' => Vite::image('silhouette-man.png'),
+                'avatar' => Vite::image('m_hasan.png'),
                 'ig' => 'noor_srg',
                 'as' => 'Leader'
             ],

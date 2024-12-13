@@ -21,17 +21,31 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-1">
+                        <span class="i-ph-folder"></span>
+                        <div class="flex-1 font-light truncate">
+                            {{ __(Str::headline($quiz->type)) }}
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="i-ph-list"></span>
+                        <div class="flex-1 font-light truncate">
+                            {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-1">
                         <span class="i-ph-clock-countdown-light"></span>
                         <div class="flex-1 font-light truncate">
                             {{ GeneralHelper::getTime($quiz->estimation_time) }}
                         </div>
                     </div>
-                    <div class="flex items-center gap-1">
-                        <span class="i-ph-clock-user"></span>
-                        <div class="flex-1 font-light truncate">
-                            {{ $quiz->created_at->diffForHumans() }}
+                    @if (auth()->user()->isAdmin)
+                        <div class="flex items-center gap-1">
+                            <span class="i-ph-clock-user"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ $quiz->created_at->diffForHumans() }}
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
                 <div class="space-y-3">
                     <x-button color="primary-transparent" :withBorderIcon="false" radius="rounded-full" block

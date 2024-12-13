@@ -57,6 +57,8 @@ class UpdateResult extends Component
                 'advice' => $this->advice,
                 'conclusion' => $this->conclusion,
             ]);
+
+            $this->dispatch('toggle-show-detail-modal');
             $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Message')]));
             $this->isLoading = false;
         } catch (\Exception $e) {

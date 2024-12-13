@@ -5,19 +5,27 @@
             x-sort:handle>
             <span class="h-8 i-ph-dots-three-outline-vertical pe-2"></span>
         </div>
-        <div class="flex flex-col flex-1 px-5 py-3 space-y-3 sm:space-y-4">
+        <div class="relative flex flex-col flex-1 px-5 py-3 space-y-3 sm:space-y-4">
             <div class="font-semibold">
                 {{ $question->order }}.
-                {{ $question->question }}
+                {{ $this->quiz->assessmentRule->type == 'calculation-2' ? '(' . $question->operator . ') ' . $question->question : $question->question }}
             </div>
-            <div>
+            <div class="space-y-1">
                 @foreach ($question->answers as $answer)
-                    <div class="flex">
+                    <div @class([
+                        'flex',
+                        'text-secondary-500 font-bold' => $answer->is_correct,
+                    ])>
                         <div class="w-14">
                             {{ $answer->answer }}
                         </div>
                         <div class="flex-1">
                             {{ $answer->text }}
+                            @if ($this->quiz->assessmentRule->type == 'calculation-2')
+                                <span class="font-bold">
+                                    ({{ __('Score') . ' ' . $answer->score }})
+                                </span>
+                            @endif
                         </div>
                     </div>
                 @endforeach

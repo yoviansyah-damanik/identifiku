@@ -4,12 +4,14 @@ namespace App\Livewire\Dashboard\Quiz\Step;
 
 use App\Models\Quiz;
 use Livewire\Component;
+use App\Models\Question;
 use App\Models\QuizPhase;
 use Livewire\Attributes\On;
 use App\Models\QuizCategory;
 use App\Models\QuestionGroup;
 use Livewire\Attributes\Isolate;
 use Illuminate\Support\Facades\DB;
+use App\Models\AssessmentIndicatorRule;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 #[Isolate]
@@ -29,7 +31,7 @@ class StepThree extends Component
     public function mount(Quiz $quiz)
     {
         $this->quiz = $quiz
-            ->load(['assessmentRule', 'assessmentRule.details', 'groups', 'groups.questions', 'groups.questions.answers']);
+            ->load(['assessmentRule', 'assessmentRule.answers', 'assessmentRule.indicators', 'groups', 'groups.questions', 'groups.questions.answers']);
 
         $this->selectedQuizPhase = QuizPhase::where('id', $quiz->quiz_phase_id)->first()->name;
         $this->selectedQuizCategory = QuizCategory::where('id', $quiz->quiz_category_id)->first()->name;
@@ -58,7 +60,7 @@ class StepThree extends Component
         }
 
         $this->quiz->refresh()
-            ->load(['assessmentRule', 'assessmentRule.details', 'groups', 'groups.questions', 'groups.questions.answers']);
+            ->load(['assessmentRule', 'assessmentRule.answers', 'assessmentRule.indicators', 'groups', 'groups.questions', 'groups.questions.answers']);
 
         $this->setGroupActive($group);
     }
@@ -124,7 +126,7 @@ class StepThree extends Component
         }
     }
 
-    public function reorderQuestion($id, $position)
+    public function reorderQuestion($id, $position, $groupId)
     {
         $this->isLoading = true;
         DB::beginTransaction();
@@ -133,7 +135,7 @@ class StepThree extends Component
 
             if ($exist->order < $position + 1) {
                 $exist->update(['order' => $position + 1]);
-                Question::where('quiz_id', $this->quiz->id)
+                Question::where('question_group_id', $groupId)
                     ->whereNot('id', $id)
                     ->where('order', '<=', $position + 1)
                     ->orderBy('order', 'asc')
@@ -142,7 +144,7 @@ class StepThree extends Component
                     });
             } else {
                 $exist->update(['order' => $position + 1]);
-                Question::where('quiz_id', $this->quiz->id)
+                Question::where('question_group_id', $groupId)
                     ->whereNot('id', $id)
                     ->where('order', '>=', $position + 1)
                     ->orderBy('order', 'asc')
@@ -164,4 +166,18 @@ class StepThree extends Component
             $this->alert('error', $e->getMessage());
         }
     }
+
+    // public function deleteIndicator(AssessmentIndicatorRule $indicator)
+    // {
+    //     try {
+    //         $indicator->delete();
+    //         $this->alert('success', __(':attribute deleted successfully.', ['attribute' => __('Indicator Rule')]));
+    //     } catch (\Exception $e) {
+    //         $this->isLoading = false;
+    //         $this->alert('error', $e->getMessage());
+    //     } catch (\Throwable $e) {
+    //         $this->isLoading = false;
+    //         $this->alert('error', $e->getMessage());
+    //     }
+    // }
 }

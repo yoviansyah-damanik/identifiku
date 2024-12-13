@@ -18,7 +18,9 @@ return new class extends Migration
             $table->integer('order')
                 ->default(0);
             $table->char('operator', 1)
-                ->default('+');
+                ->nullable();
+            $table->integer('score')
+                ->default(1);
             $table->foreignUuid('question_group_id')
                 ->references('id')
                 ->on('question_groups')

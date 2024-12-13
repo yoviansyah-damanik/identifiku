@@ -3,11 +3,9 @@
 namespace App\Livewire\Dashboard\Quiz\Step;
 
 use App\Models\Quiz;
-use App\Enums\QuizType;
 use Livewire\Component;
 use App\Models\QuizPhase;
-use Illuminate\Support\Str;
-use Livewire\Attributes\On;
+use App\Helpers\QuizHelper;
 use App\Models\QuizCategory;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Isolate;
@@ -52,11 +50,7 @@ class StepOne extends Component
         $this->overview = $quiz->overview;
         $this->assessmentObjectives = $quiz->assessment_objectives;
 
-        $this->quizTypes = collect(QuizType::names())
-            ->map(fn($item) => [
-                'value' => $item,
-                'title' => __(Str::headline($item))
-            ])->toArray();
+        $this->quizTypes = QuizHelper::getQuizType();
 
         $this->setQuizCategories();
         $this->setQuizPhases();

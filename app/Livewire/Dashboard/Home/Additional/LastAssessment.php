@@ -11,6 +11,7 @@ class LastAssessment extends Component
     {
         $assessment = Assessment::where('student_id', auth()->user()->student->id)
             ->with([
+                'quiz',
                 'result',
                 'result.details',
             ])

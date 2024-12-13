@@ -2,14 +2,14 @@
 
 namespace App\Livewire\Dashboard\Quiz\Step\Additional;
 
-use App\Models\AssessmentRule;
-use App\Models\AssessmentRuleDetail;
-use Illuminate\Validation\Rule;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\Attributes\On;
+use App\Models\AssessmentRule;
+use Illuminate\Validation\Rule;
+use App\Models\AssessmentIndicatorRule;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class AddIndicator extends Component
+class AddIndicatorRule extends Component
 {
     use LivewireAlert;
     public AssessmentRule $rule;
@@ -19,15 +19,13 @@ class AddIndicator extends Component
     public string $recommendation;
     public int $value_min;
     public int $value_max;
-    public int | string $score;
     public string $answer;
-    public string $default;
 
     public bool $isLoading = true;
 
     public function render()
     {
-        return view('pages.dashboard.quiz.step.additional.add-indicator');
+        return view('pages.dashboard.quiz.step.additional.add-indicator-rule');
     }
 
     #[On('setAddIndicator')]
@@ -68,17 +66,6 @@ class AddIndicator extends Component
                 'gt:value_min',
                 Rule::requiredIf($this->rule->type == 'summative')
             ],
-            'score' => [
-                'nullable',
-                $this->rule->type == 'calculation-2' ? 'numeric' : 'string',
-                $this->rule->type == 'calculation-2' ? 'digits_between:1,3' : '',
-                $this->rule->type == 'summative' ? 'max:3' : '',
-                Rule::requiredIf(in_array($this->rule->type, ['calculation-2', 'summative']))
-            ],
-            'default' => [
-                'nullable',
-                'string',
-            ],
         ];
     }
 
@@ -90,8 +77,6 @@ class AddIndicator extends Component
             'recommendation' => __('Recommendation'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
-            'default' => __('Default'),
-            'score' => __('Score')
         ];
     }
 
@@ -100,7 +85,7 @@ class AddIndicator extends Component
         $this->validate();
         $this->isLoading = true;
         try {
-            AssessmentRuleDetail::create([
+            AssessmentIndicatorRule::create([
                 'assessment_rule_id' => $this->rule->id,
                 'title' => $this->title,
                 'indicator' => $this->indicator,
@@ -108,13 +93,11 @@ class AddIndicator extends Component
                 'answer' => $this->answer,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,
-                'default' => $this->default ?? null,
-                'score' => $this->score ?? null,
             ]);
 
             $this->dispatch('toggle-add-indicator-modal');
             $this->dispatch('refreshQuizData');
-            $this->alert('success', __(':attribute added successfully.', ['attribute' => __('Indicator')]));
+            $this->alert('success', __(':attribute added successfully.', ['attribute' => __('Indicator Rule')]));
             $this->isLoading = false;
         } catch (\Exception $e) {
             $this->isLoading = false;

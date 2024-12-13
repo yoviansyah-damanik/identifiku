@@ -1,4 +1,4 @@
-<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 shadow-md group">
+<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg shadow-md lg:p-7 lg:flex-row pt-9 group">
     <div class="flex items-center justify-center w-full overflow-hidden rounded-lg lg:flex-none h-44 lg:w-72">
         <img src="{{ $assessment->quiz?->picture ?? Vite::image('default-quiz.webp') }}"
             class="w-full transition-all group-hover:scale-125" alt="{{ $assessment->quiz->name }} Picture" />
@@ -29,6 +29,9 @@
             $assessment->quiz->phase->grades->pluck('name')->join(', ') .
             ')'" />
         <x-assessment-student-sub-item :title="__('Type')" :value="__(Str::headline($assessment->quiz->type))" />
+        <x-assessment-history-sub-item :title="__(':type Type', ['type' => __('Assessment Rule')])">
+            {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $assessment->quiz->assessmentRule->type)->first()['title'] }}
+        </x-assessment-history-sub-item>
         <x-assessment-student-sub-item :title="__('Estimation Time')" :value="GeneralHelper::getTime($assessment->quiz->estimation_time)" />
         <x-assessment-student-sub-item :title="__(':name Name', ['name' => __('Class')])" :value="$assessment->class->name" />
         <x-assessment-student-sub-item :title="__('Status')">
@@ -46,6 +49,14 @@
                 </x-badge>
             @endif
         </x-assessment-student-sub-item>
+        <x-assessment-student-sub-item :title="__('Description')">
+            @if ($assessment->result?->advice)
+                {{ __('The teacher has provide advice and conclusion') }}
+            @else
+                {{ __('The teacher has not given advice and conclusion') }}
+            @endif
+        </x-assessment-student-sub-item>
+
         {{-- </div> --}}
     </div>
     {{-- <div class="flex flex-col flex-1 gap-3 px-1 lg:flex-row sm:gap-4 lg:px-3 md:px-2">

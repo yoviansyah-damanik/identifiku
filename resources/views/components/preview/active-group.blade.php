@@ -1,4 +1,4 @@
-<div class="space-y-3 sm:space-y-4 lg:h-[70dvh] lg:overflow-auto">
+<div class="space-y-3 sm:space-y-4 lg:min-h-[50dvh]">
     @if ($activeGroup)
         <div class="p-6 mb-4 rounded-lg shadow-md bg-primary-500 sm:p-8 dark:bg-slate-800">
             <div class="text-xl font-bold text-secondary-500">

@@ -15,7 +15,7 @@
             </div>
             <div class="font-light">
                 {{ __('Results based on the highest value of the number of scores given to each answer choice') }}.<br />
-                {{ __('The final result of this quiz will count the number of answers from each answer item. For example, a participant answers answer item (a) for 5 questions and answer item (b) for 3 questions. Then, the participant will have a dominant to the indicator of answer item (a).') }}
+                {{ __('The student will be required to give a score to each answer option. The final result of the quiz is the dominant score from the sum of the scores of each answer choice.') }}
             </div>
         </div>
         <div>

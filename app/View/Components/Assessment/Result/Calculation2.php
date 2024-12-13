@@ -3,16 +3,18 @@
 namespace App\View\Components\Assessment\Result;
 
 use Closure;
-use Illuminate\Contracts\View\View;
+use App\Models\Assessment;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
 
 class Calculation2 extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
+    public function __construct(
+        public Assessment $assessment
+    ) {
         //
     }
 

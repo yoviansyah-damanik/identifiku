@@ -4,7 +4,7 @@
         <div class="font-semibold">
             {{ $question->question }}
         </div>
-        <div class="[column-count:2] [column-gap:1.5rem]">
+        <div class="flex flex-col gap-1">
             @foreach ($question->answers as $answer)
                 <div class="flex">
                     <div class="w-14">

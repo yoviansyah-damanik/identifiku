@@ -14,14 +14,14 @@ class Preview extends Component
 {
     public Quiz $quiz;
     public $activeGroup;
-    public string $selectedQuizPhase;
-    public string $selectedQuizCategory;
+    public $selectedQuizPhase;
+    public $selectedQuizCategory;
 
     public function mount(Quiz $quiz)
     {
         $this->quiz = $quiz;
-        $this->selectedQuizPhase = QuizPhase::where('id', $quiz->quiz_phase_id)->first()->name;
-        $this->selectedQuizCategory = QuizCategory::where('id', $quiz->quiz_category_id)->first()->name;
+        $this->selectedQuizPhase = QuizPhase::where('id', $quiz->quiz_phase_id)->first()->load(['grades']);
+        $this->selectedQuizCategory = QuizCategory::where('id', $quiz->quiz_category_id)->first();
     }
 
     public function render()

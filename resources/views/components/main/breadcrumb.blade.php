@@ -1,5 +1,5 @@
 <div id="breadcrumb"
-    class="min-h-24 lg:min-h-32 !pt-28 lg:!pt-36 bg-primary-50 p-7 lg:p-9 flex items-center justify-center mb-12 shadow-md bg-pattern bg-cover bg-bottom bg-repeat-x">
+    class="min-h-24 lg:min-h-32 !pt-28 lg:!pt-36 bg-primary-50 p-7 lg:p-9 flex items-center justify-center mb-12 shadow-md shadow-primary-50 bg-pattern bg-cover bg-bottom bg-repeat-x">
     <x-container>
         <ul class="text-lg lg:text-xl">
             @foreach ($breadcrumbs as $breadcrumb)

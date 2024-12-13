@@ -1,6 +1,6 @@
 <div class="p-6 overflow-hidden bg-white rounded-lg sm:p-8">
     @if ($activeQuiz)
-        <div class="relative flex flex-col items-start gap-5 lg:flex-row">
+        <div class="relative flex flex-col gap-5 lg:flex-row">
             <div class="flex-none w-full gap-5 md:flex lg:block lg:sticky lg:top-24 lg:w-96">
                 <div
                     class="relative md:w-[23rem] lg:w-full flex items-center justify-center aspect-[16/9] bg-primary-50 rounded-lg overflow-hidden">

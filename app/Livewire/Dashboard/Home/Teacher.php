@@ -21,7 +21,7 @@ class Teacher extends Component
 
         $assessments_count = Assessment::whereHas('class', fn($q) => $q->whereIn('id', auth()->user()->teacher->classes->pluck('id')->toArray()))->count();
 
-        $five_recent_of_student_learning_style = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_student_learning_style = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'studentLearningStyle'))
             ->whereHas('class', fn($q) => $q->whereIn('id', auth()->user()->teacher->classes->pluck('id')->toArray()))
             ->done()
@@ -29,7 +29,7 @@ class Teacher extends Component
             ->limit(5)
             ->get();
 
-        $five_recent_of_personality_type = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_personality_type = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'personalityType'))
             ->whereHas('class', fn($q) => $q->whereIn('id', auth()->user()->teacher->classes->pluck('id')->toArray()))
             ->done()
@@ -37,7 +37,7 @@ class Teacher extends Component
             ->limit(5)
             ->get();
 
-        $five_recent_of_keirsey_temperament_sorter = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_keirsey_temperament_sorter = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'keirseyTemperamentSorter'))
             ->whereHas('class', fn($q) => $q->whereIn('id', auth()->user()->teacher->classes->pluck('id')->toArray()))
             ->done()
@@ -45,7 +45,7 @@ class Teacher extends Component
             ->limit(5)
             ->get();
 
-        $five_recent_of_multiple_intelligence_type = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_multiple_intelligence_type = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'multipleIntelligenceType'))
             ->whereHas('class', fn($q) => $q->whereIn('id', auth()->user()->teacher->classes->pluck('id')->toArray()))
             ->done()

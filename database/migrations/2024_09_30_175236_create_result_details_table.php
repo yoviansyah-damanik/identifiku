@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('result_details', function (Blueprint $table) {
             $table->id();
-            $table->double('value');
+            $table->double('score')
+                ->nullable();
+            $table->double('max_score')
+                ->nullable();
             $table->string('title')->nullable();
             $table->text('indicator');
             $table->text('recommendation');

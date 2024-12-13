@@ -1,6 +1,6 @@
 <div @class([
-    'relative group self-start',
-    'bg-white rounded-lg pb-3 shadow-md' => $withBox,
+    'relative group',
+    'bg-white rounded-lg shadow-lg' => $withBox,
 ])>
     <div
         class="relative aspect-[16/9] bg-primary-50 rounded-lg grid place-items-center overflow-hidden after:absolute after:bottom-0 after:inset-x-0 after:h-16 after:bg-gradient-to-t after:from-primary-500 after:to-transparent">
@@ -13,10 +13,12 @@
             </div>
         </div>
     </div>
-    <div class="px-1 lg:px-3 md:px-2">
-        <div class="mt-3 text-lg font-semibold text-primary-500 line-clamp-2 group-hover:text-secondary-500">
+    <div class="px-1 py-5 lg:px-3 md:px-2 xl:px-5">
+        <div
+            class="text-lg leading-6 font-semibold text-primary-500 line-clamp-2 group-hover:text-secondary-500 h-[2lh]">
             {{ $quiz->name }}
         </div>
+        <div class="my-3 border-b"></div>
         <div class="flex items-center gap-1 mt-1 text-sm">
             <span class="i-ph-stack-simple-light"></span>
             <div class="flex-1 font-light truncate">
@@ -36,6 +38,12 @@
                 {{ __(Str::headline($quiz->type)) }}
             </div>
         </div>
+        <div class="flex items-center gap-1 text-sm">
+            <span class="i-ph-list"></span>
+            <div class="flex-1 font-light truncate">
+                {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+            </div>
+        </div>
         <div class="flex items-center justify-between">
             <div class="flex items-center gap-1 text-sm">
                 <span class="i-ph-clock-countdown-light"></span>
@@ -51,8 +59,8 @@
                 </div>
             </div>
         </div>
-
-        <div class="flex items-center justify-end gap-1 mt-3">
+        <div class="my-3 border-b"></div>
+        <div class="flex items-center justify-end gap-1">
             @haspermission('quiz show')
                 <x-tooltip :title="__('Show')">
                     <x-button icon="i-ph-eye" color="cyan" size="sm"

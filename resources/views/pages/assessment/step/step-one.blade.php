@@ -92,10 +92,19 @@
                     class="mb-5 text-xl font-bold text-transparent bg-clip-text bg-gradient-to-br from-primary-500 to-secondary-500">
                     {{ __('The question type in this assessment is :type.', ['type' => __('Multiple Choice')]) }}
                 </div>
-                @if ($assessment->quiz->assessmentRule->question_type == 'dichotomous')
-                    <x-assessment.helper.dichotomous :questionType="$assessment->quiz->assessmentRule->question_type" />
-                @elseif($assessment->quiz->assessmentRule->question_type == 'multipleChoice')
-                    <x-assessment.helper.multiple-choice :questionType="$assessment->quiz->assessmentRule->question_type" />
+                @if ($assessment->rule->question_type == 'dichotomous')
+                    @if ($assessment->rule->type == 'calculation')
+                        <x-assessment.helper.dichotomous-calculation :questionType="$assessment->rule->question_type" />
+                    @else
+                        <x-assessment.helper.dichotomous :questionType="$assessment->rule->question_type" />
+                    @endif
+                @elseif($assessment->rule->question_type == 'multipleChoice')
+                    @if ($assessment->rule->type == 'calculation')
+                        <x-assessment.helper.multiple-choice-calculation :$multipleChoiceExample :questionType="$assessment->rule->question_type" />
+                    @else
+                        <x-assessment.helper.multiple-choice :$multipleChoiceExample :answerExample="$answerExample"
+                            :questionType="$assessment->rule->question_type" />
+                    @endif
                 @endif
 
                 <div class="mt-5 space-y-5">
@@ -108,3 +117,9 @@
         @endif
     </div>
 </div>
+
+@if ($assessment->rule->type == 'calculation')
+    @push('scripts')
+        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/sort@3.x.x/dist/cdn.min.js"></script>
+    @endpush
+@endif

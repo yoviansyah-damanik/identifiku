@@ -61,6 +61,46 @@
                                 </x-table.td>
                                 <x-table.td>
                                     {{ $quiz->name }}
+                                    <div class="flex items-center gap-1 mt-1 text-sm">
+                                        <span class="i-ph-stack-simple-light"></span>
+                                        <div class="flex-1 font-light truncate">
+                                            {{ $quiz->category->name }}
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-sm">
+                                        <span class="i-ph-line-segments-light"></span>
+                                        <div class="flex-1 font-light truncate">
+                                            {{ $quiz->phase->name }}
+                                            ({{ $quiz->phase->grades->pluck('name')->join(', ') }})
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-sm">
+                                        <span class="i-ph-folder"></span>
+                                        <div class="flex-1 font-light truncate">
+                                            {{ __(Str::headline($quiz->type)) }}
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-sm">
+                                        <span class="i-ph-list"></span>
+                                        <div class="flex-1 font-light truncate">
+                                            {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center gap-1 text-sm">
+                                            <span class="i-ph-clock-countdown-light"></span>
+                                            <div class="flex-1 font-light truncate">
+                                                {{ GeneralHelper::getTime($quiz->estimation_time) }}
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center gap-1 text-sm">
+                                            <span class="i-ph-list-checks-light"></span>
+                                            <div class="flex-1 font-light truncate">
+                                                {{ $quiz->questionsTotal }}
+                                                {{ $quiz->questionsTotal > 1 ? __('Questions') : __('Question') }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </x-table.td>
                                 <x-table.td centered>
                                     {{ $quiz->assessments_count }}

@@ -6,7 +6,7 @@
     ]" />
 
     <x-container>
-        <div class="relative flex flex-col items-start gap-5 lg:flex-row">
+        <div class="relative flex flex-col gap-5 lg:flex-row">
             <div
                 class="box-border z-20 flex flex-none w-full gap-3 overflow-x-auto overflow-y-hidden lg:sticky lg:top-28 lg:w-72 lg:space-y-3 snap-proximity snap-x lg:block">
                 <x-form.input block class="flex-1 min-w-48 snap-start" type="search" :placeholder="__('Search by :1', [

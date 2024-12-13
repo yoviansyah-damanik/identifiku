@@ -19,7 +19,10 @@ return new class extends Migration
                 ->onDelete('cascade');
             $table->string('type');
             $table->string('question_type');
-            $table->integer('max_item');
+            $table->integer('max_indicator')
+                ->default(0);
+            $table->integer('max_answer')
+                ->default(0);
             $table->timestamps();
         });
     }

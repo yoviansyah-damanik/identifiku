@@ -1,5 +1,5 @@
 <div x-data='{ id: $id("table") }' {{-- class="{{ $baseClass }}" --}} class="w-full">
-    <div class="overflow-x-auto shadow">
+    <div class="overflow-x-auto shadow-lg">
         <table :id="id" class="{{ $tableClass }}">
             @if ($slot->isEmpty())
                 @if (isset($header) && !$heading->isEmpty())

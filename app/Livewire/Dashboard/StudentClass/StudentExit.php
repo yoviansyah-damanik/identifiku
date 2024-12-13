@@ -43,6 +43,11 @@ class StudentExit extends Component
             return;
         }
 
+        if (!in_array($this->class->id, auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())) {
+            $this->alert('warning', __('You never made a class request for this class'));
+            return;
+        }
+
         DB::beginTransaction();
         try {
             StudentHasClass::where('student_id', auth()->user()->student->id)
@@ -53,7 +58,7 @@ class StudentExit extends Component
                 ->where('student_class_id', $this->class->id)
                 ->delete();
 
-            auth()->user()->$this->dispatch('toggle-exit-class-modal');
+            $this->dispatch('toggle-exit-class-modal');
 
             DB::commit();
             $this->dispatch('refreshClassData');

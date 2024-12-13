@@ -2,16 +2,17 @@
 
 namespace App\Livewire\Dashboard\Quiz\Step\Additional;
 
+use App\Models\AssessmentIndicatorRule;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Validation\Rule;
 use App\Models\AssessmentRuleDetail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-class EditIndicator extends Component
+class EditIndicatorRule extends Component
 {
     use LivewireAlert;
-    public AssessmentRuleDetail $detail;
+    public AssessmentIndicatorRule $indicatorRule;
 
     public ?string $title;
     public string $indicator;
@@ -25,23 +26,21 @@ class EditIndicator extends Component
 
     public function render()
     {
-        return view('pages.dashboard.quiz.step.additional.edit-indicator');
+        return view('pages.dashboard.quiz.step.additional.edit-indicator-rule');
     }
 
     #[On('setEditIndicator')]
-    public function setEditIndicator(AssessmentRuleDetail $detail)
+    public function setEditIndicator(AssessmentIndicatorRule $indicatorRule)
     {
         $this->refresh();
-        $this->detail = $detail;
-        $this->title = $detail->title;
-        $this->indicator = $detail->indicator;
-        $this->recommendation = $detail->recommendation;
-        $this->value_min = $detail->value_min;
-        $this->value_max = $detail->value_max;
-        $this->score = $detail->score;
-        $this->default = $detail->default;
-        $this->dispatch('set-indicator-textarea-value', $detail->indicator);
-        $this->dispatch('set-recommendation-textarea-value', $detail->recommendation);
+        $this->indicatorRule = $indicatorRule;
+        $this->title = $indicatorRule->title;
+        $this->indicator = $indicatorRule->indicator;
+        $this->recommendation = $indicatorRule->recommendation;
+        $this->value_min = $indicatorRule->value_min;
+        $this->value_max = $indicatorRule->value_max;
+        $this->dispatch('set-indicatorRule-textarea-value', $indicatorRule->indicator);
+        $this->dispatch('set-recommendation-textarea-value', $indicatorRule->recommendation);
         $this->isLoading = false;
     }
 
@@ -57,31 +56,20 @@ class EditIndicator extends Component
             'title' => [
                 'nullable',
                 'string',
-                Rule::requiredIf(in_array($this->detail->main->type, ['summation', 'summative']))
+                Rule::requiredIf(in_array($this->indicatorRule->main->type, ['summation', 'summative']))
             ],
             'indicator' => 'required|string',
             'recommendation' => 'required|string',
             'value_min' => [
                 'nullable',
                 'numeric',
-                Rule::requiredIf($this->detail->main->type == 'summative')
+                Rule::requiredIf($this->indicatorRule->main->type == 'summative')
             ],
             'value_max' => [
                 'nullable',
                 'numeric',
                 'gt:value_min',
-                Rule::requiredIf($this->detail->main->type == 'summative')
-            ],
-            'score' => [
-                'nullable',
-                $this->detail->main->type == 'calculation-2' ? 'numeric' : 'string',
-                $this->detail->main->type == 'calculation-2' ? 'digits_between:1,3' : '',
-                $this->detail->main->type == 'summative' ? 'max:3' : '',
-                Rule::requiredIf(in_array($this->detail->main->type, ['calculation-2', 'summative']))
-            ],
-            'default' => [
-                'nullable',
-                'string',
+                Rule::requiredIf($this->indicatorRule->main->type == 'summative')
             ],
         ];
     }
@@ -94,7 +82,6 @@ class EditIndicator extends Component
             'recommendation' => __('Recommendation'),
             'value_min' => __('Min'),
             'value_max' => __('Max'),
-            'score' => __('Score')
         ];
     }
 
@@ -103,19 +90,17 @@ class EditIndicator extends Component
         $this->validate();
         $this->isLoading = true;
         try {
-            $this->detail->update([
+            $this->indicatorRule->update([
                 'title' => $this->title,
                 'indicator' => $this->indicator,
                 'recommendation' => $this->recommendation,
                 'value_min' => $this->value_min ?? null,
                 'value_max' => $this->value_max ?? null,
-                'default' => $this->default ?? null,
-                'score' => $this->score ?? null,
             ]);
 
             $this->dispatch('toggle-edit-indicator-modal');
             $this->dispatch('refreshQuizData');
-            $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Indicator')]));
+            $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Indicator Rule')]));
             $this->isLoading = false;
         } catch (\Exception $e) {
             $this->isLoading = false;

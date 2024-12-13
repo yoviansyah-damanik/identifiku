@@ -50,28 +50,28 @@ class Administrator extends Component
         $submitted_assessments_count = Assessment::submitted()->count();
         $completed_assessments_count = Assessment::done()->count();
 
-        $five_recent_of_student_learning_style = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_student_learning_style = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'studentLearningStyle'))
             ->done()
             ->latest()
             ->limit(5)
             ->get();
 
-        $five_recent_of_personality_type = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_personality_type = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'personalityType'))
             ->done()
             ->latest()
             ->limit(5)
             ->get();
 
-        $five_recent_of_keirsey_temperament_sorter = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_keirsey_temperament_sorter = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'keirseyTemperamentSorter'))
             ->done()
             ->latest()
             ->limit(5)
             ->get();
 
-        $five_recent_of_multiple_intelligence_type = Assessment::with(['quiz', 'student', 'student.school', 'result', 'result.details'])
+        $five_recent_of_multiple_intelligence_type = Assessment::with(['quiz', 'student', 'class', 'student.school', 'result', 'result.details'])
             ->whereHas('quiz', fn($q) => $q->where('type', 'multipleIntelligenceType'))
             ->done()
             ->latest()

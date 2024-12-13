@@ -1,4 +1,4 @@
-<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 shadow-md">
+<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg shadow-md lg:p-7 lg:flex-row pt-9">
     <div class="flex items-center justify-center w-full overflow-hidden rounded-lg lg:flex-none h-44 lg:w-72">
         <img src="{{ Vite::image('default-class.webp') }}" class="w-full" alt="Class Picture">
     </div>
@@ -15,6 +15,11 @@
         @endif
         <x-available-class-sub-item :title="__('Expired Date')">
             {{ $class->expired_at ? $class->expired_at->translatedFormat('d M Y') . ' (' . $class->expired_at->diffForHumans() . ')' : '-' }}
+        </x-available-class-sub-item>
+        <x-available-class-sub-item :title="__('Number of :subject', ['subject' => __('Assessments')])">
+            {{ GeneralHelper::numberFormat($class->quizzes_count) .
+                ' ' .
+                ($class->quizzes_count > 1 ? __('Assessments') : __('Assessment')) }}
         </x-available-class-sub-item>
         <x-available-class-sub-item :title="__('Status')">
             <x-badge :type="$class->isStatusActive ? 'success' : 'error'">

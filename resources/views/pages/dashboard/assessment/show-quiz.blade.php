@@ -47,7 +47,7 @@
             </div>
         </div>
         <div class="my-6 border-b"></div>
-        <div class="relative flex flex-col items-start gap-5 lg:flex-row">
+        <div class="relative flex flex-col gap-5 lg:flex-row">
             <div class="flex-none w-full gap-5 md:flex lg:block lg:sticky lg:top-24 lg:w-96">
                 <div
                     class="relative md:w-[23rem] lg:w-full flex items-center justify-center aspect-[16/9] bg-primary-50 rounded-lg overflow-hidden">
@@ -70,18 +70,24 @@
                                 ({{ $activeAssessment->quiz->phase->grades->pluck('name')->join(', ') }})
                             </div>
                         </div>
+                        <div class="flex items-center gap-1 text-sm">
+                            <span class="i-ph-folder"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ __(Str::headline($activeAssessment->quiz->type)) }}
+                            </div>
+                        </div>
                         <div class="flex items-center gap-1">
                             <span class="i-ph-clock-countdown-light"></span>
                             <div class="flex-1 font-light truncate">
                                 {{ GeneralHelper::getTime($activeAssessment->quiz->estimation_time) }}
                             </div>
                         </div>
-                        <div class="flex items-center gap-1">
+                        {{-- <div class="flex items-center gap-1">
                             <span class="i-ph-clock-user"></span>
                             <div class="flex-1 font-light truncate">
                                 {{ $activeAssessment->quiz->created_at->diffForHumans() }}
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="space-y-3">
                         <x-button color="primary-transparent" :withBorderIcon="false" radius="rounded-full" block

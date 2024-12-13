@@ -237,13 +237,13 @@ class Sidebar extends Component
                         'isActive' => request()->routeIs('dashboard.account'),
                         'permission' => 'account'
                     ],
-                    [
-                        'title' => __('General'),
-                        'icon' => 'i-fluent-emoji-flat-control-knobs',
-                        'to' => route('dashboard.general'),
-                        'isActive' => request()->routeIs('dashboard.general'),
-                        'permission' => 'general'
-                    ],
+                    // [
+                    //     'title' => __('General'),
+                    //     'icon' => 'i-fluent-emoji-flat-control-knobs',
+                    //     'to' => route('dashboard.general'),
+                    //     'isActive' => request()->routeIs('dashboard.general'),
+                    //     'permission' => 'general'
+                    // ],
                 ]
             ]
         ];

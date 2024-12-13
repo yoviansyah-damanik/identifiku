@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Assessment extends Model
 {
@@ -103,5 +104,10 @@ class Assessment extends Model
     public function result(): HasOne
     {
         return $this->hasOne(Result::class);
+    }
+
+    public function rule(): HasOneThrough
+    {
+        return $this->hasOneThrough(AssessmentRule::class, Quiz::class, 'id', 'quiz_id', 'quiz_id', 'id');
     }
 }

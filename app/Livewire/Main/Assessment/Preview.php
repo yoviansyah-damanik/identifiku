@@ -12,8 +12,8 @@ class Preview extends Component
 {
     public Quiz $quiz;
     public $activeGroup;
-    public string $selectedQuizPhase;
-    public string $selectedQuizCategory;
+    public $selectedQuizPhase;
+    public $selectedQuizCategory;
 
     public function mount(Quiz $quiz)
     {

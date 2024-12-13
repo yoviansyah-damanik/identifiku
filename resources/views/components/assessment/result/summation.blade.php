@@ -115,7 +115,7 @@
             <div class="text-sm italic font-light text-center text-white">
                 {{ __('You can see the details of the assessment results at the bottom of this page') }}
             </div>
-            @if (auth()->user()->isTeacher)
+            @if (auth()->user()->isTeacher && $assessment->class->teacher->id == auth()->user()?->teacher->id)
                 <div class="mt-1 text-center">
                     <x-button size="sm" radius="rounded-full" color="secondary"
                         x-on:click="$dispatch('toggle-show-detail-modal')">
@@ -126,7 +126,7 @@
         </div>
     </div>
     <div class="flex flex-col items-start w-full gap-3 lg:gap-4 lg:flex-row">
-        <div class="flex flex-col flex-1 w-full gap-3 sm:flex-row lg:flex-col lg:gap-4">
+        <div class="flex flex-col w-full gap-3 lg:w-[24rem] xl:w-[36rem] sm:flex-row lg:flex-col lg:gap-4">
             {{-- Result Chart --}}
             <div class="w-full p-6 overflow-hidden bg-white rounded-lg shadow-md sm:flex-1 lg:p-8">
                 <div class="mb-5 text-lg font-bold text-center text-primary-500">
@@ -142,7 +142,7 @@
                     {{ __('Classmate Result') }}
                 </div>
                 <div class="max-h-[40dvh] overflow-auto">
-                    @forelse ($assessment->class->assessments()->where('student_id','!=', $assessment->student_id)->get() as $item)
+                    @forelse ($assessment->class->assessments()->where('student_id','!=', $assessment->student_id)->where('quiz_id',$assessment->quiz->id)->get() as $item)
                         <div class="px-3 py-5 border-b last:border-b-0">
                             <div class="font-semibold text-secondary-500">
                                 {{ $item->student->name }}
@@ -156,7 +156,7 @@
             </div>
         </div>
         {{-- Result Detail --}}
-        <div class="flex flex-col w-full gap-3 lg:gap-4 xl:max-w-screen-md 2xl:max-w-screen-xl">
+        <div class="flex flex-col flex-1 w-full gap-3 lg:gap-4">
             <div class="p-6 overflow-hidden bg-white rounded-lg shadow-md lg:p-8">
                 <div class="mb-5 text-lg font-bold text-center text-primary-500">
                     {{ __('Assessment Result') }}
@@ -175,11 +175,11 @@
                                         {{ $detail->title }}
                                     </div>
                                     <div class="text-sm">
-                                        {{ GeneralHelper::numberFormat(($detail->value / $assessment->result->details->sum('value')) * 100) }}%
+                                        {{ GeneralHelper::numberFormat(($detail->score / $assessment->result->details->sum('score')) * 100) }}%
                                     </div>
                                 </div>
                                 <div class="relative w-full h-4 overflow-hidden rounded-full shadow bg-red-50">
-                                    <div style="width: {{ ($detail->value / $assessment->result->details->sum('value')) * 100 > 0 ? ($detail->value / $assessment->result->details->sum('value')) * 100 . '%' : '0px' }}"
+                                    <div style="width: {{ ($detail->score / $assessment->result->details->sum('score')) * 100 > 0 ? ($detail->score / $assessment->result->details->sum('score')) * 100 . '%' : '0px' }}"
                                         class="h-full bg-red-500 rounded-full">
                                     </div>
                                 </div>
@@ -206,23 +206,17 @@
             </x-accordion>
             <x-accordion isOpen :title="__('Conclusion')">
                 <div class="trix-zone">
-                    {!! $assessment->result->conclusion !!}
+                    {!! $assessment->result->conclusion ?? __('No messages added yet') !!}
                 </div>
             </x-accordion>
             <x-accordion isOpen :title="__('Advice')">
                 <div class="trix-zone">
-                    {!! $assessment->result->advice !!}
+                    {!! $assessment->result->advice ?? __('No messages added yet') !!}
                 </div>
             </x-accordion>
         </div>
     </div>
 </div>
-
-@if (auth()->user()->isTeacher)
-    <x-modal name="show-detail-modal" size="3xl" :modalTitle="__('Show :show', ['show' => __('Dominance')])">
-        <livewire:dashboard.assessment.update-result :result="$assessment->result" />
-    </x-modal>
-@endif
 
 @push('scripts')
     <script type="module">
@@ -236,8 +230,8 @@
             data: {
                 labels: {!! $assessment->result->details->pluck('title') !!},
                 datasets: [{
-                    label: `{{ __('Value') }}`,
-                    data: {!! $assessment->result->details->pluck('value') !!},
+                    label: `{{ __('Score') }}`,
+                    data: {!! $assessment->result->details->pluck('score') !!},
                     // backgroundColor: [
                     //     'rgb(255, 99, 132)',
                     //     'rgb(54, 162, 235)',

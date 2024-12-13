@@ -12,10 +12,10 @@ class MultipleChoice extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $questionType
-    ) {
-        //
-    }
+        public $multipleChoiceExample,
+        public string $questionType,
+        public ?string $answerExample
+    ) {}
 
     /**
      * Get the view / contents that represent the component.

@@ -14,7 +14,8 @@
 <div x-data="{ id: $id('userDropdown'), userDropdownShow: false }" x-on:click.outside="userDropdownShow = false">
     <div x-ref="userDropdown" class="flex items-center gap-3 p-1 rounded-full cursor-pointer bg-primary-700 flex-nowrap"
         x-on:click="userDropdownShow = !userDropdownShow">
-        <img class="flex-none rounded-full size-12" src="{{ Vite::image('default-avatar.jpg') }}" alt="User Icon" />
+        <img class="flex-none rounded-full size-12" src="{{ Vite::image('default-avatar.jpg') }}" alt="User Icon"
+            loading="lazy" />
         <div class="box-border flex-1 hidden py-1 font-semibold lg:block">
             <div class="line-clamp-1 sm:text-base text-primary-100">
                 {{ auth()->user()->{Str::lower(auth()->user()->roleName)}->name }}
@@ -37,7 +38,7 @@
                 <li>
                     <a class="flex items-center justify-between px-5 py-2 transition-all rounded-full hover:bg-primary-50 hover:text-primary-500"
                         href="{{ $nav['url'] }}" @if ($nav['title'] != __('Home')) wire:navigate @endif>
-                        <div class="flex-none {{ $nav['icon'] }}"></div>
+                        <div class="flex-none {{ $nav['icon'] }} size-6"></div>
                         <div class="flex-1 text-end">
                             {{ $nav['title'] }}
                         </div>

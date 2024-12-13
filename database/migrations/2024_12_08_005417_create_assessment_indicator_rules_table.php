@@ -11,20 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('assessment_rule_details', function (Blueprint $table) {
+        Schema::create('assessment_indicator_rules', function (Blueprint $table) {
             $table->id();
+            $table->string('answer')->nullable();
+            $table->string('title')->nullable();
+            $table->text('indicator');
+            $table->text('recommendation');
+            $table->integer('value_min')->nullable();
+            $table->integer('value_max')->nullable();
             $table->foreignId('assessment_rule_id')
                 ->references('id')
                 ->on('assessment_rules')
                 ->onDelete('cascade');
-            $table->string('title')->nullable();
-            $table->text('indicator');
-            $table->text('recommendation');
-            $table->string('answer')->nullable();
-            $table->integer('value_min')->nullable();
-            $table->integer('value_max')->nullable();
-            $table->string('score', 5)->nullable();
-            $table->string('default')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('assessment_rule_details');
+        Schema::dropIfExists('assessment_indicator_rules');
     }
 };

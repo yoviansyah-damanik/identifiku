@@ -1,5 +1,9 @@
-<div class="w-full lg:max-w-[380px] 2xl:max-w-[450px]">
-    <x-button base="mb-3" :href="request()->routeIs('dashboard.*')
+<div wire:ignore.self @class([
+    'w-full lg:max-w-[380px] 2xl:max-w-[450px] lg:sticky',
+    'top-0' => request()->routeIs('dashboard.quiz.preview'),
+    'top-28' => !request()->routeIs('dashboard.*'),
+])>
+    <x-button wire:ignore base="mb-3" :href="request()->routeIs('dashboard.*')
         ? route('dashboard.quiz.show', $quiz)
         : route('assessment.show', $quiz)" color="primary" radius="rounded-full" :withBorderIcon="false" block
         icon="i-ph-arrow-left">
@@ -32,7 +36,7 @@
                 {{ __(Str::headline($quiz->type)) }}
             </div>
         </div>
-        @if (auth()->user()->isAdmin)
+        @if (auth()->check() && auth()->user()->isAdmin)
             <div class="flex items-center gap-1 text-sm text-white">
                 <span class="i-ph-folder"></span>
                 <div class="flex-1 font-light truncate">

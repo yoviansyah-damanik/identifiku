@@ -13,11 +13,6 @@ class Show extends Component
 
     public function mount(Quiz $quiz)
     {
-        if (!auth()->user()->isAdmin)
-            if (!$quiz->is_active) {
-                return $this->redirectRoute('dashboard.quiz.available');
-            }
-
         $this->quiz = $quiz
             ->load(['phase', 'category', 'phase.grades', 'picture', 'groups' => fn($q) => $q->withCount('questions')]);
     }

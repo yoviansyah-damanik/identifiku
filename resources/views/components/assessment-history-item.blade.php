@@ -15,6 +15,9 @@
             $assessment->quiz->phase->grades->pluck('name')->join(', ') .
             ')'" />
         <x-assessment-history-sub-item :title="__('Type')" :value="__(Str::headline($assessment->quiz->type))" />
+        <x-assessment-history-sub-item :title="__(':type Type', ['type' => __('Assessment Rule')])">
+            {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $assessment->quiz->assessmentRule->type)->first()['title'] }}
+        </x-assessment-history-sub-item>
         <x-assessment-history-sub-item :title="__('Estimation Time')" :value="GeneralHelper::getTime($assessment->quiz->estimation_time)" />
         <x-assessment-history-sub-item :title="__(':name Name', ['name' => __('Class')])" :value="$assessment->class->name" />
         <x-assessment-history-sub-item :title="__('Status')">
@@ -81,6 +84,13 @@
                         </div>
                     @endif
                 @endif
+            @endif
+        </x-assessment-history-sub-item>
+        <x-assessment-history-sub-item :title="__('Description')">
+            @if ($assessment->result?->advice)
+                {{ __('The teacher has provide advice and conclusion') }}
+            @else
+                {{ __('The teacher has not given advice and conclusion') }}
             @endif
         </x-assessment-history-sub-item>
         {{-- </div> --}}

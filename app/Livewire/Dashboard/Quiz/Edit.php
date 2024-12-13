@@ -4,9 +4,9 @@ namespace App\Livewire\Dashboard\Quiz;
 
 use App\Models\Quiz;
 use Livewire\Component;
+use App\Helpers\QuizHelper;
 use Livewire\Attributes\On;
 use App\Models\QuestionType;
-use App\Helpers\GeneralHelper;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -51,7 +51,7 @@ class Edit extends Component
     public function mount(Quiz $quiz)
     {
         $this->quiz = $quiz;
-        $this->steps = GeneralHelper::getQuizStep();
+        $this->steps = QuizHelper::getQuizStep();
         $this->current = $this->steps[1]['step'];
     }
 
@@ -95,12 +95,36 @@ class Edit extends Component
             return false;
         }
 
-        $detailsAreComplete = $hasAssessmentRule->max_item == $hasAssessmentRule->details->count();
+        // dd(
+        //     $hasAssessmentRule->max_answer,
+        //     $hasAssessmentRule->answers->count()
+        // );
+        $questionsAreComplete = $hasAssessmentRule->max_answer == $hasAssessmentRule->answers->count();
 
-        if (!$detailsAreComplete) {
-            $this->alert('warning', __('Please complete the detailed assessment rules first'));
+        if (!$questionsAreComplete) {
+            $this->alert('warning', __('Please complete the assessment answer rules first'));
             $this->current = 2;
             return false;
+        }
+
+        if (in_array($hasAssessmentRule->type, ['group-calculation', 'calculation-2'])) {
+            $questionsAreComplete = $hasAssessmentRule->answers->every(fn($item) => $item->score > 0);
+
+            if (!$questionsAreComplete) {
+                $this->alert('warning', __('Please complete the assessment answer rules first'));
+                $this->current = 2;
+                return false;
+            }
+        }
+
+        if (!in_array($hasAssessmentRule->type, ['group-calculation'])) {
+            $indicatorsAreComplete = $hasAssessmentRule->max_indicator == $hasAssessmentRule->indicators->count();
+
+            if (!$indicatorsAreComplete) {
+                $this->alert('warning', __('Please complete the assessment indicator rules first'));
+                $this->current = 2;
+                return false;
+            }
         }
 
         return true;
@@ -121,6 +145,16 @@ class Edit extends Component
             $this->alert('warning', __('Please add at least one question to each question group first'));
             $this->current = 3;
             return false;
+        }
+
+        if (in_array($this->quiz->assessmentRule->type, ['group-calculation'])) {
+            $indicatorsAreComplete = $this->quiz->groups->count() == $this->quiz->assessmentRule->indicators->count();
+
+            if (!$indicatorsAreComplete) {
+                $this->alert('warning', __('Please complete the assessment indicator rules first'));
+                $this->current = 3;
+                return false;
+            }
         }
 
         return true;

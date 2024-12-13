@@ -57,7 +57,7 @@
             <div class="mb-4 overflow-hidden bg-white rounded-lg shadow-md">
                 <ul x-data="{
                     groupActive: '',
-                    handle: (item, position, last) => {
+                    handle: (item, position) => {
                         $wire.reorderQuizGroup(item, position);
                     }
                 }" x-sort.ghost="handle" x-sort:group="groups">
@@ -79,6 +79,14 @@
 
     <template x-teleport="body">
         <div wire:ignore>
+            @if (in_array($quiz->assessmentRule->type, ['group-calculation']))
+                <x-modal name="add-indicator-modal" size="3xl" :modalTitle="__('Add :add', ['add' => __('Indicator Rule')])">
+                    <livewire:dashboard.quiz.step.additional.add-indicator-rule />
+                </x-modal>
+                <x-modal name="edit-indicator-modal" size="3xl" :modalTitle="__('Edit :edit', ['edit' => __('Indicator Rule')])">
+                    <livewire:dashboard.quiz.step.additional.edit-indicator-rule />
+                </x-modal>
+            @endif
             <x-modal name="add-group-modal" size="xl" :modalTitle="__('Add :add', ['add' => __('Group')])">
                 <livewire:dashboard.quiz.step.additional.add-group :$quiz />
             </x-modal>

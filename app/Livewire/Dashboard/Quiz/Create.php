@@ -5,6 +5,7 @@ namespace App\Livewire\Dashboard\Quiz;
 use App\Models\Quiz;
 use Livewire\Component;
 use App\Models\QuizPhase;
+use App\Helpers\QuizHelper;
 use App\Models\QuizCategory;
 use App\Helpers\GeneralHelper;
 use Illuminate\Validation\Rule;
@@ -41,10 +42,10 @@ class Create extends Component
 
     public function mount()
     {
-        $this->quizTypes = GeneralHelper::getQuizType();
+        $this->quizTypes = QuizHelper::getQuizType();
         $this->quizType = $this->quizTypes[0]['value'];
 
-        $this->steps = GeneralHelper::getQuizStep();
+        $this->steps = QuizHelper::getQuizStep();
         $this->step = 1;
 
         $this->setQuizCategories();

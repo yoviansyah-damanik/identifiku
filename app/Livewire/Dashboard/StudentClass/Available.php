@@ -40,6 +40,7 @@ class Available extends Component
         $classes = StudentClass::with('teacher', 'teacher.school')
             ->withCount(
                 'students',
+                'quizzes'
             )
             ->when(
                 !auth()->user()->isAdmin,

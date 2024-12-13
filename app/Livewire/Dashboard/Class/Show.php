@@ -62,6 +62,7 @@ class Show extends Component
         if ($this->tabActive == 'quizzes')
             $data = $this->class->quizzes()
                 ->withCount('assessments')
+                ->with(['phase', 'category', 'phase.grades', 'picture', 'groups' => fn($q) => $q->withCount('questions')])
                 // ->with('')
                 ->paginate(10);
 

@@ -13,8 +13,9 @@
     @endif
     <div class="relative">
         <div wire:ignore>
-            <input type="hidden" x-text="result" :id="id" />
-            <trix-editor class="{{ $baseClass }}" x-model="content" :input="id" wire:loading.attr='disabled'
+            <trix-editor
+                x-on:trix-change="$wire.{{ $attributes->whereStartsWith('wire:model')->first() }} = $event.target.value"
+                class="{{ $baseClass }}" {{ $attributes->whereStartsWith('wire:model') }} wire:loading.attr='disabled'
                 @required($required) @disabled($loading)></trix-editor>
         </div>
         @if ($error)

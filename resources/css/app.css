@@ -40,7 +40,7 @@
     }
 
     html {
-        @apply sm:text-[16px] text-[14px];
+        @apply xl:text-base sm:text-[14px] text-[12px];
     }
 
     body {

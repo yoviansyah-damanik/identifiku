@@ -14,6 +14,7 @@ class Question extends Component
     public function __construct(
         public $questionActive,
         public $result,
+        public $calculationAnswers,
     ) {
         //
     }

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('answer_choices', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignUuid('question_id')
                 ->references('id')
                 ->on('questions')
@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('score')
                 ->nullable();
             $table->boolean('is_correct')
-                ->nullable();
+                ->default(false);
         });
     }
 

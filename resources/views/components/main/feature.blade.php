@@ -1,8 +1,8 @@
 <div class="py-12 bg-pattern-4">
     <x-container>
-        <div class="mb-3 text-3xl font-extrabold tracking-widest text-center uppercase">
+        <x-main.title>
             {{ __('Features') }}
-        </div>
+        </x-main.title>
         <div class="mb-5 font-light text-center">
             Sedang dalam pengembangan
         </div>

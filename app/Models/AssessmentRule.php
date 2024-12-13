@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Helpers\GeneralHelper;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Helpers\QuizHelper;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AssessmentRule extends Model
@@ -14,7 +14,7 @@ class AssessmentRule extends Model
 
     public function getTypeNameAttribute()
     {
-        return collect(GeneralHelper::getAssessmentRuleType())->where('value', $this->type)->first()['title'];
+        return collect(QuizHelper::getAssessmentRuleType())->where('value', $this->type)->first()['title'];
     }
 
     public function isAlphabetAnswer(): Attribute
@@ -23,15 +23,19 @@ class AssessmentRule extends Model
             get: fn() => in_array($this->type, [
                 'summation',
                 'calculation',
-                'calculation-2',
             ])
                 ? true
                 : false
         );
     }
 
-    public function details(): HasMany
+    public function answers(): HasMany
     {
-        return $this->hasMany(AssessmentRuleDetail::class);
+        return $this->hasMany(AssessmentAnswerRule::class, 'assessment_rule_id', 'id');
+    }
+
+    public function indicators(): HasMany
+    {
+        return $this->hasMany(AssessmentIndicatorRule::class, 'assessment_rule_id', 'id');
     }
 }

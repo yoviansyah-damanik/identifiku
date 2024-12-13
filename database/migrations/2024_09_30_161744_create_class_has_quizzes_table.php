@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('student_class_id')
                 ->references('id')
-                ->on('student_classes');
+                ->on('student_classes')
+                ->onDelete('cascade');
             $table->foreignUuid('quiz_id')
                 ->references('id')
-                ->on('quizzes');
+                ->on('quizzes')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

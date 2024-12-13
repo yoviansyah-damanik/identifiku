@@ -33,6 +33,7 @@ class Index extends Component
         $hasQuizzes = ClassHasQuiz::with([
             'class',
             'quiz',
+            'quiz.assessmentRule',
             'quiz.assessments'
         ])
             ->whereHas('quiz', fn($q) => $q->whereAny(['name'], 'like', "%$this->search%"))

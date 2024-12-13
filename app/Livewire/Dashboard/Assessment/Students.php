@@ -61,6 +61,7 @@ class Students extends Component
             'student',
             'student.school',
             'quiz',
+            'quiz.assessmentRule',
             'quiz.phase',
             'quiz.category',
             'quiz.phase.grades',

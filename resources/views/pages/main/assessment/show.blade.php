@@ -10,7 +10,7 @@
     ]" />
 
     <x-container>
-        <div class="relative flex flex-col items-start gap-5 lg:flex-row">
+        <div class="relative flex flex-col gap-5 lg:flex-row">
             <div class="flex-none w-full gap-5 md:flex lg:block lg:sticky lg:top-24 lg:w-96">
                 <div
                     class="relative md:w-[23rem] lg:w-full flex items-center justify-center aspect-[16/9] bg-primary-50 rounded-lg overflow-hidden">
@@ -32,17 +32,29 @@
                             </div>
                         </div>
                         <div class="flex items-center gap-1">
+                            <span class="i-ph-folder"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ __(Str::headline($quiz->type)) }}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <span class="i-ph-list"></span>
+                            <div class="flex-1 font-light truncate">
+                                {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1">
                             <span class="i-ph-clock-countdown-light"></span>
                             <div class="flex-1 font-light truncate">
                                 {{ GeneralHelper::getTime($quiz->estimation_time) }}
                             </div>
                         </div>
-                        <div class="flex items-center gap-1">
+                        {{-- <div class="flex items-center gap-1">
                             <span class="i-ph-clock-user"></span>
                             <div class="flex-1 font-light truncate">
                                 {{ $quiz->created_at->diffForHumans() }}
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="space-y-3">
                         <x-button color="primary-transparent" :withBorderIcon="false" radius="rounded-full" block
