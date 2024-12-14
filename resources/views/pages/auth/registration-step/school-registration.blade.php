@@ -74,7 +74,7 @@
                     {{ __('Next') }}
                 </x-button>
             @else
-                <x-button color="primary">
+                <x-button color="primary" radius="rounded-full">
                     {{ __('Save') }}
                 </x-button>
             @endif

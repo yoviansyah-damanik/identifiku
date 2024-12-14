@@ -10,6 +10,8 @@ class AnswerChoice extends Model
 {
     use HasFactory, HasUuids;
 
-    public $timestamps = false;
     protected $guarded = ['id'];
+    public $timestamps = false;
+
+    public $routeKeyName = 'id';
 }

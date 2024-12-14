@@ -55,7 +55,7 @@
                     {{ __('Next') }}
                 </x-button>
             @else
-                <x-button color="primary" :target="['prev', 'next', 'submit']">
+                <x-button color="primary" radius="rounded-full" :target="['prev', 'next', 'submit']">
                     {{ __('Save') }}
                 </x-button>
             @endif

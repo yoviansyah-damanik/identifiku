@@ -1,0 +1,10 @@
+<div <div x-data="{
+    id: $id('subtitle')
+}" :id="id"
+    class="mb-5 font-normal text-center ani_fadeInDown aniUtil_active text-shadow-sm shadow-primary-50 max-w-[80%] sm:max-w-[70%] mx-auto">
+    @if ($slot->isEmpty())
+        {{ $text }}
+    @else
+        {{ $slot }}
+    @endif
+</div>

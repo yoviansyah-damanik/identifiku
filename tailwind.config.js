@@ -2,6 +2,7 @@
 
 const { addDynamicIconSelectors } = require('@iconify/tailwind');
 const { iconsPlugin, getIconCollections } = require("@egoist/tailwindcss-icons")
+const plugin = require('tailwindcss/plugin')
 
 export default {
     darkMode: 'false',
@@ -13,10 +14,12 @@ export default {
         extend: {
             backgroundImage: {
                 'auth-background': "url('../images/default-auth.jpg')",
-                'pattern': "url('../images/breadcrumb-pattern.png')",
-                'pattern-2': "url('../images/pattern-1.jpg')",
-                'pattern-3': "url('../images/pattern-2.png')",
-                'pattern-4': "url('../images/pattern-3.png')"
+                'pattern': "url('../images/pattern-1.png')",
+                'pattern-2': "url('../images/pattern-2.jpg')",
+                'pattern-3': "url('../images/pattern-3.png')",
+                'pattern-4': "url('../images/pattern-4.png')",
+                'cloud': "url('../images/cloud.png')",
+                'hill': "url('../images/hill.png')",
             },
             zIndex: {
                 'header': '990',
@@ -58,6 +61,11 @@ export default {
                     '950': '#4d1108',
                 },
             },
+            textShadow: {
+                sm: '0 1px 2px var(--tw-shadow-color)',
+                DEFAULT: '0 2px 4px var(--tw-shadow-color)',
+                lg: '0 8px 16px var(--tw-shadow-color)',
+            },
         },
     },
     safelist: [
@@ -74,6 +82,16 @@ export default {
             // If you want to use all icons from @iconify/json, you can do this:
             // collections: getIconCollections("all"),
             // and the more recommended way is to use `dynamicIconsPlugin`, see below.
+        }),
+        plugin(function ({ matchUtilities, theme }) {
+            matchUtilities(
+                {
+                    'text-shadow': (value) => ({
+                        textShadow: value,
+                    }),
+                },
+                { values: theme('textShadow') }
+            )
         }),
     ],
 }

@@ -133,7 +133,7 @@
                     {{ __('Classmate Result') }}
                 </div>
                 <div class="max-h-[40dvh] overflow-auto">
-                    @forelse ($assessment->class->assessments()->where('student_id','!=', $assessment->student_id)->where('quiz_id',$assessment->quiz->id)->get() as $item)
+                    @forelse ($assessment->class->assessments as $item)
                         <div class="px-3 py-5 border-b last:border-b-0">
                             <div class="font-semibold text-secondary-500">
                                 {{ $item->student->name }}

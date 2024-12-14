@@ -2,6 +2,7 @@ import './bootstrap';
 
 import.meta.glob([
     '../images/**',
+    '../fonts/**',
 ]);
 
 import anchor from '@alpinejs/anchor';
@@ -18,3 +19,5 @@ window.Chart = Chart;
 
 import { Colors } from 'chart.js';
 window.Colors = Colors;
+
+import 'animate.css';

@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Livewire\Assessment\Step;
+namespace App\Livewire\Assessment\Step\StepTwo\Rules;
 
-use App\Helpers\AssessmentHelper;
 use Livewire\Component;
 use App\Models\Assessment;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Isolate;
-use App\Jobs\AssessmentResultJob;
 use App\Models\AnswerChoice;
+use App\Jobs\AssessmentResultJob;
 use Illuminate\Support\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
-#[Isolate]
-class StepTwo extends Component
+class Summative extends Component
 {
     use LivewireAlert;
 
@@ -53,12 +50,11 @@ class StepTwo extends Component
         $this->initQuestions();
         $this->setFirstQuestion();
         $this->setDetailsData();
-        $this->setScoreToQuestion();
     }
 
     public function render()
     {
-        return view('pages.assessment.step.step-two');
+        return view('pages.assessment.step.step-two.rules.summative');
     }
 
     public function initQuestions()
@@ -123,129 +119,33 @@ class StepTwo extends Component
         $this->questionActive = collect($this->questions->where('id', $group)->first()['questions'])
             ->where('id', $question)->first();
 
-        $this->setScoreToQuestion();
         $this->checkNextButton();
         $this->checkPrevButton();
     }
 
-    public function setScoreToQuestion()
-    {
-        if ($this->assessment->rule->type == 'calculation') {
-            $this->calculationAnswers = $this->setCalculationAnswers();
-        } elseif ($this->assessment->rule->type == 'group-calculation') {
-            $this->calculationAnswers = $this->setGroupCalculationAnswers();
-        } elseif ($this->assessment->rule->type == 'calculation-2') {
-            $this->calculationAnswers = $this->setCalculation2Answers();
-        }
-    }
-
-    protected function setCalculationAnswers()
-    {
-        $answers = $this->assessment->refresh()->details()->where('question_id', $this->questionActive['id'])->get();
-        $result = collect($answers)
-            ->map(fn($item, $idx) => [
-                'id' => $item->answer_choice_id,
-                'score' => $item->score,
-                'answer' => $item->answer->text
-            ])
-            ->sortBy('score');
-
-        foreach ($result as $idx => $item) {
-            $this->setAnswer(question: $this->questionActive['id'], answer: $item['id'], score: $idx + 1);
-        }
-        return $result;
-    }
-
-    protected function setGroupCalculationAnswers()
-    {
-        $result = collect($this->questionActive['answers'])
-            ->map(fn($item, $idx) => [
-                'id' => $item['id'],
-                'score' => $this->assessment->rule->answers()->where('answer', $item['answer'])->first()->score,
-                'answer' => $item['answer'],
-                'text' => $item['text'],
-            ])
-            ->sortBy('answer');
-
-        return $result;
-    }
-
-    protected function setCalculation2Answers()
-    {
-        $result = collect($this->questionActive['answers'])
-            ->map(fn($item, $idx) => [
-                'id' => $item['id'],
-                'score' => $this->assessment->quiz->groups
-                    ->map(
-                        fn($group)
-                        => $group->questions()->where('id', $this->questionActive['id'])
-                            ->first()->answers->where('id', $item['id'])->first()->score
-                    )[0],
-                'answer' => $item['answer'],
-                'text' => $item['text'],
-            ])
-            ->sortBy('answer');
-
-        return $result;
-    }
-
     public function setResult()
     {
-        if (in_array($this->assessment->rule->type, ['summation', 'summative', 'calculation-2', 'group-calculation'])) {
-            $this->result = $this->assessment->details->count() > 0 ? $this->assessment->details
-                ->whereNotNull('answer_choice_id')->map(function ($detail) {
-                    return collect($detail)->only(['question_id', 'answer_choice_id']);
-                }) : new Collection();
-        }
-
-        if (in_array($this->assessment->rule->type, ['calculation'])) {
-            $this->result = $this->assessment->details->count() > 0 ? $this->assessment->details
-                ->whereNotNull('answer_choice_id')->map(function ($detail) {
-                    return collect($detail)->only(['question_id', 'answer_choice_id', 'score']);
-                }) : new Collection();
-        }
+        $this->result = $this->assessment->details->count() > 0 ? $this->assessment->details
+            ->whereNotNull('answer_choice_id')->map(function ($detail) {
+                return collect($detail)->only(['question_id', 'answer_choice_id']);
+            }) : new Collection();
     }
 
     public function setAnswer(string $question, AnswerChoice $answer, ?int $score = null)
     {
         $isExist = $this->result->where('question_id', $question)
-            ->when(in_array($this->assessment->rule->type, ['calculation']), fn($q) => $q->where('answer_choice_id', $answer->id))
             ->first();
 
-        if (!is_null($score) && in_array($this->assessment->rule->type, ['calculation'])) {
-            $this->assessment->details()
-                ->updateOrCreate(
-                    [
-                        'question_id' => $question,
-                        'answer_choice_id' => $answer->id,
-                    ],
-                    [
-                        'score' => $score
-                    ]
-                );
-        } elseif (in_array($this->assessment->rule->type, ['calculation-2'])) {
-            $this->assessment->details()
-                ->updateOrCreate(
-                    [
-                        'question_id' => $question
-                    ],
-                    [
-                        'answer_choice_id' => $answer->id,
-                        'score' => collect($this->calculationAnswers)->where('id', $answer->id)->first()['score']
-                    ]
-                );
-        } else {
-            $this->assessment->details()
-                ->updateOrCreate(
-                    [
-                        'question_id' => $question
-                    ],
-                    [
-                        'answer_choice_id' => $answer->id,
-                        'score' => $this->assessment->rule->type == 'summative' ? 1 : $score
-                    ]
-                );
-        }
+        $this->assessment->details()
+            ->updateOrCreate(
+                [
+                    'question_id' => $question
+                ],
+                [
+                    'answer_choice_id' => $answer->id,
+                    'score' => $this->assessment->rule->type == 'summative' ? 1 : $score
+                ]
+            );
 
         if ($isExist) {
             $this->result = $this->result->map(function ($item) use ($question, $answer, $score) {
@@ -268,33 +168,14 @@ class StepTwo extends Component
     public function setDetailsData()
     {
         if (!$this->assessment->details->count()) {
-            if (in_array($this->assessment->rule->type, ['summation', 'summative', 'calculation-2'])) {
-                foreach ($this->assessment->quiz->groups as $group)
-                    foreach ($group->questions as $question)
-                        $this->assessment->details()->create([
-                            'question_id' => $question->id,
-                            'score' => $this->assessment->rule->type == 'summative' ? 1 : null,
-                        ]);
-            }
-
-            if (in_array($this->assessment->rule->type, ['group-calculation'])) {
-                foreach ($this->assessment->quiz->groups as $group)
-                    foreach ($group->questions as $question)
-                        $this->assessment->details()->create([
-                            'question_id' => $question->id,
-                            'score' => 0,
-                        ]);
-            }
-
-            if (in_array($this->assessment->rule->type, ['calculation'])) {
-                foreach ($this->assessment->quiz->groups as $group)
-                    foreach ($group->questions as $question)
-                        foreach ($question->answers as $answer)
-                            $this->assessment->details()->create([
-                                'question_id' => $question->id,
-                                'answer_choice_id' => $answer->id,
-                                'score' => 0,
-                            ]);
+            foreach ($this->assessment->quiz->groups as $group) {
+                $newDetails = $group->questions->map(fn($question) =>
+                [
+                    'assessment_id' => $this->assessment->id,
+                    'question_id' => $question->id,
+                    'score' => $this->assessment->rule->type == 'summative' ? 1 : null,
+                ])->toArray();
+                $this->assessment->details()->insert($newDetails);
             }
         }
     }
@@ -449,39 +330,19 @@ class StepTwo extends Component
         );
     }
 
-    /**
-     * Memeriksa jawaban apakah sudah dilengkapi atau tidak
-     *
-     * @return bool
-     */
-    public function checkAnswers()
-    {
-        if (in_array($this->assessment->rule->type, ['summation', 'group-calculation', 'summative', 'calculation-2'])) {
-            return $this->assessment->details->every(fn($q) => !is_null($q->answer_choice_id));
-        }
-
-        if ($this->assessment->rule->type == 'calculation') {
-            return $this->assessment->details->every(fn($q) => $q->score > 0);
-        }
-    }
-
     #[On('setDone')]
     public function done()
     {
-        if (!$this->checkAnswers()) {
+        //   Memeriksa jawaban apakah sudah dilengkapi atau tidak
+        if (!$this->assessment->details->every(fn($q) => !is_null($q->answer_choice_id))) {
             $this->alert('warning', __('Please complete your answer choices first'));
             return;
         }
         try {
-            AssessmentHelper::getResult($this->assessment, $this->result);
-            $this->assessment->update([
-                'status' => 3
+            $this->assessment->result()->updateOrCreate([], [
+                'status' => 'process'
             ]);
-
-            // dispatch(new AssessmentResultJob(
-            //     $this->assessment,
-            //     $this->result
-            // ));
+            dispatch(new AssessmentResultJob($this->assessment, $this->result));
 
             $this->dispatch('setStep', step: 3);
         } catch (\Exception $e) {

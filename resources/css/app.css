@@ -110,11 +110,11 @@
     }
 
     .swiper-slide.swiper-slide-active {
-        @apply shadow-primary-50;
+        @apply shadow-primary-500;
     }
 
     .swiper-slide.swiper-slide-active .swiper-circle-active-mark {
-        @apply w-[90%] bg-primary-200;
+        @apply w-[90%] bg-secondary-500;
     }
 
     .trix-zone :where(ol, ul) {

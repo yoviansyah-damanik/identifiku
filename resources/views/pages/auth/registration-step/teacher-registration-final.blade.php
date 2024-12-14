@@ -52,7 +52,7 @@
                     {{ __('Next') }}
                 </x-button>
             @else
-                <x-button color="primary" wire:target="prev, next, submit">
+                <x-button color="primary" radius="rounded-full" wire:target="prev, next, submit">
                     {{ __('Save') }}
                 </x-button>
             @endif

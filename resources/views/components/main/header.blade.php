@@ -9,7 +9,11 @@
         windowScroll = window.scrollY;
 
         {{-- console.log(headerBackgroundHeight, maxElementHeight, windowScroll); --}}
-        headerBackground.style.opacity = Math.max(0, Math.min(1, windowScroll / maxElementHeight));
+        {{-- headerBackground.style.opacity = Math.max(0, Math.min(1, windowScroll / maxElementHeight)); --}}
+        if (windowScroll >= maxElementHeight)
+            headerBackground.style.opacity = 1;
+        else
+            headerBackground.style.opacity = 0;
 
         if (this.isHomePage === true) {
             const navigation = document.getElementById('headerNavigations')
@@ -23,7 +27,7 @@
     x-on:scroll.window="setHeaderOpacity">
     <x-container>
         <div id="headerBackground" @class([
-            'absolute inset-0 mx-auto shadow-lg bg-white lg:bg-white/70 lg:backdrop-blur-sm lg:rounded-full text-inherit w-full',
+            'absolute inset-0 mx-auto shadow-md shadow-primary-50 bg-white lg:bg-white/90 lg:backdrop-blur-sm lg:rounded-full text-inherit w-full',
             'opacity-0' => $isHomePage,
         ])>
         </div>

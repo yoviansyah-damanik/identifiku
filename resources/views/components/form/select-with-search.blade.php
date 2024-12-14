@@ -28,8 +28,8 @@
         ])>
             <button type="button" @class([
                 'block py-2 px-3 border w-full bg-white hover:bg-primary-50 transition-all min-w-48 text-nowrap',
-                'rounded-s-xl' => $withReset,
-                'rounded-xl' => !$withReset,
+                'rounded-s-full' => $withReset,
+                'rounded-full' => !$withReset,
                 '!bg-red-50 text-red-500' => $error,
             ]) x-on:click="showDropdown = !showDropdown"
                 @disabled($loading) wire:loading.attr="disabled">
@@ -38,8 +38,8 @@
             @if ($withReset)
                 <button @class([
                     'py-2 px-3 border text-white hover:bg-primary-50 transition-all bg-red-500 hover:bg-red-700 focus:outline-none ',
-                    'rounded-e-xl' => $withReset,
-                    'rounded-xl' => !$withReset,
+                    'rounded-e-full' => $withReset,
+                    'rounded-full' => !$withReset,
                 ]) x-on:click="resetValue()">
                     <span class="i-ph-x"></span>
                 </button>
@@ -49,7 +49,7 @@
             x-show="showDropdown" x-on:click.outside="showDropdown = false" x-transition
             x-anchor.no-style="$refs.selectWithSearch{{ Str::of($attributes->whereStartsWith('wire:model')->first())->camel()->ucfirst() }}"
             x-bind:style="{ position: 'fixed', top: $anchor.y + 'px', left: $anchor.x + 'px' }">
-            <input type="search" class="block py-2.5 px-3 border rounded-lg w-full mt-3"
+            <input type="search" class="block py-2.5 px-3 border rounded-full w-full mt-3"
                 placeholder="{{ __('Search') }}..." x-model="search" />
             @if ($loading)
                 <x-loading />

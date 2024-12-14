@@ -15,20 +15,22 @@ class Result extends Component
     {
         $this->authorize('result', $assessment);
 
-        $this->assessment = $assessment
-            ->load([
-                'student',
-                'student.school',
-                'quiz',
-                'class',
-                'class.assessments',
-                'class.assessments.result',
-                'class.assessments.result.details',
-                'class.assessments.student',
-                'quiz.assessments',
-                'result',
-                'result.details'
-            ]);
+        if ($this->assessment->result->status == 'done')
+            $this->assessment = $assessment
+                ->load([
+                    'student',
+                    'student.school',
+                    'quiz',
+                    'class',
+                    'class.assessments' => fn($q) => $q->where('quiz_id', $this->assessment->quiz->id)
+                        ->whereNot('student_id', $this->assessment->student_id),
+                    'class.assessments.result',
+                    'class.assessments.result.details',
+                    'class.assessments.student',
+                    'quiz.assessments',
+                    'result',
+                    'result.details'
+                ]);
     }
 
     public function render()

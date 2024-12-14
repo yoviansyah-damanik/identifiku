@@ -1,17 +1,17 @@
-<div id="hero" class="h-[360px] lg:h-[640px] w-full bg-gradient-to-br from-primary-500 to-primary-700">
+<div id="hero" class="h-[420px] lg:h-[640px] w-full bg-gradient-to-b from-primary-950 to-primary-500">
     <div class="flex flex-col items-center justify-center h-full gap-5 px-5 xl:px-7">
         <div
-            class="text-4xl md:text-5xl tracking-[.25em] text-center lg:text-6xl 2xl:text-8xl font-hero font-bold uppercase bg-gradient-to-r from-red-500 to-secondary-500 text-transparent bg-clip-text leading-snug">
+            class="ani_slideInDown aniUtil_active text-4xl md:text-5xl tracking-[.25em] text-center lg:text-6xl 2xl:text-8xl font-hero font-bold uppercase bg-gradient-to-r from-red-500 to-secondary-500 text-transparent bg-clip-text leading-snug">
             {{ __('Diagnostic Assessment') }}
         </div>
-        <div class="text-lg text-center lg:text-2xl 2xl:text-3xl text-secondary-50">
+        <div class="text-lg text-center ani_zoomIn aniUtil_active lg:text-2xl 2xl:text-3xl text-secondary-50">
             {{ __('Differentiated Learning Needs in the Merdeka Curriculum') }}
         </div>
         {{-- <button class="flex items-center gap-3 bg-primary-50 text-primary-500 ">
             <span class="i-ph-arrow-right"></span>
         </button> --}}
-        <div class="flex gap-3">
-            <x-button color="primary-transparent" base="px-9" radius="rounded-full"
+        <div class="flex gap-3 ani_slideInUp aniUtil_active">
+            <x-button color="secondary" base="px-9" radius="rounded-full"
                 x-on:click="window.scrollTo(0,document.getElementById('hero').offsetHeight)">
                 {{ __('Get Started') }}
             </x-button>
@@ -25,19 +25,20 @@
 
 @push('scripts')
     <script>
-        VANTA.NET({
+        VANTA.DOTS({
             el: "#hero",
             mouseControls: true,
             touchControls: true,
-            gyroControls: false,
-            minHeight: 300.00,
-            minWidth: 300.00,
+            gyroControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
             scale: 1.00,
             scaleMobile: 0.5,
             color: 0xfb773c,
-            points: 10.00,
-            spacing: 17.00,
-            backgroundColor: 0x00183D,
+            size: 5.10,
+            spacing: 47.00,
+            showLines: false,
+            backgroundAlpha: 0
         })
     </script>
 @endpush

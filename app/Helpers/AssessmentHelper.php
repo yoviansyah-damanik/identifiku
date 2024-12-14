@@ -75,8 +75,8 @@ class AssessmentHelper
         return static::$assessment->quiz->groups->map(
             fn($group) => collect([
                 ...$group->only(['name', 'description']),
-                'indicator' => static::$assessment->rule->indicators()->where('answer', $group->id)->first()['indicator'],
-                'recommendation' => static::$assessment->rule->indicators()->where('answer', $group->id)->first()['indicator'],
+                'indicator' => static::$assessment->rule->indicators->where('answer', $group->id)->first()['indicator'],
+                'recommendation' => static::$assessment->rule->indicators->where('answer', $group->id)->first()['indicator'],
                 'total' => static::$assessment->details()
                     ->whereIn('question_id', $group->questions->pluck('id')->toArray())
                     ->sum('score'),

@@ -3,9 +3,10 @@
 namespace App\Jobs;
 
 use App\Models\Assessment;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Queue\Queueable;
+use App\Helpers\AssessmentHelper;
 use Illuminate\Support\Collection;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AssessmentResultJob implements ShouldQueue
 {
@@ -36,6 +37,16 @@ class AssessmentResultJob implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+        AssessmentHelper::getResult($this->assessment, $this->result);
+        $this->assessment->update([
+            'status' => 3
+        ]);
+    }
+
+    public function failed(): void
+    {
+        $this->assessment->update([
+            'status' => 2
+        ]);
     }
 }

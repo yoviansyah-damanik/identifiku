@@ -1370,6 +1370,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Verbal atau Linguistik',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya seorang pembicara yang baik.',
@@ -1676,6 +1678,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Logis atau Matematis',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Dapat memecahkan soal-soal hitungan adalah hal yang menyenangkan bagi saya.',
@@ -1982,6 +1986,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Visual atau Spasial',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya senang menggambar atau menciptakan sesuatu.',
@@ -2288,6 +2294,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Kinestetik',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya senang mengetuk-ngetukkan jari atau memainkan pulpen atau pensil selama jam pelajaran.',
@@ -2594,6 +2602,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Musikal',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya suka bernyanyi.',
@@ -2900,6 +2910,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Interpersonal',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya senang berkumpul atau berorganisasi',
@@ -3206,6 +3218,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Intrapersonal',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya tidak suka keramaian.',
@@ -3512,6 +3526,8 @@ class QuizSeeder extends Seeder
                     [
                         'name' => 'Kecerdasan Naturalis',
                         'description' => 'Selesaikan soal sesuai petunjuk',
+                        'indicator' => '',
+                        'recommendation' => '',
                         'questions' => [
                             [
                                 'question' => 'Saya senang berkebun',

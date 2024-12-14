@@ -40,9 +40,9 @@
     <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 sm:gap-4">
         <x-box color="primary" :href="route('dashboard.quiz')" icon="i-fluent-emoji-flat-abacus" :title="__('Number of :subject', ['subject' => __('Quizzes')])"
             :count="GeneralHelper::numberFormat($quizzes_count)"></x-box>
-        <x-box color="primary" :href="route('dashboard.quiz')" icon="i-fluent-emoji-flat-abacus" :title="__('Draft Quizzes')"
+        <x-box color="primary" :href="route('dashboard.quiz', ['status' => 'draft'])" icon="i-fluent-emoji-flat-abacus" :title="__('Draft Quizzes')"
             :count="GeneralHelper::numberFormat($draft_quizzes_count)"></x-box>
-        <x-box color="primary" :href="route('dashboard.quiz')" icon="i-fluent-emoji-flat-abacus" :title="__('Available Quizzes')"
+        <x-box color="primary" :href="route('dashboard.quiz', ['status' => 'published'])" icon="i-fluent-emoji-flat-abacus" :title="__('Available Quizzes')"
             :count="GeneralHelper::numberFormat($published_quizzes_count)"></x-box>
     </div>
 

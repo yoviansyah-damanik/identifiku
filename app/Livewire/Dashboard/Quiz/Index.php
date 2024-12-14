@@ -31,12 +31,33 @@ class Index extends Component
     public array $quizPhases;
     public string $quizPhase = '';
 
+    public array $statuses;
+
+    #[Url]
+    public string $status;
+
     public function mount()
     {
         $this->perPageList = GeneralHelper::getPerPageList();
         $this->perPage = $this->perPageList[0];
         $this->setQuizCategories();
         $this->setQuizPhases();
+
+        $this->statuses = [
+            [
+                'title' => __('All'),
+                'value' => 'all'
+            ],
+            [
+                'title' => __('Draft'),
+                'value' => 'draft'
+            ],
+            [
+                'title' => __('Published'),
+                'value' => 'published'
+            ],
+        ];
+        $this->status = empty($this->status) ? $this->statuses[0]['value'] : $this->status;
     }
 
     public function render()
@@ -49,6 +70,11 @@ class Index extends Component
             ->latest()
             ->orderBy('status', 'asc')
             ->orderBy('name', 'asc')
+            ->when($this->status != 'all', fn($q) => $q->when(
+                $this->status == 'published',
+                fn($r) => $r->published(),
+                fn($r) => $r->draft(),
+            ))
             ->withTrashed()
             ->paginate($this->perPage);
 

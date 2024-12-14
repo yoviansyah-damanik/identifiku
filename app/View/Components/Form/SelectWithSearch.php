@@ -57,7 +57,7 @@ class SelectWithSearch extends Component
     public function sizeVariant($size)
     {
         $sizeVariants = [
-            'md' => 'rounded-lg text-base py-2 pl-5 pr-12'
+            'md' => 'rounded-full text-base py-2 pl-5 pr-12'
         ];
         return $sizeVariants[$size];
     }

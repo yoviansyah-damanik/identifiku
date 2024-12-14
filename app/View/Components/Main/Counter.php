@@ -41,6 +41,11 @@ class Counter extends Component
                 'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, beatae?'
             ],
             [
+                'title' => __('Assessments'),
+                'count' => Assessment::count(),
+                'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, beatae?'
+            ],
+            [
                 'title' => __('Assessment Completed'),
                 'count' => Assessment::done()->count(),
                 'description' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas, beatae?'

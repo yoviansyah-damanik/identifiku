@@ -3,8 +3,9 @@
 namespace App\View\Components\Main;
 
 use Closure;
-use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Vite;
 
 class Footer extends Component
 {
@@ -44,6 +45,13 @@ class Footer extends Component
             ]
         ];
 
-        return view('components.main.footer', compact('navigations'));
+        $supporters = [
+            ['image_path' => Vite::image('lldikti1.png'), 'alt' => 'LLDIKTI 1 Logo'],
+            ['image_path' => Vite::image('drtpm-bima.png'), 'alt' => 'DRTPM Bima Logo'],
+            ['image_path' => Vite::image('kampus-merdeka.png'), 'alt' => 'Kampus Merdeka Logo'],
+            ['image_path' => Vite::image('ugn.png'), 'alt' => 'UGN Logo'],
+        ];
+
+        return view('components.main.footer', compact('navigations', 'supporters'));
     }
 }

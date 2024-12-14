@@ -16,6 +16,7 @@
     ":data Data": "Data :data",
     ":group Group": "Kelompok :group",
     "No assessment rules yet": "Belum ada aturan asesmen",
+    "The assessment results are currently being processed within minutes. If the assessment result does not appear, please contact the Administrator.": "Hasil asesmen saat ini sedang diproses dalam beberapa menit. Jika hasil asesmen tidak muncul, silahkan menghubungi Administrator.",
     ":name Name": "Nama :name",
     ":type Type": "Tipe :type",
     "The score you get based on the answers you choose": "Nilai yang Anda peroleh berdasarkan jawaban yang Anda pilih",

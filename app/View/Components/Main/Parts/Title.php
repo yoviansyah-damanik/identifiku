@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Main;
+namespace App\View\Components\Main\Parts;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Feature extends Component
+class Title extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class Feature extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.main.feature');
+        return view('components.main.parts.title');
     }
 }

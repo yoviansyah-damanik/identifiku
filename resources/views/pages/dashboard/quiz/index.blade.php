@@ -5,6 +5,7 @@
         <x-button color="primary" icon="i-ph-plus" href="{{ route('dashboard.quiz.create') }}">
             {{ __('Add :add', ['add' => __('Quiz')]) }}
         </x-button>
+        <x-form.select class="snap-start" :items="$statuses" wire:model.live='status' />
         <x-form.select-with-search class="snap-start" searchVar="quizCategorySearch" :items="$quizCategories"
             wire:model="quizCategorySearch" error="{{ $errors->first('quizCategory') }}" :withReset="true"
             :buttonText="__('Choose a :item', ['item' => __('Quiz Category')])" />

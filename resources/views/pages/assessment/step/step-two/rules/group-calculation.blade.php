@@ -1,8 +1,4 @@
-<div class="flex flex-col lg:h-full lg:flex-row" x-data="{
-    init() {
-        startTimer(Date.parse('{{ now()->sub($assessment->started_on->addMinutes($assessment->quiz->estimation_time)) }}'))
-    },
-}">
+<div class="flex flex-col lg:h-full lg:flex-row">
     <div class="relative flex flex-col shadow lg:h-[calc(100dvh_-_88px)] lg:w-80 xl:w-96">
         <div class="flex lg:block">
             <div class="flex-1 px-6 py-4 text-sm sm:px-8 lg:py-8 bg-gradient-to-br from-primary-500 to-primary-700">
@@ -41,7 +37,7 @@
             </div>
         </div>
         {{-- GROUPS --}}
-        <x-dynamic-component :component="'assessment.step.' . Str::lower($assessment->quiz->assessmentRule->type) . '.group'" :groups="$questions" :$questionActive :$result />
+        <x-dynamic-component :component="'assessment.step.group-calculation.group'" :groups="$questions" :$questionActive :$result />
         {{-- END GROUPS --}}
     </div>
 
@@ -57,11 +53,7 @@
             </div>
         </div>
         {{-- ACTIVE QUESTION --}}
-        <x-dynamic-component :component="'assessment.step.' .
-            Str::of($assessment->quiz->assessmentRule->type)
-                ->lower()
-                ->kebab() .
-            '.question'" :$questionActive :$result :$calculationAnswers />
+        <x-dynamic-component :component="'assessment.step.group-calculation.question'" :$questionActive :$result />
         {{-- END ACTIVE QUESTION --}}
 
         <div class="fixed inset-x-0 bottom-0 flex items-stretch justify-end lg:p-8 lg:gap-3 lg:relative">
@@ -84,13 +76,3 @@
         </div>
     </div>
 </div>
-
-@if ($assessment->quiz->assessmentRule->type == 'calculation')
-    @push('scripts')
-        <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/sort@3.x.x/dist/cdn.min.js"></script>
-    @endpush
-@endif
-
-@push('scripts')
-    <script type="text/javascript"></script>
-@endpush

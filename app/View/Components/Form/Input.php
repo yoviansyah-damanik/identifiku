@@ -55,7 +55,7 @@ class Input extends Component
     public function sizeVariant($size)
     {
         $sizeVariants = [
-            'md' => 'rounded-xl text-base py-2 px-5'
+            'md' => 'rounded-full text-base py-2 px-5'
         ];
         return $sizeVariants[$size];
     }
