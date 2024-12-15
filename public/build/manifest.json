@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-BC8bmHM6.css",
+    "file": "assets/app-ekm0z36K.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -32,14 +32,6 @@
     "file": "assets/Quicksand-SemiBold-DOhxUxE6.ttf",
     "src": "resources/fonts/Quicksand-SemiBold.ttf"
   },
-  "resources/images/Desain tanpa judul (2)-min.png": {
-    "file": "assets/Desain tanpa judul (2)-min-B9BhTWur.png",
-    "src": "resources/images/Desain tanpa judul (2)-min.png"
-  },
-  "resources/images/ar (3)-min.png": {
-    "file": "assets/ar (3)-min-B1G_ZfTF.png",
-    "src": "resources/images/ar (3)-min.png"
-  },
   "resources/images/ball.png": {
     "file": "assets/ball-Dl0oliB0.png",
     "src": "resources/images/ball.png"
@@ -64,9 +56,13 @@
     "file": "assets/bird-right-5XjfCymn.png",
     "src": "resources/images/bird-right.png"
   },
-  "resources/images/cloud - Copy.png": {
-    "file": "assets/cloud - Copy-ZSWShjCI.png",
-    "src": "resources/images/cloud - Copy.png"
+  "resources/images/bird2.gif": {
+    "file": "assets/bird2-nYsdJnMm.gif",
+    "src": "resources/images/bird2.gif"
+  },
+  "resources/images/butterfly.gif": {
+    "file": "assets/butterfly-DA9oj6OK.gif",
+    "src": "resources/images/butterfly.gif"
   },
   "resources/images/cloud.png": {
     "file": "assets/cloud-6PnLdZmC.png",
@@ -99,6 +95,10 @@
   "resources/images/favicon.png": {
     "file": "assets/favicon-BlD4l6-9.png",
     "src": "resources/images/favicon.png"
+  },
+  "resources/images/fly-bird.gif": {
+    "file": "assets/fly-bird-BGezVyil.gif",
+    "src": "resources/images/fly-bird.gif"
   },
   "resources/images/grass.png": {
     "file": "assets/grass-DY2NdJuZ.png",
@@ -163,6 +163,10 @@
   "resources/images/plane.png": {
     "file": "assets/plane-CmR3HeJz.png",
     "src": "resources/images/plane.png"
+  },
+  "resources/images/rocket.gif": {
+    "file": "assets/rocket-o0Dy7ZUg.gif",
+    "src": "resources/images/rocket.gif"
   },
   "resources/images/sidebar-header.jpeg": {
     "file": "assets/sidebar-header-CfZH7pTV.jpeg",
