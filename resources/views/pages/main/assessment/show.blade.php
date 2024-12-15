@@ -11,6 +11,7 @@
 
     <x-container>
         <div class="relative flex flex-col gap-5 lg:flex-row">
+            {{-- QUIZ INFORMATION --}}
             <div class="flex-none w-full gap-5 md:flex lg:block lg:sticky lg:top-24 lg:w-96">
                 <div
                     class="relative md:w-[23rem] lg:w-full flex items-center justify-center aspect-[16/9] bg-primary-50 rounded-lg overflow-hidden">
@@ -81,8 +82,9 @@
                 </div>
             </div>
             <div class="w-full my-5 border-b lg:hidden"></div>
+            {{-- QUIZ EXPLANATION --}}
             <div class="w-full">
-                <h1 class="mb-5 text-2xl font-bold text-primary-500">{{ $quiz->name }}</h1>
+                <h1 class="mb-5 text-2xl font-bold text-center lg:text-start text-primary-500">{{ $quiz->name }}</h1>
 
                 <div class="space-y-3 sm:space-y-4 mb-7">
                     <div>
@@ -149,7 +151,9 @@
                 </div>
                 <div class="grid grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-7">
                     @forelse ($randomquizzes as $quiz)
-                        <x-quiz-box :$quiz />
+                        <div class="ani_bounceIn aniUtil_active">
+                            <x-quiz-box :$quiz />
+                        </div>
                     @empty
                         <div class="col-span-full">
                             <x-no-data />

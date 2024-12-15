@@ -5,7 +5,7 @@
 ])>
     <x-button wire:ignore base="mb-3" :href="request()->routeIs('dashboard.*')
         ? route('dashboard.quiz.show', $quiz)
-        : route('assessment.show', $quiz)" color="primary" radius="rounded-full" :withBorderIcon="false" block
+        : route('assessment.show', $quiz)" color="red" radius="rounded-full" :withBorderIcon="false" block
         icon="i-ph-arrow-left">
         {{ __('Back') }}
     </x-button>

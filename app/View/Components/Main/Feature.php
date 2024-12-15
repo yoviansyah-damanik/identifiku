@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components\Main\Feature;
+namespace App\View\Components\Main;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class LeftSide extends Component
+class Index extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class LeftSide extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.main.feature.left-side');
+        return view('components.main.feature');
     }
 }

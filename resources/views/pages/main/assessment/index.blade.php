@@ -8,7 +8,7 @@
     <x-container>
         <div class="relative flex flex-col gap-5 lg:flex-row">
             <div
-                class="box-border z-20 flex flex-none w-full gap-3 overflow-x-auto overflow-y-hidden lg:sticky lg:top-28 lg:w-72 lg:space-y-3 snap-proximity snap-x lg:block">
+                class="box-border z-20 flex flex-none w-full gap-3 overflow-x-auto overflow-y-hidden ani_zoomInDown aniUtil_active lg:sticky lg:top-28 lg:w-72 lg:space-y-3 snap-proximity snap-x lg:block">
                 <x-form.input block class="flex-1 min-w-48 snap-start" type="search" :placeholder="__('Search by :1', [
                     '1' => __(':name Name', ['name' => __('Quiz')]),
                 ])"
@@ -22,9 +22,11 @@
             </div>
             <div class="grid flex-1 grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-7">
                 @forelse ($quizzes as $quiz)
-                    <x-quiz-box :$quiz />
+                    <div class="ani_bounceIn aniUtil_active">
+                        <x-quiz-box :$quiz />
+                    </div>
                 @empty
-                    <div class="col-span-full">
+                    <div class="col-span-full ani_bounceIn aniUtil_active">
                         <x-no-data />
                     </div>
                 @endforelse

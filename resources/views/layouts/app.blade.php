@@ -13,10 +13,13 @@
 
 <body x-data="{ sidebarToggle: false, headerMenuToggle: window.innerWidth > 768, loadingScreen: false }"
     :class="(headerMenuToggle && window.innerWidth <= 768) || loadingScreen ? 'h-dvh w-dvh overflow-hidden' : ''"
-    class="bg-sky-50">
+    @class(['bg-sky-50' => request()->routeIs('home')])>
     <x-main.header />
 
-    <main class="min-h-[70dvh] relative">
+    <main @class([
+        'min-h-[70dvh] relative',
+        'pb-16' => !request()->routeIs('home'),
+    ])>
         {{ $slot }}
     </main>
 

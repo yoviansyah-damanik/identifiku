@@ -37,7 +37,7 @@
             </button>
             @if ($withReset)
                 <button @class([
-                    'py-2 px-3 border text-white hover:bg-primary-50 transition-all bg-red-500 hover:bg-red-700 focus:outline-none ',
+                    'px-3 border text-white hover:bg-primary-50 transition-all bg-red-500 hover:bg-red-700 focus:outline-none ',
                     'rounded-e-full' => $withReset,
                     'rounded-full' => !$withReset,
                 ]) x-on:click="resetValue()">

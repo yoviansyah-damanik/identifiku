@@ -1,18 +1,19 @@
 <?php
 
-namespace App\View\Components\Main\Feature;
+namespace App\View\Components\Assessment\Result;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Index extends Component
+class SimpleGroupCalculation extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
-    {
+    public function __construct(
+        public $assessment
+    ) {
         //
     }
 
@@ -21,6 +22,6 @@ class Index extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.main.feature.index');
+        return view('components.assessment.result.simple-group-calculation');
     }
 }

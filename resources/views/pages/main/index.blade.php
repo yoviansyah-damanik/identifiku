@@ -4,5 +4,4 @@
     <x-main.feature />
     <x-main.tutorial />
     <x-main.team />
-
 </div>

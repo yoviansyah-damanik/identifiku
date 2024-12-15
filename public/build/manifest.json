@@ -1,8 +1,12 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-CWuP0c2y.css",
+    "file": "assets/app-BC8bmHM6.css",
     "src": "resources/css/app.css",
     "isEntry": true
+  },
+  "resources/fonts/DMSerifDisplay-Italic.ttf": {
+    "file": "assets/DMSerifDisplay-Italic-D1fnzAS9.ttf",
+    "src": "resources/fonts/DMSerifDisplay-Italic.ttf"
   },
   "resources/fonts/DMSerifDisplay-Regular.ttf": {
     "file": "assets/DMSerifDisplay-Regular-BB3xDZ4A.ttf",
@@ -28,13 +32,45 @@
     "file": "assets/Quicksand-SemiBold-DOhxUxE6.ttf",
     "src": "resources/fonts/Quicksand-SemiBold.ttf"
   },
+  "resources/images/Desain tanpa judul (2)-min.png": {
+    "file": "assets/Desain tanpa judul (2)-min-B9BhTWur.png",
+    "src": "resources/images/Desain tanpa judul (2)-min.png"
+  },
+  "resources/images/ar (3)-min.png": {
+    "file": "assets/ar (3)-min-B1G_ZfTF.png",
+    "src": "resources/images/ar (3)-min.png"
+  },
+  "resources/images/ball.png": {
+    "file": "assets/ball-Dl0oliB0.png",
+    "src": "resources/images/ball.png"
+  },
+  "resources/images/bamboo.png": {
+    "file": "assets/bamboo-23tn706G.png",
+    "src": "resources/images/bamboo.png"
+  },
+  "resources/images/bamboo2.png": {
+    "file": "assets/bamboo2-DK-L5lPm.png",
+    "src": "resources/images/bamboo2.png"
+  },
   "resources/images/bg-1.jpg": {
     "file": "assets/bg-1-BxwjucUh.jpg",
     "src": "resources/images/bg-1.jpg"
   },
-  "resources/images/breadcrumb-pattern.png": {
-    "file": "assets/breadcrumb-pattern-B7fEbjQ4.png",
-    "src": "resources/images/breadcrumb-pattern.png"
+  "resources/images/bird-left.png": {
+    "file": "assets/bird-left-DhEn6oZB.png",
+    "src": "resources/images/bird-left.png"
+  },
+  "resources/images/bird-right.png": {
+    "file": "assets/bird-right-5XjfCymn.png",
+    "src": "resources/images/bird-right.png"
+  },
+  "resources/images/cloud - Copy.png": {
+    "file": "assets/cloud - Copy-ZSWShjCI.png",
+    "src": "resources/images/cloud - Copy.png"
+  },
+  "resources/images/cloud.png": {
+    "file": "assets/cloud-6PnLdZmC.png",
+    "src": "resources/images/cloud.png"
   },
   "resources/images/default-avatar.jpg": {
     "file": "assets/default-avatar-D_8jpos8.jpg",
@@ -52,6 +88,10 @@
     "file": "assets/default-class-KUofLNsD.webp",
     "src": "resources/images/default-class.webp"
   },
+  "resources/images/device.png": {
+    "file": "assets/device-CeD8IaeB.png",
+    "src": "resources/images/device.png"
+  },
   "resources/images/drtpm-bima.png": {
     "file": "assets/drtpm-bima-3JnmpG1v.png",
     "src": "resources/images/drtpm-bima.png"
@@ -59,6 +99,18 @@
   "resources/images/favicon.png": {
     "file": "assets/favicon-BlD4l6-9.png",
     "src": "resources/images/favicon.png"
+  },
+  "resources/images/grass.png": {
+    "file": "assets/grass-DY2NdJuZ.png",
+    "src": "resources/images/grass.png"
+  },
+  "resources/images/grass2.png": {
+    "file": "assets/grass2-C6QVEzbF.png",
+    "src": "resources/images/grass2.png"
+  },
+  "resources/images/hill.png": {
+    "file": "assets/hill-BFpDflYT.png",
+    "src": "resources/images/hill.png"
   },
   "resources/images/kampus-merdeka.png": {
     "file": "assets/kampus-merdeka-jcdZ6rJV.png",
@@ -76,17 +128,41 @@
     "file": "assets/m_hasan-D0NXYgYm.png",
     "src": "resources/images/m_hasan.png"
   },
-  "resources/images/pattern-1.jpg": {
-    "file": "assets/pattern-1-B1XXL0Ta.jpg",
-    "src": "resources/images/pattern-1.jpg"
+  "resources/images/mockup-1.png": {
+    "file": "assets/mockup-1-BVzruV6v.png",
+    "src": "resources/images/mockup-1.png"
   },
-  "resources/images/pattern-2.png": {
-    "file": "assets/pattern-2-BdqJVNN6.png",
-    "src": "resources/images/pattern-2.png"
+  "resources/images/mockup-2.png": {
+    "file": "assets/mockup-2-COlSMcPj.png",
+    "src": "resources/images/mockup-2.png"
+  },
+  "resources/images/mockup-3.png": {
+    "file": "assets/mockup-3-88a0fZ-0.png",
+    "src": "resources/images/mockup-3.png"
+  },
+  "resources/images/moon.png": {
+    "file": "assets/moon-DPABmvuW.png",
+    "src": "resources/images/moon.png"
+  },
+  "resources/images/pattern-1.png": {
+    "file": "assets/pattern-1-B7fEbjQ4.png",
+    "src": "resources/images/pattern-1.png"
+  },
+  "resources/images/pattern-2.jpg": {
+    "file": "assets/pattern-2-B1XXL0Ta.jpg",
+    "src": "resources/images/pattern-2.jpg"
   },
   "resources/images/pattern-3.png": {
-    "file": "assets/pattern-3-Buwv_Y9q.png",
+    "file": "assets/pattern-3-BdqJVNN6.png",
     "src": "resources/images/pattern-3.png"
+  },
+  "resources/images/pattern-4.png": {
+    "file": "assets/pattern-4-Buwv_Y9q.png",
+    "src": "resources/images/pattern-4.png"
+  },
+  "resources/images/plane.png": {
+    "file": "assets/plane-CmR3HeJz.png",
+    "src": "resources/images/plane.png"
   },
   "resources/images/sidebar-header.jpeg": {
     "file": "assets/sidebar-header-CfZH7pTV.jpeg",
@@ -100,14 +176,33 @@
     "file": "assets/silhouette-women-1jBOISXp.png",
     "src": "resources/images/silhouette-women.png"
   },
+  "resources/images/star.png": {
+    "file": "assets/star-CYMvS1HP.png",
+    "src": "resources/images/star.png"
+  },
+  "resources/images/stone.png": {
+    "file": "assets/stone-xq9HSciG.png",
+    "src": "resources/images/stone.png"
+  },
+  "resources/images/title-decoration.png": {
+    "file": "assets/title-decoration-AGuNcvst.png",
+    "src": "resources/images/title-decoration.png"
+  },
+  "resources/images/tree.png": {
+    "file": "assets/tree-DL69SWDK.png",
+    "src": "resources/images/tree.png"
+  },
   "resources/images/ugn.png": {
     "file": "assets/ugn-CLoz000H.png",
     "src": "resources/images/ugn.png"
   },
   "resources/js/app.js": {
-    "file": "assets/app-DMCpH_sf.js",
+    "file": "assets/app--or7cjE2.js",
     "name": "app",
     "src": "resources/js/app.js",
-    "isEntry": true
+    "isEntry": true,
+    "css": [
+      "assets/app-BaVkx4tQ.css"
+    ]
   }
 }

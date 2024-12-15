@@ -66,6 +66,22 @@ export default {
                 DEFAULT: '0 2px 4px var(--tw-shadow-color)',
                 lg: '0 8px 16px var(--tw-shadow-color)',
             },
+            keyframes: {
+                refine: {
+                    "0%": {
+                        top: "0%",
+                    },
+                    "50%": {
+                        top: "-5%",
+                    },
+                    "100%": {
+                        top: "0%",
+                    },
+                },
+            },
+            animation: {
+                "refine-vertical": "refine 5s infinite",
+            },
         },
     },
     safelist: [

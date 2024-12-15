@@ -80,12 +80,14 @@
                                             {{ __(Str::headline($quiz->type)) }}
                                         </div>
                                     </div>
-                                    <div class="flex items-center gap-1 text-sm">
-                                        <span class="i-ph-list"></span>
-                                        <div class="flex-1 font-light truncate">
-                                            {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                                    @if (auth()->user()->isAdmin)
+                                        <div class="flex items-center gap-1 text-sm">
+                                            <span class="i-ph-list"></span>
+                                            <div class="flex-1 font-light truncate">
+                                                {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                     <div class="flex items-center justify-between">
                                         <div class="flex items-center gap-1 text-sm">
                                             <span class="i-ph-clock-countdown-light"></span>
