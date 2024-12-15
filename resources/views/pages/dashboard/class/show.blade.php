@@ -84,7 +84,7 @@
                                         <div class="flex items-center gap-1 text-sm">
                                             <span class="i-ph-list"></span>
                                             <div class="flex-1 font-light truncate">
-                                                {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                                                {{ $quiz->assessmentRule->typeName }}
                                             </div>
                                         </div>
                                     @endif

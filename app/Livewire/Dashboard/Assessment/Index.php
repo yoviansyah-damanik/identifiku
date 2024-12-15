@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use App\Helpers\GeneralHelper;
 use App\Models\ClassHasQuiz;
+use App\Models\Quiz;
 use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
 

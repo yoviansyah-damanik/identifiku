@@ -50,7 +50,7 @@
                 <span class="i-ph-list"></span>
                 <div class="flex-1 font-light truncate">
                     @if ($quiz->assessmentRule)
-                        {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                        {{ $quiz->assessmentRule->typeName }}
                     @else
                         {{ __('No assessment rules yet') }}
                     @endif

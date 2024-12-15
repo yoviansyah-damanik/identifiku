@@ -41,7 +41,7 @@
                     <div class="flex items-center gap-1 text-sm text-white">
                         <span class="i-ph-folder"></span>
                         <div class="flex-1 font-light truncate">
-                            {{ __(Str::headline($quiz->assessmentRule->typeName)) }}
+                            {{ $quiz->assessmentRule->typeName }}
                         </div>
                     </div>
                 </div>

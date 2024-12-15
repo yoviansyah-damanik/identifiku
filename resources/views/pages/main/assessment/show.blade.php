@@ -38,12 +38,20 @@
                                 {{ __(Str::headline($quiz->type)) }}
                             </div>
                         </div>
-                        <div class="flex items-center gap-1">
-                            <span class="i-ph-list"></span>
-                            <div class="flex-1 font-light truncate">
-                                {{ collect(QuizHelper::getAssessmentRuleType())->where('value', $quiz->assessmentRule->type)->first()['title'] }}
+                        @if (auth()->check() && auth()->user()->isAdmin)
+                            <div class="flex items-center gap-1">
+                                <span class="i-ph-folder"></span>
+                                <div class="flex-1 font-light truncate">
+                                    {{ __(Str::headline($quiz->assessmentRule->question_type)) }}
+                                </div>
                             </div>
-                        </div>
+                            <div class="flex items-center gap-1">
+                                <span class="i-ph-list"></span>
+                                <div class="flex-1 font-light truncate">
+                                    {{ $quiz->assessmentRule->typeName }}
+                                </div>
+                            </div>
+                        @endif
                         <div class="flex items-center gap-1">
                             <span class="i-ph-clock-countdown-light"></span>
                             <div class="flex-1 font-light truncate">

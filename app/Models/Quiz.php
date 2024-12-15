@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Quiz extends Model
 {
@@ -72,6 +71,7 @@ class Quiz extends Model
             }
         );
     }
+
     public function isDraft(): Attribute
     {
         return new Attribute(
