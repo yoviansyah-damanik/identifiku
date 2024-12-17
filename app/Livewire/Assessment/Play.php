@@ -22,7 +22,7 @@ class Play extends Component
         if ($assessment->started_on) {
             $this->current = 2;
 
-            if ($assessment->status == 2 || now() > $assessment->started_on->addMinutes($assessment->quiz->estimation_time)) {
+            if (in_array($assessment->status, [2, 3]) || now() > $assessment->started_on->addMinutes($assessment->quiz->estimation_time)) {
                 $this->current = 3;
             }
         } else {
