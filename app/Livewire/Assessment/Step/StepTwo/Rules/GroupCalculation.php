@@ -356,6 +356,10 @@ class GroupCalculation extends Component
             return;
         }
         try {
+            $this->assessment->update([
+                'status' => 2
+            ]);
+
             $this->assessment->result()->updateOrCreate([], [
                 'status' => 'process'
             ]);
