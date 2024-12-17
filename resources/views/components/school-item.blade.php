@@ -1,10 +1,10 @@
-<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg lg:p-7 lg:flex-row pt-9 shadow-md group">
+<div class="relative flex flex-col w-full gap-5 p-5 bg-white rounded-lg shadow-md lg:p-7 lg:flex-row pt-9 group">
     <div class="flex items-center justify-center w-full overflow-hidden rounded-lg lg:flex-none h-44 lg:w-72">
         <img src="{{ Vite::image('default-school.webp') }}" class="w-full transition-all group-hover:scale-125"
             alt="School Picture">
     </div>
     <div
-        class="2xl:[column-count:5]  lg:[column-count:4] md:[column-count:3] sm:[column-count:2] [column-count:2] [column-gap:1.5rem] w-full lg:w-auto flex-1">
+        class="lg:[column-count:4] md:[column-count:3] sm:[column-count:2] [column-count:2] [column-gap:1.5rem] w-full lg:w-auto flex-1">
         {{-- <x-school-sub-item title="ID" :value="$school->id" /> --}}
         <x-school-sub-item :title="__(':name Name', ['name' => __('School')])">
             <div class="font-bold text-secondary-500">
