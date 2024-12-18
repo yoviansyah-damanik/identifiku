@@ -1,6 +1,16 @@
 <x-accordion :title="'(' . __('Explanation') . ') ' . __('Assessment Rule')">
     <div class="space-y-3 sm:space-y-4">
-        <div>
+        @foreach (QuizHelper::getAssessmentRuleType() as $rule)
+            <div>
+                <div class="font-semibold">
+                    {{ $rule['title'] }}
+                </div>
+                <div class="font-light">
+                    {{ $rule['description'] }}
+                </div>
+            </div>
+        @endforeach
+        {{-- <div>
             <div class="font-semibold">
                 {{ __('Summation') }}
             </div>
@@ -35,6 +45,6 @@
                 {{ __('Results are based on the correct answers (correct answers are applied to the next step) which are then summed and adjusted based on the indicators added') }}.<br />
                 {{ __('The final result of the quiz is determined by whether the answers are correct or incorrect. Scoring indicators will also be added for this assessment rule.') }}
             </div>
-        </div>
+        </div> --}}
     </div>
 </x-accordion>
