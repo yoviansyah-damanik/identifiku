@@ -159,7 +159,7 @@
                 </div>
                 <div class="grid grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-7">
                     @forelse ($randomquizzes as $quiz)
-                        <div class="ani_bounceIn aniUtil_active">
+                        <div class="">
                             <x-quiz-box :$quiz />
                         </div>
                     @empty

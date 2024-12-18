@@ -35,7 +35,7 @@
                     <div class="flex items-center gap-1 group">
                         @foreach ($supporters as $supporter)
                             <div
-                                class="group/item flex-1 bg-white p-3 rounded-md transition-all group-hover:opacity-70 hover:!opacity-100 group-hover:grayscale hover:!grayscale-0 group-hover:z-[0] hover:!z-[1] ani_bounceIn aniUtil_active">
+                                class="group/item flex-1 bg-white p-3 rounded-md transition-all group-hover:opacity-70 hover:!opacity-100 group-hover:grayscale hover:!grayscale-0 group-hover:z-[0] hover:!z-[1] ">
                                 <img class="group-hover/item:scale-150 aspect-[3/2] object-contain transition-all"
                                     src="{{ $supporter['image_path'] }}" alt="{{ $supporter['alt'] }}" />
                             </div>

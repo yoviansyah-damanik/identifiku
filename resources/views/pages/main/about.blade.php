@@ -5,7 +5,7 @@
         ],
     ]" />
 
-    <x-container class="ani_zoomInUp aniUtil_active">
+    <x-container>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum totam reiciendis delectus in consequuntur
             asperiores, sequi dicta explicabo consectetur! Nihil earum ut saepe, sequi quasi laborum corrupti non,

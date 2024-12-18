@@ -1,4 +1,4 @@
-<div class="relative cursor-pointer group ani_slideInDown aniUtil_active">
+<div class="relative cursor-pointer group">
     <div
         class="relative transition-transform duration-500 [transform-style:preserve-3d] p-16 lg:p-24 group-hover:[transform:rotateY(.5turn)]">
         {{-- NOON --}}
