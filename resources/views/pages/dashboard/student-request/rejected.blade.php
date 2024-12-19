@@ -27,7 +27,7 @@
         @endif
     </x-modal.body>
     <x-modal.footer>
-        <x-button color="primary" wire:click='submit' :loading="$isLoading">
+        <x-button color="red" wire:click='submit' :loading="$isLoading">
             {{ __('Reject') }}
         </x-button>
     </x-modal.footer>

@@ -2,10 +2,15 @@
 
 namespace App\Livewire\Dashboard\Account;
 
+use App\Models\Region;
 use Livewire\Component;
 use App\Rules\PhoneNumber;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\SchoolStatus;
+use App\Helpers\GeneralHelper;
+use App\Models\EducationLevel;
 use Livewire\Attributes\Isolate;
+use App\Models\School as SchoolModels;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 #[Isolate]
 class School extends Component
@@ -61,6 +66,10 @@ class School extends Component
 
         $this->educationLevel =  auth()->user()->school->education_level_id;
         $this->schoolStatus =  auth()->user()->school->school_status_id;
+
+        $this->setEducationLevels();
+        $this->setProvinces();
+        $this->setSchoolStatuses();
     }
 
     public function render()
@@ -318,5 +327,43 @@ class School extends Component
     {
         $this->schoolStatusSearch = $data;
         $this->setSchoolStatuses();
+    }
+
+    public function setActivationStatus(SchoolModels $school)
+    {
+        try {
+            $school->is_active = !$school->is_active;
+            $school->save();
+            $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('School')]));
+        } catch (\Exception $e) {
+            $this->alert('error', $e->getMessage());
+        } catch (\Throwable $e) {
+            $this->alert('error', $e->getMessage());
+        }
+    }
+    public function setOpenStatus(SchoolModels $school)
+    {
+        try {
+            $school->is_open = !$school->is_open;
+            $school->save();
+            $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('School')]));
+        } catch (\Exception $e) {
+            $this->alert('error', $e->getMessage());
+        } catch (\Throwable $e) {
+            $this->alert('error', $e->getMessage());
+        }
+    }
+
+    public function regenerateToken(SchoolModels $school)
+    {
+        try {
+            $school->token = GeneralHelper::getRandomToken();
+            $school->save();
+            $this->alert('success', __(':attribute updated successfully.', ['attribute' => __('Token')]));
+        } catch (\Exception $e) {
+            $this->alert('error', $e->getMessage());
+        } catch (\Throwable $e) {
+            $this->alert('error', $e->getMessage());
+        }
     }
 }

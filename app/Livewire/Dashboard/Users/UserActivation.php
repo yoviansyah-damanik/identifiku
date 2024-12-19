@@ -60,7 +60,7 @@ class UserActivation extends Component
         $this->activationType = $user->is_suspended;
         $this->isLoading = false;
 
-        if ($user->role_name == 'Superadmin') {
+        if ($user->roleName == 'Superadmin') {
             $this->clearModal();
             $this->dispatch('toggle-user-activation-modal');
             $this->alert('warning', __('Accounts of this type cannot be updated.'));

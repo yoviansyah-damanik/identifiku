@@ -48,7 +48,8 @@ class Approved extends Component
             $newUserPayload = collect($this->school)->only('username', 'password', 'email');
 
             $newSchool = School::create([...$newSchoolPayload->toArray(), 'token' => GeneralHelper::getRandomToken()]);
-            $newUser = User::create([...$newUserPayload->except('password')->toArray(), 'password' => bcrypt($newUserPayload['password'])]);
+            $newUser = User::create([...$newUserPayload->except('password')->toArray(), 'password' => bcrypt($newUserPayload['password'])])
+                ->assignRole('School');
 
             UserHasRelation::create([
                 'user_id' => $newUser->id,

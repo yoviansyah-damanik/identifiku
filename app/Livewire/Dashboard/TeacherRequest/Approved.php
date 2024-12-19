@@ -47,7 +47,8 @@ class Approved extends Component
             $newUserPayload = collect($this->teacher)->only('username', 'password', 'email');
 
             $newTeacher = Teacher::create($newTeacherPayload->toArray());
-            $newUser = User::create([...$newUserPayload->except('password')->toArray(), 'password' => bcrypt($newUserPayload['password'])]);
+            $newUser = User::create([...$newUserPayload->except('password')->toArray(), 'password' => bcrypt($newUserPayload['password'])])
+                ->assignRole('Teacher');
 
             UserHasRelation::create([
                 'user_id' => $newUser->id,

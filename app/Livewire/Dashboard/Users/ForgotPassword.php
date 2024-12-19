@@ -27,7 +27,7 @@ class ForgotPassword extends Component
         $this->user = $user;
         $this->isLoading = false;
 
-        if ($user->role_name == 'Superadmin') {
+        if ($user->roleName == 'Superadmin') {
             $this->clearModal();
             $this->dispatch('toggle-forgot-password-modal');
             $this->alert('warning', __('Accounts of this type cannot be updated.'));

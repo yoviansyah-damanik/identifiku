@@ -1,6 +1,7 @@
 @if ($href)
     <a type="button" href="{{ $href }}" class="{{ $baseClass }}" {{ $attributes }}
-        @disabled($loading || $disabled) wire:loading.attr='disabled' @if ($withNavigated) wire:navigate @endif>
+        wire:target="{{ join(',', $target) }}" @disabled($loading || $disabled) wire:loading.attr='disabled'
+        @if ($withNavigated) wire:navigate @endif>
         @if ($icon)
             <div @class([
                 'flex items-center gap-3',
@@ -29,7 +30,8 @@
         @endif
     </a>
 @else
-    <button class="{{ $baseClass }}" {{ $attributes }} @disabled($loading || $disabled) wire:loading.attr='disabled'>
+    <button class="{{ $baseClass }}" {{ $attributes }} @disabled($loading || $disabled)
+        wire:target="{{ join(',', $target) }}" wire:loading.attr='disabled'>
         @if ($icon)
             <div @class([
                 'flex items-center gap-3',
