@@ -58,7 +58,7 @@
             {{ __('Close') }}
         </x-button>
         <x-button color="primary" wire:click='save' :loading="$isLoading">
-            {{ __('Save') }}
+            {{ __('Submit') }}
         </x-button>
     </x-modal.footer>
 </div>
