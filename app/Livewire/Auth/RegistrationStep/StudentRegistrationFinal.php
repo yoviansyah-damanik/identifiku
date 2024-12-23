@@ -152,7 +152,7 @@ class StudentRegistrationFinal extends Component
                 'nisn' => 'required|string|digits:' . $this->maxNisn . '|unique:students,nisn|unique:student_requests,nisn',
                 'address' => 'required|string|max:255',
                 'placeOfBirth' => 'required|string|max:40',
-                'dateOfBirth' => 'required|date|beforeOrEqual:' . \Carbon\Carbon::now()->addYears(-5)->format('Y-m-d'),
+                'dateOfBirth' => 'required|date|beforeOrEqual:' . now()->addYears(-5)->format('Y-m-d'),
                 'gender' => [
                     'required',
                     Rule::in(Genders::names())

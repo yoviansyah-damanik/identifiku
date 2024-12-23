@@ -64,11 +64,13 @@ class History extends Component
             'quiz.phase.grades',
             'quiz.picture',
             'quiz.groups' => fn($q) => $q->withCount('questions'),
-            'class'
+            'class',
+            'result'
         ])
             ->when($this->status != 'all', fn($q) => $q->where('status', $this->status))
             ->whereHas('quiz', fn($q) => $q->whereAny(['name'], 'like', "%$this->search%"))
             ->where('student_id', auth()->user()->student->id)
+            ->latest()
             ->orderBy('status', 'asc')
             ->paginate($this->perPage);
 

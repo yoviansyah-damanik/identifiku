@@ -55,7 +55,7 @@ class Login extends Component
                         $this->alert('error', "Jangan ya dek yaaaaa.");
                         return;
                     }
-                    $user->update(['last_login_at' => \Carbon\Carbon::now()]);
+                    $user->update(['last_login_at' => now()]);
 
                     Auth::login($user, $this->rememberMe === true);
                     return $this->redirectIntended(route('home'), false);

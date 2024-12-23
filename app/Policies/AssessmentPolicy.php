@@ -27,6 +27,9 @@ class AssessmentPolicy
 
     public function play(User $user, Assessment $assessment): bool
     {
+        if (!$assessment->class->isStatusActive)
+            return false;
+
         return $user->isStudent && $user->student->id == $assessment->student_id;
     }
 

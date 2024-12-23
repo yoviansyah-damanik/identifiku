@@ -50,17 +50,24 @@ class StudentClass extends Model
         ];
     }
 
+    public function scopeIsActive($query)
+    {
+        $query->where('is_active', true)
+            ->where(fn($q) => $q->whereNotNull('expired_at')
+                ->where('expired_at', '>=', now()));
+    }
+
     public function isStatusActive(): Attribute
     {
         return new Attribute(
-            get: fn() => $this->is_active ? ($this->expired_at ?  $this->expired_at >= \Carbon\Carbon::now() : $this->is_active) : false
+            get: fn() => $this->is_active ? ($this->expired_at ?  $this->expired_at >= now() : $this->is_active) : false
         );
     }
 
     public function isLimit(): Attribute
     {
         return new Attribute(
-            get: fn() => $this->expired_at ?  $this->expired_at < \Carbon\Carbon::now() : false
+            get: fn() => $this->expired_at ?  $this->expired_at < now() : false
         );
     }
 

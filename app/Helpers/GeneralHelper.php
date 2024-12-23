@@ -32,7 +32,7 @@ class GeneralHelper
         if ($withDay)
             $format .= ' %m Hari';
 
-        return Carbon::parse($date)->diff(\Carbon\Carbon::now())->format($format);
+        return Carbon::parse($date)->diff(now())->format($format);
     }
 
     public static function getTime(int $time, string $locale = 'id')

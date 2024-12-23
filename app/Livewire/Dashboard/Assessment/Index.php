@@ -6,7 +6,6 @@ use Livewire\Component;
 use Livewire\Attributes\Url;
 use App\Helpers\GeneralHelper;
 use App\Models\ClassHasQuiz;
-use App\Models\Quiz;
 use Livewire\Attributes\Layout;
 use Livewire\WithPagination;
 
@@ -38,6 +37,7 @@ class Index extends Component
             'quiz.assessments'
         ])
             ->whereHas('quiz', fn($q) => $q->whereAny(['name'], 'like', "%$this->search%"))
+            ->whereHas('class', fn($q) => $q->isActive())
             ->whereIn('student_class_id', auth()->user()->student->hasClasses->pluck('student_class_id')->toArray())
             ->latest()
             ->simplePaginate($this->perPage);

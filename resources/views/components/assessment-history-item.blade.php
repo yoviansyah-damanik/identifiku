@@ -23,7 +23,7 @@
         <x-assessment-history-sub-item :title="__('Status')">
             @if ($assessment->isDone)
                 <div class="text-green-500">
-                    {{ __('Assessment result completed') }}
+                    {{ __('Assessment result completed') }} ({{ $assessment->result->updated_at->diffForHumans() }})
                 </div>
             @elseif ($assessment->isSubmitted)
                 <span class="text-yellow-500">
