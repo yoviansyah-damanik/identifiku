@@ -96,6 +96,7 @@ class RoleAndPermissionSeeder extends Seeder
             'teacher request',
             'class',
             'class show',
+            'class request',
             'class show quiz',
             'quiz available',
             'quiz show',

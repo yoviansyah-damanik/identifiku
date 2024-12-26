@@ -52,9 +52,11 @@ class StudentClass extends Model
 
     public function scopeIsActive($query)
     {
-        $query->where('is_active', true)
-            ->where(fn($q) => $q->whereNotNull('expired_at')
-                ->where('expired_at', '>=', now()));
+        $query->where(
+            fn($q) => $q->where('is_active', true)
+                ->whereNull('expired_at')
+        )
+            ->orWhere('expired_at', '>=', now());
     }
 
     public function isStatusActive(): Attribute
