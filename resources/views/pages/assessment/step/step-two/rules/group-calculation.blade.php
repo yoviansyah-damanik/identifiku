@@ -37,7 +37,7 @@
             </div>
         </div>
         {{-- GROUPS --}}
-        <x-dynamic-component :component="'assessment.step.group-calculation.group'" :groups="$questions" :$questionActive :$result />
+        <x-assessment.step.group-calculation.group :groups="$questions" :$questionActive :$result />
         {{-- END GROUPS --}}
     </div>
 
@@ -53,7 +53,7 @@
             </div>
         </div>
         {{-- ACTIVE QUESTION --}}
-        <x-dynamic-component :component="'assessment.step.group-calculation.question'" :$questionActive :$result />
+        <x-assessment.step.group-calculation.question :$calculationAnswers :$questionActive :$result />
         {{-- END ACTIVE QUESTION --}}
 
         <div class="fixed inset-x-0 bottom-0 flex items-stretch justify-end lg:p-8 lg:gap-3 lg:relative">

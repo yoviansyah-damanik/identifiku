@@ -10,6 +10,10 @@
                     <div class="flex-1 font-semibold">{{ $class->name }}</div>
                 </div>
                 <div class="flex gap-3">
+                    <div class="w-48">{{ __('Description') }}</div>
+                    <div class="flex-1 font-semibold">{{ $class->description }}</div>
+                </div>
+                <div class="flex gap-3">
                     <div class="w-48">{{ __('Teacher') }}</div>
                     <div class="flex-1 font-semibold">{{ $class->teacher->name }}</div>
                 </div>
