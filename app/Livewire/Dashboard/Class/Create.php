@@ -56,7 +56,6 @@ class Create extends Component
             'name' => __(':name Name', ['name' => __('Class')]),
             'description' => __('Description'),
             'expiredAt' => __('Expired Date'),
-            'updatedAt' => __('Updated At')
         ];
     }
 
