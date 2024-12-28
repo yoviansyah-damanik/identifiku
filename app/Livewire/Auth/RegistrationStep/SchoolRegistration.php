@@ -2,14 +2,15 @@
 
 namespace App\Livewire\Auth\RegistrationStep;
 
-use App\Helpers\GeneralHelper;
 use App\Jobs\Mailer;
 use App\Models\User;
 use App\Models\Region;
 use Livewire\Component;
 use App\Rules\PhoneNumber;
+use Illuminate\Support\Str;
 use App\Models\SchoolStatus;
 use App\Models\SchoolRequest;
+use App\Helpers\GeneralHelper;
 use App\Models\EducationLevel;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\DB;
@@ -150,7 +151,7 @@ class SchoolRegistration extends Component
         if ($this->step == 2) {
             return [
                 'email' => 'required|email:dns|unique:users,email|unique:school_requests,email',
-                'username' => 'required|min:8|max:32|alpha_dash|string|unique:users,username|unique:school_requests,username',
+                'username' => 'required|min:8|max:32|alpha_dash|string|unique:users,username|unique:teacher_requests,username|unique:student_requests,username',
                 'password' =>   [
                     'required',
                     'string',
@@ -196,9 +197,9 @@ class SchoolRegistration extends Component
         DB::beginTransaction();
         try {
             $schoolRequest = SchoolRequest::create([
-                'username' => $this->username,
-                'password' => bcrypt($this->username),
-                'email' => $this->email,
+                'username' => Str::lower($this->username),
+                'password' => bcrypt($this->password),
+                'email' => Str::lower($this->email),
                 'npsn' => $this->npsn,
                 'nis' => $this->nis,
                 'nss' => $this->nss,

@@ -272,9 +272,9 @@ class StudentRegistrationFinal extends Component
             // ]);
 
             $studentRequest = StudentRequest::create([
-                'username' => $this->username,
-                'password' => bcrypt($this->username),
-                'email' => $this->email,
+                'username' => Str::lower($this->username),
+                'password' => bcrypt($this->password),
+                'email' => Str::lower($this->email),
                 'nis' => $this->nis,
                 'nisn' => $this->nisn,
                 'name' => $this->name,

@@ -195,9 +195,9 @@ class TeacherRegistrationFinal extends Component
         DB::beginTransaction();
         try {
             $teacherRequest = TeacherRequest::create([
-                'username' => $this->username,
-                'password' => bcrypt($this->username),
-                'email' => $this->email,
+                'username' => Str::lower($this->username),
+                'password' => bcrypt($this->password),
+                'email' => Str::lower($this->email),
                 'nuptk' => $this->nuptk,
                 'name' => $this->name,
                 'address' => $this->address,
