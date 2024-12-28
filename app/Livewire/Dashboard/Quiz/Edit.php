@@ -159,42 +159,4 @@ class Edit extends Component
 
         return true;
     }
-
-    public function reorderQuizGroup($id, $position)
-    {
-        $this->isLoading = true;
-        DB::beginTransaction();
-        try {
-            $exist = QuestionType::where('quiz_id', $this->quiz->id)->where('id', $id)->first();
-
-            if ($exist->order < $position + 1) {
-                $exist->update(['order' => $position + 1]);
-                QuestionType::where('quiz_id', $this->quiz->id)->whereNot('id', $id)
-                    ->where('order', '<=', $position + 1)
-                    ->orderBy('order', 'asc')
-                    ->each(function ($item, $key) {
-                        $item->update(['order' => $key + 1]);
-                    });
-            } else {
-                $exist->update(['order' => $position + 1]);
-                QuestionType::where('quiz_id', $this->quiz->id)->whereNot('id', $id)
-                    ->where('order', '>=', $position + 1)
-                    ->orderBy('order', 'asc')
-                    ->each(function ($item, $key) use ($position) {
-                        $item->update(['order' => ($position + 1) + $key + 1]);
-                    });
-            }
-
-            DB::commit();
-            $this->quiz->refresh();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            $this->isLoading = false;
-            $this->alert('error', $e->getMessage());
-        } catch (\Throwable $e) {
-            DB::rollBack();
-            $this->isLoading = false;
-            $this->alert('error', $e->getMessage());
-        }
-    }
 }
