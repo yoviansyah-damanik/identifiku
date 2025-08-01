@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             QuizCategorySeeder::class,
             QuizSeeder::class,
             ConfigurationSeeder::class,
-            StudentClassSeeder::class,
+            // StudentClassSeeder::class,
         ]);
     }
 }

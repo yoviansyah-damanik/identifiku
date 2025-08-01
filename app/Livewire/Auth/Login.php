@@ -5,6 +5,8 @@ namespace App\Livewire\Auth;
 use App\Models\User;
 use Livewire\Component;
 use Jenssegers\Agent\Agent;
+use App\Models\StudentRequest;
+use App\Models\TeacherRequest;
 use Livewire\Attributes\Layout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -43,6 +45,15 @@ class Login extends Component
 
             $username = $this->username;
             $password = $this->password;
+
+            $studentRegistration = StudentRequest::where('username', $username)->first();
+            $teacherRegistration = TeacherRequest::where('username', $username)->first();
+
+            if ($studentRegistration || $teacherRegistration) {
+                $this->alert('warning', __('Your account is currently under review. Please contact the School Administrator.'));
+                $this->isLoading = false;
+                return;
+            }
 
             $user = User::whereUsername($username)
                 ->first();
